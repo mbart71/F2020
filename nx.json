@@ -16,11 +16,15 @@
     },
     "ui-e2e": {
       "tags": [],
-      "implicitDependencies": [
-        "ui"
-      ]
+      "implicitDependencies": ["ui"]
     },
     "builder": {
+      "tags": []
+    },
+    "data": {
+      "tags": []
+    },
+    "ergast": {
       "tags": []
     }
   }
