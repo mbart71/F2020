@@ -1,129 +1,117 @@
 const mapper = new Map<string, string>(
   [
-    ['Andorra',  'Andorian']
-    ['United Arab Emirates', 'Emirian']
-    ['Afghanistan',  'Afghani']
-    ['Anguilla', 'Anguillan']
-    ['Armenia',  'Armenian']
-    ['Angola', 'Angolian']
-    ['Antarctica', 'Antarctic']
-    ['Argentina',  'Argentine']
-    ['Austria',  'Austrian']
-    ['Australia',  'Australian']
-    ['Aruba',  'Arubian']
-    ['Bangladesh', 'Bangladeshi']
-    ['Barbados', 'Barbadian']
-    ['Belgium',  'Belgian']
-    ['Bahrain',  'Bahrainian']
-    ['Bermuda',  'Bermuda']
-    ['Bolivia',  'Bolivian']
-    ['Brazil', 'Brazilian']
-    ['Bahamas',  'Bahameese']
-    ['Bhutan', 'Bhutanese']
-    ['Bulgaria', 'Bulgarian']
-    ['Belarus',  'Belarusian']
-    ['Belize', 'Belizean']
-    ['Canada', 'Canadian']
-    ['Congo',  'Congolese']
-    ['China',  'Chinese']
-    ['Switzerland',  'Swiss']
-    ['Chile',  'Chilean']
-    ['Cambodia', 'Cambodian']
-    ['Cameroon', 'Cameroonian']
-    ['Columbia', 'Columbian']
-    ['Czech Republic', 'Czech']
-    ['Costa Rica', 'Costa Rican']
-    ['Cuba', 'Cuban']
-    ['Cyprus', 'Cypriot']
-    ['Germany',  'German']
-    ['Denmark',  'Danish']
-    ['Dominica', 'Dominican']
-    ['Ecuador',  'Ecuadorean']
-    ['Estonia',  'Estonian']
-    ['Egypt',  'Egyptian']
-    ['Ethiopia', 'Ethiopian']
-    ['Finland',  'Finnish']
-    ['Fiji', 'Fijian']
-    ['France', 'French']
-    ['United Kingdom', 'British']
-    ['Georgia',  'Georgian']
-    ['Ghana',  'Ghanaian']
-    ['Guinea', 'Guinean']
-    ['Greece', 'Greek']
-    ['Guyana', 'Guyanese']
-    ['Hong Kong',  'Chinese']
-    ['Croatia',  'Croatian']
-    ['Hungary',  'Hungarian']
-    ['Indonesia',  'Indonesian']
-    ['Ireland',  'Irish']
-    ['India',  'Indian']
-    ['Iraq', 'Iraqi']
-    ['Iran', 'Iranian']
-    ['Israel', 'Israeli']
-    ['Iceland',  'Icelander']
-    ['Italy',  'Italian']
-    ['Jamaica',  'Jamaican']
-    ['Jordan', 'Jordanian']
-    ['Japan',  'Japanese']
-    ['Kenya',  'Kenyan']
-    ['Korea',  'Korean']
-    ['Kuwait', 'Kuwaiti']
-    ['Kazakhstan', 'Kazakhstani']
-    ['Kazakhstan', 'Kazakhstani']
-    ['Lebanon',  'Lebanese']
-    ['Sri Lanka',  'Sri Lankan']
-    ['Lithuania',  'Lithuanian']
-    ['Luxembourg', 'Luxembourger']
-    ['Morocco',  'Moroccan']
-    ['Monaco', 'Monacan']
-    ['Mexico', 'Mexican']
-    ['Myanmar',  'Mayanmarese']
-    ['Mongolia', 'Mongolian']
-    ['Macau',  'Macau']
-    ['Mauritius',  'Mauritian']
-    ['Maldives', 'Maldivan']
-    ['Malaysia', 'Malaysian']
-    ['Namibia',  'Namibian']
-    ['Nigeria',  'Nigerian']
-    ['Netherland', 'Dutch']
-    ['Norway', 'Norwegian']
-    ['Nepal',  'Nepalese']
-    ['New Zealand',  'New Zealander']
-    ['Oman', 'Omani']
-    ['Panama', 'Panamanian']
-    ['Peru', 'Peruvian']
-    ['Philippines',  'Filipino']
-    ['Pakistan', 'Pakistani']
-    ['Poland', 'Polish']
-    ['Portugal', 'Portugees']
-    ['Paraguay', 'Paraguayan']
-    ['Qatar',  'Qatari']
-    ['Romania',  'Romanian']
-    ['Russia', 'Russian']
-    ['Saudi Arabia', 'Saudi Arabian']
-    ['Seychelles', 'Seychellois']
-    ['Sweden', 'Swedish']
-    ['Singapore',  'Singaporean']
-    ['Slovakia', 'Slovakian']
-    ['Senegal',  'Senegalese']
-    ['Somalia',  'Somali']
-    ['Spain',  'Spanish']
-    ['Thailand', 'Thai']
-    ['Tunisia',  'Tunisian']
-    ['Turkey', 'Turkish']
-    ['Taiwan', 'Taiwanese']
-    ['Tanzania', 'Tanzanian']
-    ['Ukraine',  'Ukrainian']
-    ['Uganda', 'Ugandan']
-    ['United States of America', 'American']
-    ['Uruguay',  'Uruguayan']
-    ['Uzbekistan', 'Uzbekistani']
-    ['Venezuela',  'Venezuelan']
-    ['Vietnam',  'Vietnamese']
-    ['Yemen',  'Yemeni']
-    ['South Africa', 'South African']
-    ['Zambia', 'Zambian']
-    ['Zimbabwe', 'Zimbabwean']
+    ['Afghanistan', 'Afghan]'
+    ['Albania', 'Albanian]'
+    ['Algeria', 'Algerian]'
+    ['Argentina', '"Argentine]'
+    ['Argentinian"]'
+    ['Australia', 'Australian]'
+    ['Austria', 'Austrian]'
+    ['Bangladesh', 'Bangladeshi]'
+    ['Belgium', 'Belgian]'
+    ['Bolivia', 'Bolivian]'
+    ['Botswana', 'Batswana]'
+    ['Brazil', 'Brazilian]'
+    ['Bulgaria', 'Bulgarian]'
+    ['Cambodia', 'Cambodian]'
+    ['Cameroon', 'Cameroonian]'
+    ['Canada', 'Canadian]'
+    ['Chile', 'Chilean]'
+    ['China', 'Chinese]'
+    ['Colombia', 'Colombian]'
+    ['Costa Rica', 'Costa Rican]'
+    ['Croatia', 'Croatian]'
+    ['Cuba', 'Cuban]'
+    ['Czech Republic', 'Czech]'
+    ['Denmark', 'Danish]'
+    ['Dominican Republic', 'Dominican]'
+    ['Ecuador', 'Ecuadorian]'
+    ['Egypt', 'Egyptian]'
+    ['El Salvador', 'Salvadorian]'
+    ['England', 'English]'
+    ['Estonia', 'Estonian]'
+    ['Ethiopia', 'Ethiopian]'
+    ['Fiji', 'Fijian]'
+    ['Finland', 'Finnish]'
+    ['France', 'French]'
+    ['Germany', 'German]'
+    ['Ghana', 'Ghanaian]'
+    ['Greece', 'Greek]'
+    ['Guatemala', 'Guatemalan]'
+    ['Haiti', 'Haitian]'
+    ['Honduras', 'Honduran]'
+    ['Hungary', 'Hungarian]'
+    ['Iceland', 'Icelandic]'
+    ['India', 'Indian]'
+    ['Indonesia', 'Indonesian]'
+    ['Iran', 'Iranian]'
+    ['Iraq', 'Iraqi]'
+    ['Ireland', 'Irish]'
+    ['Israel', 'Israeli]'
+    ['Italy', 'Italian]'
+    ['Jamaica', 'Jamaican]'
+    ['Japan', 'Japanese]'
+    ['Jordan', 'Jordanian]'
+    ['Kenya', 'Kenyan]'
+    ['Kuwait', 'Kuwaiti]'
+    ['Laos', 'Lao]'
+    ['Latvia', 'Latvian]'
+    ['Lebanon', 'Lebanese]'
+    ['Libya', 'Libyan]'
+    ['Lithuania', 'Lithuanian]'
+    ['Malaysia', 'Malaysian]'
+    ['Mali', 'Malian]'
+    ['Malta', 'Maltese]'
+    ['Mexico', 'Mexican]'
+    ['Mongolia', 'Mongolian]'
+    ['Morocco', 'Moroccan]'
+    ['Mozambique', 'Mozambican]'
+    ['Namibia', 'Namibian]'
+    ['Nepal', 'Nepalese]'
+    ['Netherlands', 'Dutch]'
+    ['New Zealand', 'New Zealand]'
+    ['Nicaragua', 'Nicaraguan]'
+    ['Nigeria', 'Nigerian]'
+    ['Norway', 'Norwegian]'
+    ['Pakistan', 'Pakistani]'
+    ['Panama', 'Panamanian]'
+    ['Paraguay', 'Paraguayan]'
+    ['Peru', 'Peruvian]'
+    ['Philippines', 'Philippine]'
+    ['Poland', 'Polish]'
+    ['Portugal', 'Portuguese]'
+    ['Romania', 'Romanian]'
+    ['Russia', 'Russian]'
+    ['Saudi Arabia', 'Saudi]'
+    ['Scotland', 'Scottish]'
+    ['Senegal', 'Senegalese]'
+    ['Serbia', 'Serbian]'
+    ['Singapore', 'Singaporean]'
+    ['Slovakia', 'Slovak]'
+    ['South Africa', 'South African]'
+    ['South Korea', 'Korean]'
+    ['Spain', 'Spanish]'
+    ['Sri Lanka', 'Sri Lankan]'
+    ['Sudan', 'Sudanese]'
+    ['Sweden', 'Swedish]'
+    ['Switzerland', 'Swiss]'
+    ['Syria', 'Syrian]'
+    ['Taiwan', 'Taiwanese]'
+    ['Tajikistan', 'Tajikistani]'
+    ['Thailand', 'Thai]'
+    ['Tonga', 'Tongan]'
+    ['Tunisia', 'Tunisian]'
+    ['Turkey', 'Turkish]'
+    ['Ukraine', 'Ukrainian]'
+    ['United Arab Emirates', 'Emirati]'
+    ['United Kingdom', 'British]'
+    ['United States', 'American ]'
+    ['Uruguay', 'Uruguayan]'
+    ['Venezuela', 'Venezuelan]'
+    ['Vietnam', 'Vietnamese]'
+    ['Wales', 'Welsh]'
+    ['Zambia', 'Zambian]'
+    ['Zimbabwe', 'Zimbabwean]'  
   ]
 );
 
