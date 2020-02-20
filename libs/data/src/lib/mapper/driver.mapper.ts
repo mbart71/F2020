@@ -1,5 +1,5 @@
 import { ErgastDriver } from '@f2020/ergast';
-import { DriverModel, IDriver } from '../model/driver.model';
+import { IDriver } from '../model/driver.model';
 
 export const map = (driver: ErgastDriver): IDriver => {
   return {

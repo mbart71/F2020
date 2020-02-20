@@ -24,12 +24,18 @@ const sortByIndexAndName = (lookup: LookupByConstructor): (a: ErgastConstructor,
   };
 };
 
+export const getDrivers = async (): Promise<ErgastDriver[]> => {
+  return getClient().get('/drivers.json?limit=1000')
+    .then(result => result.data)
+    .then(data => data.MRData.DriverTable.Drivers);
+};
+
 /**
  * Returns the latest know drivers for given season.
  * @param seasonId
  * @param round Drivers from a specific round
  */
-export const getDrivers = async (seasonId: string, round: string): Promise<ErgastDriver[]> => {
+export const getSeasonDrivers = async (seasonId: string, round: string): Promise<ErgastDriver[]> => {
 
   const http = getClient();
 
