@@ -1,3 +1,5 @@
+import { ErgastConstructor } from './constructor.model';
+
 export interface ErgastDriver {
   readonly driverId: string;
   readonly permanentNumber: string;
@@ -13,4 +15,5 @@ export interface ErgastDriverStanding {
   wins: number;
   points: number;
   Driver: ErgastDriver;
+  Constructor: ErgastConstructor;
 }

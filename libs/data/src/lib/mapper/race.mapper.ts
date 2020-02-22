@@ -4,7 +4,7 @@ import { DateTime } from 'luxon';
 import { IDriver } from '../model/driver.model';
 
 export const map = (source: ErgastRace, selectedDriver: IDriver, previousRace?: IRace, drivers?: IDriver[]): IRace => {
-  const raceTime = DateTime.fromISO(`${source.date}T${source.time}`);
+  const raceTime = DateTime.fromISO(`${source.date}T${source.time || '00:00:00Z'}`);
   const closeTime = raceTime.minus({ minutes: 10, hour: 4, day: 2 });
   return {
     name: source.raceName,
@@ -17,8 +17,8 @@ export const map = (source: ErgastRace, selectedDriver: IDriver, previousRace?: 
     state: 'waiting',
     url: source.url,
     close: closeTime,
-    selectedDriver,
-    drivers,
+    selectedDriver: selectedDriver.code,
+    drivers: (drivers || []).map(d => d.code),
     open: previousRace?.close.startOf('day').plus({ day: 3 }) ?? closeTime.minus({ day: 7 })
   };
 };

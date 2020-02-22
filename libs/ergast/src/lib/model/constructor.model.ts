@@ -5,3 +5,8 @@ export interface ErgastConstructor {
   readonly nationality: string;
 }
 
+export interface ErgastConstructorStanding {
+  position: string;
+  points: string;
+  Constructor: ErgastConstructor;
+}

@@ -11,6 +11,6 @@ export interface IRace {
   readonly close: DateTime;
   readonly location: CoordinateModel;
   readonly url: string;
-  drivers?: IDriver[];
-  selectedDriver: IDriver;
+  drivers?: string[];
+  selectedDriver: string;
 }

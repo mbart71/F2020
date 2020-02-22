@@ -4,7 +4,7 @@ import { getClient } from './axios';
  * Drivers must be sorted by last year constructor result.
  * If it is a constructor, the constructors will be sorted by name
  */
-import { ErgastConstructor, ErgastDriver, ErgastDriverStanding } from '../model';
+import { ErgastConstructor, ErgastDriver, ErgastDriverStanding, ErgastConstructorStanding } from '../model';
 
 type LookupByConstructor = (lookup: ErgastConstructor) => number;
 
@@ -24,12 +24,36 @@ const sortByIndexAndName = (lookup: LookupByConstructor): (a: ErgastConstructor,
   };
 };
 
+/** Returns all drivers with a code */
 export const getDrivers = async (): Promise<ErgastDriver[]> => {
   return getClient().get('/drivers.json?limit=1000')
     .then(result => result.data)
     .then(data => data.MRData.DriverTable.Drivers);
 };
 
+/**
+ *
+ * @param seasonId Returns a specified seasons drivers
+ * @param round
+ */
+export const getFullSeasonDrivers = async (seasonId: string): Promise<ErgastDriver[]> => {
+  const constructorStanding: ErgastConstructorStanding[] = await getClient().get(`/${seasonId}/constructorStandings.json`)
+  .then(result => result.data)
+  // .then(data => console.log(data.MRData.StandingsTable));
+  .then(data => data.MRData.StandingsTable.StandingsLists[0].ConstructorStandings);
+
+  const constructorIds: string[] = constructorStanding.map(cs => cs.Constructor.constructorId);
+  const driverStanding: ErgastDriverStanding[] = await getDriverStandings(parseInt(seasonId, 10))
+
+  driverStanding.sort((a, b) => {
+    const aConstructorIndex = constructorIds.indexOf(a.Constructor.constructorId);
+    const bConstructorIndex = constructorIds.indexOf(b.Constructor.constructorId);
+    return aConstructorIndex - bConstructorIndex || b.points - a.points;
+  })
+
+  return Promise.resolve(driverStanding.map(ds => ds.Driver));
+
+}
 /**
  * Returns the latest know drivers for given season.
  * @param seasonId
@@ -74,7 +98,8 @@ const getDriverStandings = async (seasonId: number, round?: number): Promise<Erg
     .then((standings: any[]) => standings.map(s => <ErgastDriverStanding>{
         wins: parseInt(s.wins, 10),
         points: parseInt(s.points, 10),
-        Driver: s.Driver
+        Driver: s.Driver,
+        Constructor: s.Constructors[s.Constructors.length-1]
       })
     );
 };

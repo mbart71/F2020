@@ -173,7 +173,7 @@ const mapper = new Map<string, string>(
     ['Yugoslavia', 'Yugoslav'],
     ['Zaire', 'Zaïrean'],
     ['Zambia', 'Zambian'],
-    ['Zimbabwe', 'Zimbabwean'],
+    ['Zimbabwe', 'Zimbabwean']
   ]
 );
 
