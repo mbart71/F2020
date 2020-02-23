@@ -1,3 +1,4 @@
+import { Observable } from 'rxjs';
 import { AuthenticationService } from './../firebase/service/authentication.service';
 import { Component, OnInit } from '@angular/core';
 
@@ -6,10 +7,16 @@ import { Component, OnInit } from '@angular/core';
   templateUrl: './login.component.html',
   styleUrls: ['./login.component.scss']
 })
-export class LoginComponent {
+export class LoginComponent implements OnInit {
+
+  user$: Observable<firebase.User>
 
 
   constructor(private service: AuthenticationService) {}
+
+  ngOnInit() {
+    this.user$ = this.service.user$;
+  }
 
   loginWithGoogle() {
     this.service.signInWithGoogle();
