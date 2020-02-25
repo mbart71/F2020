@@ -8,15 +8,18 @@ import { Observable,from, ReplaySubject } from 'rxjs';
 export class AuthenticationService {
 
   private readonly googleProvider: any;
-  private _user$ = new ReplaySubject<firebase.User | null>(1);
+  private _player$ = new ReplaySubject<firebase.UserInfo | null>(1);
 
-  get user$(): Observable<firebase.User> {
-    return this._user$.asObservable();
+  get player$(): Observable<firebase.UserInfo> {
+    return this._player$.asObservable();
   }
 
   constructor() {
     this.googleProvider = new firebase.auth.GoogleAuthProvider();
-    firebase.auth().onAuthStateChanged(user => this._user$.next(user));
+    firebase.auth().onAuthStateChanged(user => {
+      this._player$.next(user)
+      console.log(user);
+    });
   }
 
   signInWithGoogle(): Observable<firebase.auth.UserCredential> {

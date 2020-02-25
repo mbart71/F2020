@@ -1,9 +1,0 @@
-<div fxFlex fxLayout="column" fxLayoutAlign="center" fxLayoutGap="20px">
-  <ng-container *ngIf="user$ | async as user; else login">
-    <img [src]="user.photoURL">
-  </ng-container>
-  <ng-template #login>
-    <button mat-raised-button (click)="loginWithGoogle()">Google</button>
-    <button mat-raised-button disabled>facebook</button>
-  </ng-template>
-</div>
