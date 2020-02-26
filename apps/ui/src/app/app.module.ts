@@ -1,5 +1,5 @@
 import { PlayerModule } from './player/player.module';
-import { NgModule, LOCALE_ID } from '@angular/core';
+import { LOCALE_ID, NgModule } from '@angular/core';
 import { FlexLayoutModule } from '@angular/flex-layout';
 import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
@@ -9,12 +9,12 @@ import { StoreModule } from '@ngrx/store';
 import { environment } from '../environments/environment';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
-import { FirebaseModule } from './firebase/firebase.module';
 import { MaterialModule } from './material.module';
 import { metaReducers, reducers } from './reducers';
 import { SharedModule } from './shared/shared.module';
 import { registerLocaleData } from '@angular/common';
 import localeDa from '@angular/common/locales/da';
+import { StoreDevtoolsModule } from '@ngrx/store-devtools';
 
 @NgModule({
   declarations: [AppComponent],
@@ -35,6 +35,7 @@ import localeDa from '@angular/common/locales/da';
     EffectsModule.forRoot([]),
     AppRoutingModule,
     SharedModule,
+    StoreDevtoolsModule.instrument({ maxAge: 25, logOnly: environment.production }),
   ],
   providers: [
     {

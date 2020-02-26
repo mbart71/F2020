@@ -2,10 +2,25 @@
 
 @import "~@fortawesome/fontawesome-pro/css/all.css";
 
-html, body { height: 100%; }
-body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
+html, body {
+  height: 100%;
+  box-sizing: border-box;
+}
 
-.fixVertical  {
+body {
+  margin: 0;
+  font-family: Roboto, "Helvetica Neue", sans-serif;
+}
+
+*, *:before, *:after {
+  box-sizing: inherit;
+}
+
+.fixVertical {
   flex: 1 1 100%;
-  min-height:100vh;
+  min-height: 100vh;
+}
+
+mat-sidenav-content > router-outlet + * {
+  flex: 1 1 auto;
 }
