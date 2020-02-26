@@ -1,4 +1,5 @@
-import { NgModule } from '@angular/core';
+import { PlayerModule } from './player/player.module';
+import { NgModule, LOCALE_ID } from '@angular/core';
 import { FlexLayoutModule } from '@angular/flex-layout';
 import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
@@ -12,7 +13,8 @@ import { FirebaseModule } from './firebase/firebase.module';
 import { MaterialModule } from './material.module';
 import { metaReducers, reducers } from './reducers';
 import { SharedModule } from './shared/shared.module';
-
+import { registerLocaleData } from '@angular/common';
+import localeDa from '@angular/common/locales/da';
 
 @NgModule({
   declarations: [AppComponent],
@@ -22,6 +24,7 @@ import { SharedModule } from './shared/shared.module';
     FlexLayoutModule,
     ServiceWorkerModule.register('ngsw-worker.js', { enabled: environment.production }),
     MaterialModule,
+    PlayerModule,
     StoreModule.forRoot(reducers, {
       metaReducers,
       runtimeChecks: {
@@ -33,6 +36,16 @@ import { SharedModule } from './shared/shared.module';
     AppRoutingModule,
     SharedModule,
   ],
+  providers: [
+    {
+      provide: LOCALE_ID,
+      useValue: 'da'
+    },
+  ],
   bootstrap: [AppComponent],
 })
-export class AppModule {}
+export class AppModule {
+  constructor() {
+    registerLocaleData(localeDa);
+  }
+}

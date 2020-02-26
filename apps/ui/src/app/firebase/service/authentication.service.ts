@@ -17,7 +17,7 @@ export class AuthenticationService {
   constructor() {
     this.googleProvider = new firebase.auth.GoogleAuthProvider();
     firebase.auth().onAuthStateChanged(user => {
-      this._player$.next(user)
+      this._player$.next({...user})
       console.log(user);
     });
   }

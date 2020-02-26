@@ -1,3 +1,6 @@
-export interface Player extends firebase.UserInfo {
-  balance?: number;
+export interface Player {
+  uid: string;
+  displayName: string;
+  photoURL: string;
+  email: string;
 }

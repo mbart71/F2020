@@ -18,6 +18,7 @@ import "firebase/firestore";
 export class FirebaseModule {
 
   constructor() {
+    console.log('Firebase initialized', environment.firebaseConfig);
     firebase.initializeApp(environment.firebaseConfig);
   }
 }

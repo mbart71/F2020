@@ -27,7 +27,7 @@ export const initialState: State = {
 const playerReducer = createReducer(
   initialState,
   on(PlayerActions.loadPlayer, state => ({ ...state, loading: true, loaded: false, error: null })),
-  on(PlayerActions.loadPlayerSuccess, (state, { player }) =>
+  on(PlayerActions.loadPlayerSuccess, (state, { player }) => 
     ({ ...state, loading: false, loaded: true, unathorized: false, player })
   ),
   on(PlayerActions.loadPlayerUnauthorized, state => ({ ...state, unathorized: true, loading: false })),

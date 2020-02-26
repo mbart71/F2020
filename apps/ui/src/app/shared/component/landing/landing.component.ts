@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import { Observable } from 'rxjs';
+import { Observable, of } from 'rxjs';
 import { Player, PlayerFacade } from '../../../player';
+import { tap } from 'rxjs/operators';
 
 @Component({
   selector: 'f2020-landing',
@@ -14,7 +15,7 @@ export class LandingComponent implements OnInit {
   constructor(private facade: PlayerFacade) { }
 
   ngOnInit(): void {
-    this.player$ = this.facade.player$;
+    this.player$ = this.facade.player$.pipe(tap(console.log));
   }
 
 }
