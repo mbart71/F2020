@@ -1,15 +1,14 @@
-import { Component, OnInit } from '@angular/core';
+import { ChangeDetectionStrategy, Component } from '@angular/core';
 
 @Component({
   selector: 'f2020-loading',
-  templateUrl: './loading.component.html',
-  styleUrls: ['./loading.component.scss']
+  template: `
+    <div>
+      <img src="assets/loading/tire.svg" alt="loading">
+    </div>
+  `,
+  styleUrls: ['./loading.component.scss'],
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class LoadingComponent implements OnInit {
-
-  constructor() { }
-
-  ngOnInit(): void {
-  }
-
+export class LoadingComponent {
 }

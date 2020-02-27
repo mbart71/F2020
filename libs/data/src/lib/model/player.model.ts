@@ -3,4 +3,6 @@ export interface Player {
   displayName: string;
   photoURL: string;
   email: string;
+  roles?: string[];
+  balance?: number;
 }

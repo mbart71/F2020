@@ -1,20 +1,20 @@
 import { createAction, props } from '@ngrx/store';
-import { Player } from './player.models';
+import { Player } from '@f2020/data';
 
 const loadPlayer = createAction('[Player] Load Player from player');
 
 const loadPlayerSuccess = createAction(
   '[Player] Load Player Success',
-  props<{ player: Player }>()
+  props<{ player: Player }>(),
 );
 
 const loadPlayerUnauthorized = createAction(
-  '[Player] Load Player uauthorized',
+  '[Player] Load Player unauthorized',
 );
 
 const loadPlayerFailure = createAction(
   '[Player] Load Player Failure',
-  props<{ error: any }>()
+  props<{ error: any }>(),
 );
 
 export const PlayerActions = {
@@ -22,4 +22,4 @@ export const PlayerActions = {
   loadPlayerSuccess,
   loadPlayerFailure,
   loadPlayerUnauthorized,
-}
+};

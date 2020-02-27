@@ -1,13 +1,13 @@
 import { Action, createReducer, on } from '@ngrx/store';
 import { PlayerActions } from './player.actions';
-import { Player } from './player.models';
+import { Player } from '@f2020/data';
 
 
 export const PLAYER_FEATURE_KEY = 'player';
 
 export interface State {
   player?: Player;
-  unathorized: boolean;
+  unauthorized: boolean;
   loading: boolean;
   loaded: boolean;
   error?: any;
@@ -21,7 +21,7 @@ export const initialState: State = {
   // set initial required properties
   loaded: false,
   loading: false,
-  unathorized: false,
+  unauthorized: false,
 };
 
 const playerReducer = createReducer(

@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Observable } from 'rxjs';
-import { Player, PlayerFacade } from '../../../player';
+import { Player } from '@f2020/data';
+import { PlayerFacade } from '../../../player/+state';
 
 @Component({
   selector: 'f2020-landing',

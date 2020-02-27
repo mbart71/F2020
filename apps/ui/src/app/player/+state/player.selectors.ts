@@ -27,7 +27,7 @@ export const getPlayerError = createSelector(
 
 export const getPlayerUnauthorized = createSelector(
   getPlayerState,
-  (state: State) => state.unathorized
+  (state: State) => state.unauthorized
 );
 
 export const getPlayer = createSelector(
