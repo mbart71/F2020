@@ -1,5 +1,14 @@
 {
   "projects": {
     "default": "f1-serverless"
+  },
+  "targets": {
+    "f1-serverless": {
+      "hosting": {
+        "ui": [
+          "f1-serverless"
+        ]
+      }
+    }
   }
 }

@@ -93,7 +93,6 @@
               "serviceWorker": true,
               "ngswConfigPath": "apps/ui/ngsw-config.json"
             }
-
           }
         },
         "serve": {
@@ -133,6 +132,10 @@
             "tsConfig": "apps/ui/tsconfig.spec.json",
             "setupFile": "apps/ui/src/test-setup.ts"
           }
+        },
+        "deploy": {
+          "builder": "@angular/fire:deploy",
+          "options": {}
         }
       }
     },
