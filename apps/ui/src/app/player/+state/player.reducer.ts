@@ -28,9 +28,9 @@ const playerReducer = createReducer(
   initialState,
   on(PlayerActions.loadPlayer, state => ({ ...state, loading: true, loaded: false, error: null })),
   on(PlayerActions.loadPlayerSuccess, (state, { player }) => 
-    ({ ...state, loading: false, loaded: true, unathorized: false, player })
+    ({ ...state, loading: false, loaded: true, unauthorized: false, player })
   ),
-  on(PlayerActions.loadPlayerUnauthorized, state => ({ ...state, unathorized: true, loading: false })),
+  on(PlayerActions.loadPlayerUnauthorized, state => ({ ...state, unauthorized: true, loading: false })),
   on(PlayerActions.loadPlayerFailure, (state, { error }) => ({ ...state, error }))
 );
 

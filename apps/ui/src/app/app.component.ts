@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { AuthenticationService } from './firebase/service/authentication.service';
-import { PlayerFacade, PlayerActions } from './player';
+import { PlayerActions, PlayerFacade } from './player';
 import { filter } from 'rxjs/operators';
+import { PlayerService } from './player/service/player.service';
 
 @Component({
   selector: 'f2020-root',
@@ -10,7 +10,7 @@ import { filter } from 'rxjs/operators';
 })
 export class AppComponent implements OnInit {
 
-  constructor(private facade: PlayerFacade, private router: Router) {
+  constructor(private facade: PlayerFacade, private router: Router, private playerService: PlayerService) {
 
   }
 
@@ -18,7 +18,7 @@ export class AppComponent implements OnInit {
     this.facade.dispatch(PlayerActions.loadPlayer());
     this.facade.unauthorized$.pipe(
       filter(unauthorized => unauthorized),
-    ).subscribe(() => this.router.navigate(['login'])); 
+    ).subscribe(() => this.router.navigate(['login']));
   }
 
   signOut() {
