@@ -1,6 +1,6 @@
-import { Injectable } from "@angular/core";
+import { Injectable } from '@angular/core';
 import * as firebase from 'firebase';
-import { Observable,from, ReplaySubject } from 'rxjs';
+import { from, Observable, ReplaySubject } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
@@ -17,14 +17,16 @@ export class AuthenticationService {
   constructor() {
     this.googleProvider = new firebase.auth.GoogleAuthProvider();
     firebase.auth().onAuthStateChanged(user => {
-      this._player$.next({...user})
+      this._player$.next({...user});
+      // if (user && router.url.endsWith('login')) {
+      //   router.navigate(['/']);
+      // }
       console.log(user);
     });
   }
 
-  signInWithGoogle(): Observable<firebase.auth.UserCredential> {
-    firebase.auth().signInWithRedirect(this.googleProvider);
-    return from(firebase.auth().getRedirectResult());
+  signInWithGoogle(): Promise<void> {
+    return firebase.auth().signInWithRedirect(this.googleProvider).then(_ => console.log('Signed in using google'));
   }
 
   signOut(): Observable<void> {

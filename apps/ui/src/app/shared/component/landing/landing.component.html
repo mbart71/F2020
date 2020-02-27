@@ -1,4 +1,4 @@
-<div fxFlex fxLayout="column" fxLayoutAlign="center center" class="fixVertical">
+<div fxFlex fxLayout="column" fxLayoutAlign="center center">
   <ng-container *ngIf="player$ | async as player; else loading">
     <img [src]="player.photoURL" alt="Spiller billede">
   </ng-container>

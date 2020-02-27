@@ -1,24 +1,19 @@
-import { Observable } from 'rxjs';
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
 import { AuthenticationService } from '../../../firebase';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'f2020-login',
   templateUrl: './login.component.html',
-  styleUrls: ['./login.component.scss']
+  styleUrls: ['./login.component.scss'],
 })
-export class LoginComponent implements OnInit {
+export class LoginComponent {
 
-  player$: Observable<firebase.UserInfo>
-
-
-  constructor(private service: AuthenticationService) {}
-
-  ngOnInit() {
+  constructor(private service: AuthenticationService, private router: Router) {
   }
 
   loginWithGoogle() {
-    this.service.signInWithGoogle();
+    this.router.navigate(['/']).then(() => this.service.signInWithGoogle());
   }
 
 }
