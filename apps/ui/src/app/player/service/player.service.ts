@@ -4,14 +4,13 @@ import { Player } from '@f2020/data';
 import { AngularFirestore } from '@angular/fire/firestore';
 import { first, switchMap } from 'rxjs/operators';
 import { Observable, ReplaySubject } from 'rxjs';
-import { AuthenticationService } from '../../firebase';
 
 @Injectable({
   providedIn: 'root',
 })
 export class PlayerService {
 
-  constructor(private authenticationService: AuthenticationService, private afs: AngularFirestore) {
+  constructor(private afs: AngularFirestore) {
     firebase.auth().getRedirectResult().then(result => {
       if (result && result.user) {
         this.updateBaseInformation(result.user).toPromise().then(() => console.log('Base information updated'));

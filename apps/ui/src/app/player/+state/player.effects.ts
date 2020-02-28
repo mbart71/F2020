@@ -1,8 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Actions, createEffect, ofType } from '@ngrx/effects';
 import { of } from 'rxjs';
-import { catchError, concatMap, map, first } from 'rxjs/operators';
-import { AuthenticationService } from '../../firebase';
+import { catchError, concatMap, map } from 'rxjs/operators';
 import { PlayerActions } from './player.actions';
 import { PlayerService } from '../service/player.service';
 
