@@ -4,6 +4,7 @@ import { of } from 'rxjs';
 import { catchError, concatMap, map, first } from 'rxjs/operators';
 import { AuthenticationService } from '../../firebase';
 import { PlayerActions } from './player.actions';
+import { PlayerService } from '../service/player.service';
 
 
 @Injectable({
@@ -11,7 +12,7 @@ import { PlayerActions } from './player.actions';
 })
 export class PlayerEffects {
   
-  constructor(private actions$: Actions, private service: AuthenticationService) {}
+  constructor(private actions$: Actions, private service: PlayerService) {}
   
   loadPlayer$ = createEffect(() =>
     this.actions$.pipe(
@@ -23,7 +24,6 @@ export class PlayerEffects {
           }
           return PlayerActions.loadPlayerUnauthorized();
         }),
-        first(),
         catchError(error => of(PlayerActions.loadPlayerFailure({error})))
       ))    
     )

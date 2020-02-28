@@ -22,7 +22,7 @@ export class AppComponent implements OnInit {
   }
 
   signOut() {
-    // this.service.signOut();
+    this.playerService.signOut();
   }
 
 }

@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
-import { AuthenticationService } from '../../../firebase';
 import { Router } from '@angular/router';
+import { PlayerService } from '../../../player/service/player.service';
 
 @Component({
   selector: 'f2020-login',
@@ -9,7 +9,7 @@ import { Router } from '@angular/router';
 })
 export class LoginComponent {
 
-  constructor(private service: AuthenticationService, private router: Router) {
+  constructor(private service: PlayerService, private router: Router) {
   }
 
   loginWithGoogle() {
