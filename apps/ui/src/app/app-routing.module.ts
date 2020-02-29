@@ -1,15 +1,19 @@
 import { LandingComponent, LoginComponent } from './shared';
-import { Routes, RouterModule } from "@angular/router";
+import { RouterModule, Routes } from '@angular/router';
 
 const routes: Routes = [
   {
     path: 'login',
-    component: LoginComponent
+    component: LoginComponent,
   },
   {
     path: '',
-    component: LandingComponent
-  }
-]
+    component: LandingComponent,
+  },
+  {
+    path: 'standing',
+    loadChildren: () => import('../app/standing/standing.module').then(m => m.StandingModule),
+  },
+];
 
-export const   AppRoutingModule = RouterModule.forRoot(routes);
+export const AppRoutingModule = RouterModule.forRoot(routes);
