@@ -16,7 +16,7 @@ export class StandingEffects {
       concatMap(season => season ? this.service.getStandings(season.id).pipe(
         map(standings => StandingActions.loadStandingsSuccess({ standings })),
         catchError(error => of(PlayerActions.loadPlayerFailure({ error }))),
-      ) : of(StandingActions.loadStandingsSuccess({ standings: [] }))),
+      ) : of(StandingActions.loadStandingsSuccess({ standings: null }))),
     ),
   );
 
