@@ -1,12 +1,12 @@
 import { Action, createReducer, on } from '@ngrx/store';
 
-import * as StandingActions from './standing.actions';
+import { StandingActions } from './standing.actions';
 import { IDriverStanding } from '@f2020/data';
 
 export const STANDING_FEATURE_KEY = 'standing';
 
 export interface State {
-  standing?: IDriverStanding[]
+  standings?: IDriverStanding[]
   loaded: boolean; // has the Standing list been loaded
   error?: string | null; // last none error (if any)
 }
@@ -22,15 +22,15 @@ export const initialState: State = {
 
 const standingReducer = createReducer(
   initialState,
-  on(StandingActions.loadStanding, state => ({
+  on(StandingActions.loadStandings, state => ({
     ...state,
     loaded: false,
     error: null,
   })),
-  on(StandingActions.loadStandingSuccess, (state, { standing }) =>
-    ({ ...state, standing, loaded: true }),
+  on(StandingActions.loadStandingsSuccess, (state, { standings }) =>
+    ({ ...state, standings, loaded: true }),
   ),
-  on(StandingActions.loadStandingFailure, (state, { error }) => ({
+  on(StandingActions.loadStandingsFailure, (state, { error }) => ({
     ...state,
     error,
   })),

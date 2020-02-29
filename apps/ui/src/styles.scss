@@ -24,3 +24,7 @@ body {
 mat-sidenav-content > router-outlet + * {
   flex: 1 1 auto;
 }
+
+.w-100 {
+  width: 100% !important;
+}

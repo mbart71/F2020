@@ -1,1 +1,11 @@
-<p>standing-list works!</p>
+<mat-action-list *ngIf="standings$ | async as standings; else loading">
+  <button mat-list-item *ngFor="let standing of standings">
+    <span fxLayout fxFlexFill fxLayoutAlign="space-between center">
+      <span>{{standing.driver.name}}</span>
+      <span>{{standing.points}} point</span>
+    </span>
+  </button>
+</mat-action-list>
+<ng-template #loading>
+  <f2020-loading></f2020-loading>
+</ng-template>

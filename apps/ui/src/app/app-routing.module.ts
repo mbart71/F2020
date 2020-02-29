@@ -11,7 +11,7 @@ const routes: Routes = [
     component: LandingComponent,
   },
   {
-    path: 'standing',
+    path: 'standings',
     loadChildren: () => import('../app/standing/standing.module').then(m => m.StandingModule),
   },
 ];

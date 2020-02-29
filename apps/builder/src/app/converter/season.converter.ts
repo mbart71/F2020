@@ -1,13 +1,13 @@
-import { ISeason, IRace } from "../model";
-import { firebaseUtils } from '../mapper';
 import {firestore} from 'firebase-admin'
+import { ISeason } from '@f2020/data';
+import { firebaseUtils } from '../firebase-utils';
 export const converter = {
-  toFirestore(race: IRace): firestore.DocumentData {
-    return firebaseUtils.convertDateTimes(race);
+  toFirestore(season: ISeason): firestore.DocumentData {
+    return firebaseUtils.convertDateTimes(season);
   },
   fromFirestore(
     snapshot: firestore.QueryDocumentSnapshot,
-  ): IRace {
+  ): ISeason {
     const data = snapshot.data()!;
     return firebaseUtils.convertTimestamps(data);
   }

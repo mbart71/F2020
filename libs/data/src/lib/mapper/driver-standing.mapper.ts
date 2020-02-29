@@ -1,9 +1,9 @@
 import { ErgastDriverStanding, IDriverStanding } from '../model';
-import { mapper } from '@f2020/data';
+import * as driverMap from './driver.mapper';
 
 export const driverStanding = (d: ErgastDriverStanding): IDriverStanding => {
   return {
-    driver: mapper.driverMap(d.Driver),
+    driver: driverMap.driver(d.Driver),
     points: d.points,
     wins: d.wins
   };

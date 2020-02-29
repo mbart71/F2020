@@ -1,13 +1,20 @@
 import { createAction, props } from '@ngrx/store';
+import { IDriverStanding } from '@f2020/data';
 
-export const loadStanding = createAction('[Standing] Load Standing');
+const loadStandings = createAction('[Standing] Load Standing');
 
-export const loadStandingSuccess = createAction(
+const loadStandingsSuccess = createAction(
   '[Standing] Load Standing Success',
-  props<{ standing: StandingEntity[] }>()
+  props<{ standings: IDriverStanding[] }>(),
 );
 
-export const loadStandingFailure = createAction(
+const loadStandingsFailure = createAction(
   '[Standing] Load Standing Failure',
-  props<{ error: any }>()
+  props<{ error: any }>(),
 );
+
+export const StandingActions = {
+  loadStandings,
+  loadStandingsSuccess,
+  loadStandingsFailure,
+};

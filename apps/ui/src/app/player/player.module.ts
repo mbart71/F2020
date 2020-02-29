@@ -11,7 +11,6 @@ import * as fromPlayer from './+state/player.reducer';
 @NgModule({
   imports: [
     CommonModule,
-    FirebaseModule,
     StoreModule.forFeature(fromPlayer.PLAYER_FEATURE_KEY, fromPlayer.reducer),
     EffectsModule.forFeature([PlayerEffects])
   ]

@@ -1,4 +1,7 @@
 import { Component, OnInit } from '@angular/core';
+import { StandingFacade } from '../../+state/standing.facade';
+import { IDriverStanding } from '@f2020/data';
+import { Observable } from 'rxjs';
 
 @Component({
   selector: 'f2020-standing-list',
@@ -7,9 +10,12 @@ import { Component, OnInit } from '@angular/core';
 })
 export class StandingListComponent implements OnInit {
 
-  constructor() { }
+  standings$: Observable<IDriverStanding[]>;
+
+  constructor(private facade: StandingFacade) { }
 
   ngOnInit(): void {
+    this.standings$ = this.facade.standings$;
   }
 
 }

@@ -1,29 +1,25 @@
 import { Injectable } from '@angular/core';
-import { createEffect, Actions, ofType } from '@ngrx/effects';
-import { fetch } from '@nrwl/angular';
-
-import * as fromStanding from './standing.reducer';
-import * as StandingActions from './standing.actions';
-import { catchError, concatMap, map } from 'rxjs/operators';
+import { Actions, createEffect, ofType } from '@ngrx/effects';
+import { StandingActions } from './standing.actions';
+import { catchError, concatMap, map, switchMap } from 'rxjs/operators';
 import { PlayerActions } from '../../player/+state';
 import { of } from 'rxjs';
+import { StandingService } from '../service/standing.service';
+import { SeasonFacade } from '../../season/+state/season.facade';
 
 @Injectable()
 export class StandingEffects {
   loadStanding$ = createEffect(() =>
     this.actions$.pipe(
-      ofType(StandingActions.loadStanding),
-      concatMap(action => this.service.player$.pipe(
-        map(({ uid, displayName, photoURL, email }) => {
-          if (uid) {
-            return PlayerActions.loadPlayerSuccess({ player: { uid, displayName, photoURL, email } });
-          }
-          return PlayerActions.loadPlayerUnauthorized();
-        }),
+      ofType(StandingActions.loadStandings),
+      switchMap(() => this.seasonFacade.season$),
+      concatMap(season => season ? this.service.getStandings(season.id).pipe(
+        map(standings => StandingActions.loadStandingsSuccess({ standings })),
         catchError(error => of(PlayerActions.loadPlayerFailure({ error }))),
-      )),
-    )
+      ) : of(StandingActions.loadStandingsSuccess({ standings: [] }))),
+    ),
   );
 
-  constructor(private actions$: Actions) {}
+  constructor(private actions$: Actions, private service: StandingService, private seasonFacade: SeasonFacade) {
+  }
 }

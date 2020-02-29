@@ -9,7 +9,7 @@ import * as StandingSelectors from './standing.selectors';
 export class StandingFacade {
   loaded$ = this.store.pipe(select(StandingSelectors.getStandingLoaded));
   error$ = this.store.pipe(select(StandingSelectors.getStandingError));
-  standing$ = this.store.pipe(select(StandingSelectors.getAllStanding));
+  standings$ = this.store.pipe(select(StandingSelectors.getStandings));
 
   constructor(private store: Store<fromStanding.StandingPartialState>) {}
 

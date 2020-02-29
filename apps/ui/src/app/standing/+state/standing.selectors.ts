@@ -17,7 +17,7 @@ export const getStandingError = createSelector(
   (state: State) => state.error
 );
 
-export const getAllStanding = createSelector(
+export const getStandings = createSelector(
   getStandingState,
-  (state: State) => state.standing
+  (state: State) => state.standings
 );

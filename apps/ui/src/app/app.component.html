@@ -9,10 +9,11 @@
   </mat-toolbar>
   <mat-sidenav-container fxFlex fxLayout="column">
     <mat-sidenav #sidenav mode="over" position="end">
-      <button mat-button (click)="signOut()">
-        <mat-icon fontSet="fa" fontIcon="fa-clipboard-check"></mat-icon> Log ud
-      </button>
-    </mat-sidenav>0
+      <mat-action-list style="padding: 1rem 1.5rem 0 1.5rem">
+        <f2020-sidenav-button icon="fa-trophy" routerLink="standings">Stilling</f2020-sidenav-button>
+        <button mat-list-item (click)="signOut()" ><mat-icon fontSet="fa" fontIcon="fa-sign-out-alt"></mat-icon> Log ud</button>
+      </mat-action-list>
+    </mat-sidenav>
     <mat-sidenav-content fxFlex fxLayout="column">
       <router-outlet></router-outlet>
     </mat-sidenav-content>

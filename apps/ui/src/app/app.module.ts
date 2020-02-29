@@ -17,6 +17,8 @@ import localeDa from '@angular/common/locales/da';
 import { StoreDevtoolsModule } from '@ngrx/store-devtools';
 import { AngularFireModule } from '@angular/fire';
 import { DriverModule } from './driver/driver.module';
+import { SeasonModule } from './season/season.module';
+import { FirebaseModule } from './firebase';
 
 @NgModule({
   declarations: [AppComponent],
@@ -26,8 +28,10 @@ import { DriverModule } from './driver/driver.module';
     FlexLayoutModule,
     ServiceWorkerModule.register('ngsw-worker.js', { enabled: environment.production }),
     MaterialModule,
+    FirebaseModule,
     PlayerModule,
     DriverModule,
+    SeasonModule,
     AngularFireModule.initializeApp(environment.firebaseConfig),
     StoreModule.forRoot(reducers, {
       metaReducers,
