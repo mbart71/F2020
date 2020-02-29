@@ -8,6 +8,7 @@ export const PLAYER_FEATURE_KEY = 'player';
 export interface State {
   player?: Player;
   unauthorized: boolean;
+  authorized: boolean;
   loading: boolean;
   loaded: boolean;
   error?: any;
@@ -22,15 +23,16 @@ export const initialState: State = {
   loaded: false,
   loading: false,
   unauthorized: false,
+  authorized: false,
 };
 
 const playerReducer = createReducer(
   initialState,
   on(PlayerActions.loadPlayer, state => ({ ...state, loading: true, loaded: false, error: null })),
   on(PlayerActions.loadPlayerSuccess, (state, { player }) => 
-    ({ ...state, loading: false, loaded: true, unauthorized: false, player })
+    ({ ...state, loading: false, loaded: true, unauthorized: false, authorized: true, player })
   ),
-  on(PlayerActions.loadPlayerUnauthorized, state => ({ ...state, unauthorized: true, loading: false })),
+  on(PlayerActions.loadPlayerUnauthorized, state => ({ ...state, unauthorized: true, authorized: false, loading: false })),
   on(PlayerActions.loadPlayerFailure, (state, { error }) => ({ ...state, error }))
 );
 

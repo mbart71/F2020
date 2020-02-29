@@ -16,6 +16,7 @@ import { registerLocaleData } from '@angular/common';
 import localeDa from '@angular/common/locales/da';
 import { StoreDevtoolsModule } from '@ngrx/store-devtools';
 import { AngularFireModule } from '@angular/fire';
+import { DriverModule } from './driver/driver.module';
 
 @NgModule({
   declarations: [AppComponent],
@@ -26,6 +27,7 @@ import { AngularFireModule } from '@angular/fire';
     ServiceWorkerModule.register('ngsw-worker.js', { enabled: environment.production }),
     MaterialModule,
     PlayerModule,
+    DriverModule,
     AngularFireModule.initializeApp(environment.firebaseConfig),
     StoreModule.forRoot(reducers, {
       metaReducers,

@@ -30,6 +30,11 @@ export const getPlayerUnauthorized = createSelector(
   (state: State) => state.unauthorized
 );
 
+export const getPlayerAuthorized = createSelector(
+  getPlayerState,
+  (state: State) => state.authorized
+);
+
 export const getPlayer = createSelector(
   getPlayerState,
   (state: State) => state.player

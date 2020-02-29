@@ -1,5 +1,4 @@
-import { ErgastDriver } from '@f2020/ergast';
-import { IDriver } from '../model/driver.model';
+import { ErgastDriver, IDriver } from '../model';
 
 export const driver = (d: ErgastDriver): IDriver => {
   return {

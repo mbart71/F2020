@@ -17,9 +17,23 @@ const loadPlayerFailure = createAction(
   props<{ error: any }>(),
 );
 
+const logoutPlayer = createAction('[Sidebar Menu] Logout player from application');
+
+const logoutPlayerSuccess = createAction(
+  '[Player] Logout player Success',
+);
+
+const logoutPlayerFailure = createAction(
+  '[Player] Logout player Failure',
+  props<{ error: any }>(),
+);
+
 export const PlayerActions = {
   loadPlayer,
   loadPlayerSuccess,
   loadPlayerFailure,
   loadPlayerUnauthorized,
+  logoutPlayer,
+  logoutPlayerSuccess,
+  logoutPlayerFailure,
 };

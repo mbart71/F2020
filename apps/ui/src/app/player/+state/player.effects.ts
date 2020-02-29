@@ -7,26 +7,34 @@ import { PlayerService } from '../service/player.service';
 
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class PlayerEffects {
-  
-  constructor(private actions$: Actions, private service: PlayerService) {}
-  
+
   loadPlayer$ = createEffect(() =>
     this.actions$.pipe(
       ofType(PlayerActions.loadPlayer),
       concatMap(action => this.service.player$.pipe(
-        map(({uid, displayName, photoURL, email}) => {
+        map(({ uid, displayName, photoURL, email }) => {
           if (uid) {
-            return PlayerActions.loadPlayerSuccess({player: {uid, displayName, photoURL, email}});
+            return PlayerActions.loadPlayerSuccess({ player: { uid, displayName, photoURL, email } });
           }
           return PlayerActions.loadPlayerUnauthorized();
         }),
-        catchError(error => of(PlayerActions.loadPlayerFailure({error})))
-      ))    
-    )
+        catchError(error => of(PlayerActions.loadPlayerFailure({ error }))),
+      )),
+    ),
   );
-}
+  logoutPlayer$ = createEffect(() =>
+    this.actions$.pipe(
+      ofType(PlayerActions.logoutPlayer),
+      concatMap(action => this.service.signOut()
+        .then(() => PlayerActions.logoutPlayerSuccess())
+        .catch(error => PlayerActions.logoutPlayerFailure({ error })),
+      ),
+    ),
+  );
 
-// of(PlayerActions.loadPlayerSuccess({player: null}))
+  constructor(private actions$: Actions, private service: PlayerService) {
+  }
+}

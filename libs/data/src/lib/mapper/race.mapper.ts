@@ -1,7 +1,5 @@
-import { ErgastRace } from '@f2020/ergast';
-import { IRace } from '../model/race.model';
+import { ErgastRace, IDriver, IRace } from '../model';
 import { DateTime } from 'luxon';
-import { IDriver } from '../model/driver.model';
 
 export const map = (source: ErgastRace, selectedDriver: IDriver, previousRace?: IRace, drivers?: IDriver[]): IRace => {
   const raceTime = DateTime.fromISO(`${source.date}T${source.time || '00:00:00Z'}`);

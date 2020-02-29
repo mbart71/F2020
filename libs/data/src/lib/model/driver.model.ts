@@ -1,3 +1,5 @@
+import { ErgastConstructor, ErgastDriver } from './ergast';
+
 export interface IDriver {
   readonly name: string;
   readonly code: string;
@@ -20,4 +22,10 @@ export class DriverModel implements IDriver {
     this.permanentNumber = permanentNumber;
     this.url = url;
   }
+}
+
+export interface IDriverStanding {
+  wins: number;
+  points: number;
+  driver: IDriver;
 }

@@ -14,6 +14,7 @@ export class PlayerFacade {
   player$ = this.store.pipe(select(PlayerSelectors.getPlayer));
   error$ = this.store.pipe(select(PlayerSelectors.getPlayerError));
   unauthorized$ = this.store.pipe(select(PlayerSelectors.getPlayerUnauthorized));
+  authorized$ = this.store.pipe(select(PlayerSelectors.getPlayerAuthorized));
 
   constructor(private store: Store<fromPlayer.PlayerPartialState>) {}
 

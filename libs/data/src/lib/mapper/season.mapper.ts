@@ -1,5 +1,4 @@
-import { ErgastSeason } from '@f2020/ergast';
-import { ISeason } from '../model/season.model';
+import { ErgastSeason, ISeason } from '../model';
 import { DateTime } from 'luxon';
 
 export const map = (season: ErgastSeason, latestWBCJoinDate: DateTime): ISeason => {
