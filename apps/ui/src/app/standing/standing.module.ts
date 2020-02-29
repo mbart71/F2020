@@ -14,9 +14,14 @@ import { MaterialModule } from '../material.module';
 import { StandingActions } from './+state/standing.actions';
 import { SharedModule } from '../shared/shared.module';
 import { FlexModule } from '@angular/flex-layout';
+import { StandingListItemComponent } from './component/standing-list/standing-list-item/standing-list-item.component';
 
 @NgModule({
-  declarations: [StandingListComponent, StandingDriverComponent],
+  declarations: [
+    StandingListComponent,
+    StandingDriverComponent,
+    StandingListItemComponent,
+  ],
   imports: [
     CommonModule,
     StoreModule.forFeature(

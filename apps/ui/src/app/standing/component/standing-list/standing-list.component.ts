@@ -18,6 +18,7 @@ export class StandingListComponent implements OnInit {
     this.standings$ = this.facade.loaded$.pipe(
       filter(loaded => loaded),
       switchMap(() => this.facade.standings$),
+      tap(_ => console.log('_ ', _))
     );
   }
 
