@@ -1,15 +1,18 @@
-import { driver as driverMap, drivers as driversMap } from './driver.mapper';
-import { driverStanding as driverStandingMap, driverStandings as driverStandingsMap } from './driver-standing.mapper';
-import { map as raceMap } from './race.mapper';
-import { map as seasonMap } from './season.mapper';
-import { map as nationalityMap } from './nationality.mapper';
+import { map as race } from './race.mapper';
+import { map as season } from './season.mapper';
+import { map as nationality } from './nationality.mapper';
+import { driver, drivers } from './driver.mapper';
+import { driverStanding, driverStandings } from './driver-standing.mapper';
+import { driverResult, driverResults } from './driver-result.mapper';
 
 export const mapper = {
-  raceMap,
-  driverMap,
-  driversMap,
-  driverStandingMap,
-  driverStandingsMap,
-  seasonMap,
-  nationalityMap,
+  race,
+  driver,
+  drivers,
+  driverStanding,
+  driverStandings,
+  driverResult,
+  driverResults,
+  season,
+  nationality,
 };

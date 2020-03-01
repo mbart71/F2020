@@ -9,7 +9,7 @@ export class StandingService {
   constructor(private service: ErgastService) { }
 
   getStandings(seasonId: string | number): Observable<IDriverStanding[]> {
-    return this.service.get(`${seasonId}/driverStandings.json`, ergastData => mapper.driverStandingsMap(ergastData.MRData.StandingsTable.StandingsLists[0].DriverStandings))
+    return this.service.get(`${seasonId}/driverStandings.json`, ergastData => mapper.driverStandings(ergastData.MRData.StandingsTable.StandingsLists[0].DriverStandings))
   }
 
 

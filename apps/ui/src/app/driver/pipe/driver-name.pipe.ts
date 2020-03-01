@@ -15,13 +15,13 @@ export class DriverNamePipe implements PipeTransform {
     facade.allDriver$.subscribe(drivers => this.drivers = drivers);
   }
 
-  transform(code: string, ...args: unknown[]): unknown {
+  transform(driverId: string, ...args: unknown[]): unknown {
 
-    if (code && code !== this.previousCode && this.drivers?.length) {
-      this.previousCode = code;
-      this.name = this.drivers.find(d => d.code === code)?.name ?? code;
+    if (driverId && driverId !== this.previousCode && this.drivers?.length) {
+      this.previousCode = driverId;
+      this.name = this.drivers.find(d => d.driverId === driverId)?.name ?? driverId;
     }
-    return this.name ?? code;
+    return this.name ?? driverId;
   }
 
 }

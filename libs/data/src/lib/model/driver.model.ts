@@ -29,3 +29,11 @@ export interface IDriverStanding {
   points: number;
   driver: IDriver;
 }
+
+export interface IDriverResult {
+  driver: IDriver;
+  points: number
+  position: number;
+  grid: number;
+  status: string;
+}

@@ -17,3 +17,12 @@ export interface ErgastDriverStanding {
   Driver: ErgastDriver;
   Constructor: ErgastConstructor;
 }
+
+export interface ErgastDriverResult {
+  Driver: ErgastDriver;
+  Constructor: ErgastConstructor,
+  points: number;
+  position: number;
+  grid: number;
+  status: string;
+}

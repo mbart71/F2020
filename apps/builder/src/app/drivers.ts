@@ -7,7 +7,7 @@ export const buildDrivers = async (): Promise<number> => {
   const db = firebaseApp.datebase;
   const drivers = (await getDrivers())
     .filter(driver => !!driver.code)
-    .map(mapper.driverMap);
+    .map(mapper.driver);
   const driverCollection = db.collection('drivers');
 
   return db.runTransaction(transaction => {
