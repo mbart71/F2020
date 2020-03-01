@@ -1,10 +1,11 @@
 import { getClient } from './axios';
+import { ErgastConstructor, ErgastConstructorStanding, ErgastDriver, ErgastDriverStanding } from '@f2020/data';
+
 /**
  * Given a season id an array of drivers will be returned.
  * Drivers must be sorted by last year constructor result.
  * If it is a constructor, the constructors will be sorted by name
  */
-import { ErgastConstructor, ErgastDriver, ErgastDriverStanding, ErgastConstructorStanding } from '../model';
 
 type LookupByConstructor = (lookup: ErgastConstructor) => number;
 

@@ -15,8 +15,8 @@ export const map = (source: ErgastRace, selectedDriver: IDriver, previousRace?: 
     state: 'waiting',
     url: source.url,
     close: closeTime,
-    selectedDriver: selectedDriver.code,
-    drivers: (drivers || []).map(d => d.code),
+    selectedDriver: selectedDriver.driverId,
+    drivers: (drivers || []).map(d => d.driverId),
     open: previousRace?.close.startOf('day').plus({ day: 3 }) ?? closeTime.minus({ day: 7 })
   };
 };

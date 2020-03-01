@@ -10,7 +10,7 @@
   <mat-sidenav-container fxFlex fxLayout="column">
     <mat-sidenav #sidenav mode="over" position="end">
       <mat-action-list style="padding: 1rem 1.5rem 0 1.5rem">
-        <f2020-sidenav-button icon="fa-trophy" routerLink="standings">Stilling</f2020-sidenav-button>
+        <f2020-sidenav-button icon="fa-trophy" routerLink="standings" (click)="sidenav.close()">Stilling</f2020-sidenav-button>
         <button mat-list-item (click)="signOut()" ><mat-icon fontSet="fa" fontIcon="fa-sign-out-alt"></mat-icon> Log ud</button>
       </mat-action-list>
     </mat-sidenav>

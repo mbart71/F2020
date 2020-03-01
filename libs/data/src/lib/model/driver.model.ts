@@ -2,7 +2,7 @@ import { ErgastConstructor, ErgastDriver } from './ergast';
 
 export interface IDriver {
   readonly name: string;
-  readonly code: string;
+  readonly driverId: string;
   readonly nationality: string;
   readonly permanentNumber: number
   readonly url: string;
@@ -10,14 +10,14 @@ export interface IDriver {
 
 export class DriverModel implements IDriver {
   readonly name: string;
-  readonly code: string;
+  readonly driverId: string;
   readonly nationality: string;
   readonly permanentNumber: number;
   readonly url: string;
 
-  constructor({ name, code, nationality, permanentNumber, url }: IDriver) {
+  constructor({ name, driverId, nationality, permanentNumber, url }: IDriver) {
     this.name = name;
-    this.code = code;
+    this.driverId = driverId;
     this.nationality = nationality;
     this.permanentNumber = permanentNumber;
     this.url = url;
