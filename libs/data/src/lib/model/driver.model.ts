@@ -1,4 +1,5 @@
 import { ErgastConstructor, ErgastDriver } from './ergast';
+import { IRace, IRaceBasis } from './race.model';
 
 export interface IDriver {
   readonly name: string;
@@ -31,6 +32,14 @@ export interface IDriverStanding {
 }
 
 export interface IDriverResult {
+  retired: number;
+  averageGridPosition: number;
+  averageFinishPosition: number;
+  results: IDriverRaceResult[];
+}
+
+export interface IDriverRaceResult {
+  race: IRaceBasis;
   driver: IDriver;
   points: number
   position: number;

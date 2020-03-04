@@ -11,9 +11,9 @@ export class SeasonService {
   readonly current$ = this.afs.collection<any>('season', ref => ref.where('current', '==', true)).valueChanges().pipe(
     map(seasons => {
       if (seasons.length === 0) {
-        throwError('No current season available');
+        throw new Error('No current season available');
       } else if (seasons.length > 1) {
-        throwError(`Should only return one season.  Returned ${seasons.length}`);
+        throw new Error(`Should only return one season.  Returned ${seasons.length}`);
       }
       return seasons[0];
     }),

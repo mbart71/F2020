@@ -43,6 +43,7 @@
     "@angular/router": "^9.0.2",
     "@angular/service-worker": "^9.0.2",
     "@fortawesome/fontawesome-pro": "^5.12.1",
+    "@ngneat/until-destroy": "^7.1.1",
     "@ngrx/effects": "8.5.0",
     "@ngrx/entity": "8.5.0",
     "@ngrx/router-store": "8.5.0",

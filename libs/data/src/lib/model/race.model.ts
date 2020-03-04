@@ -1,16 +1,19 @@
 import { DateTime } from 'luxon';
 import { CoordinateModel } from './coordinate.model';
-import { IDriver } from './driver.model';
 
 export type State = 'waiting' | 'opened' | 'closed' | 'completed';
 
-export interface IRace {
-  state: State;
+export interface IRaceBasis {
+  readonly round: number;
   readonly name: string;
-  readonly open: DateTime;
-  readonly close: DateTime;
   readonly location: CoordinateModel;
   readonly url: string;
+}
+
+export interface IRace extends IRaceBasis {
+  state: State;
+  readonly open: DateTime;
+  readonly close: DateTime;
   drivers?: string[];
   selectedDriver: string;
 }

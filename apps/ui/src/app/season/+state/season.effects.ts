@@ -12,7 +12,7 @@ export class SeasonEffects {
       ofType(SeasonActions.loadSeason),
       concatMap(action => this.service.current$.pipe(
         map(season => SeasonActions.loadSeasonSuccess({season})),
-        catchError(error => of(SeasonActions.loadSeasonFailure({ error }))),
+        catchError(error => of(SeasonActions.loadSeasonFailure({ error: error['message'] ?? error }))),
       )),
     ),
   );

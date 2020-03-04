@@ -1,4 +1,5 @@
 import { ErgastConstructor } from './constructor.model';
+import { ErgastRace } from './race.model';
 
 export interface ErgastDriver {
   readonly driverId: string;
@@ -18,11 +19,13 @@ export interface ErgastDriverStanding {
   Constructor: ErgastConstructor;
 }
 
-export interface ErgastDriverResult {
-  Driver: ErgastDriver;
-  Constructor: ErgastConstructor,
-  points: number;
-  position: number;
-  grid: number;
-  status: string;
+export interface ErgastDriverResult extends ErgastRace {
+  Results: [{
+    Driver: ErgastDriver;
+    Constructor: ErgastConstructor,
+    points: string;
+    position: string;
+    grid: string;
+    status: string;
+  }]
 }
