@@ -12,7 +12,7 @@ service cloud.firestore {
     }
     match /player/{player} {
       allow read: if request.auth.uid == player || getUserData().role.hasAny(['editor', 'admin']); 
-      allow update, write: if request.auth.uid == player && notUpdating('role') || getUserData().role.hasAny(['editor', 'admin']); 
+      allow update, write: if request.auth.uid == player && notUpdating('role', 'uid') || getUserData().role.hasAny(['editor', 'admin']); 
       allow create, delete: if getUserData().role.hasAny(['editor', 'admin']);
     }  
     function getUserData() {
