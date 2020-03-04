@@ -40,3 +40,6 @@ Thumbs.db
 
 # Firebase
 .firebase
+
+#Enviroments
+apps/builder/src/environments/*
