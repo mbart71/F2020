@@ -29,3 +29,14 @@ export interface ErgastDriverResult extends ErgastRace {
     status: string;
   }]
 }
+
+export interface ErgastDriverQualifying extends ErgastRace {
+  QualifyingResults: [{
+    Driver: ErgastDriver;
+    Constructor: ErgastConstructor,
+    position: string;
+    Q1: string;
+    Q2: string;
+    Q3: string;
+  }]
+}

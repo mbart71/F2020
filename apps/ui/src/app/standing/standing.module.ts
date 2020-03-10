@@ -15,18 +15,27 @@ import { StandingActions } from './+state/standing.actions';
 import { SharedModule } from '../shared/shared.module';
 import { FlexModule } from '@angular/flex-layout';
 import { StandingListItemComponent } from './component/standing-list/standing-list-item/standing-list-item.component';
+import { DriverModule } from '../driver';
+import { NumberCardComponent } from './component/standing-driver/number-card/number-card.component';
+import { DriverResultComponent } from './component/standing-driver/driver-result/driver-result.component';
+import { DriverQualifyingComponent } from './component/standing-driver/driver-qualifying/driver-qualifying.component';
+import { QualifyingTimesComponent } from './component/standing-driver/driver-qualifying/qualifying-times/qualifying-times.component';
 
 @NgModule({
   declarations: [
     StandingListComponent,
     StandingDriverComponent,
     StandingListItemComponent,
+    NumberCardComponent,
+    DriverResultComponent,
+    DriverQualifyingComponent,
+    QualifyingTimesComponent,
   ],
   imports: [
     CommonModule,
     StoreModule.forFeature(
       fromStanding.STANDING_FEATURE_KEY,
-      fromStanding.reducer,
+      fromStanding.reducer
     ),
     EffectsModule.forFeature([StandingEffects]),
     MaterialModule,
@@ -34,6 +43,7 @@ import { StandingListItemComponent } from './component/standing-list/standing-li
     SeasonModule,
     SharedModule,
     FlexModule,
+    DriverModule
   ],
   providers: [StandingFacade, StandingService],
 })

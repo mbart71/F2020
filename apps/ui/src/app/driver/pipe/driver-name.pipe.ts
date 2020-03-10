@@ -1,18 +1,22 @@
-import { Pipe, PipeTransform } from '@angular/core';
+import { ChangeDetectorRef, Pipe, PipeTransform } from '@angular/core';
 import { DriverFacade } from '../+state/driver.facade';
 import { IDriver } from '@f2020/data';
 
 @Pipe({
   name: 'driverName',
-  pure: false
+  pure: false,
 })
 export class DriverNamePipe implements PipeTransform {
 
   private previousCode: string;
   private name: string;
   private drivers: IDriver[];
-  constructor(facade: DriverFacade) {
-    facade.allDriver$.subscribe(drivers => this.drivers = drivers);
+
+  constructor(facade: DriverFacade, changeDetectorRef: ChangeDetectorRef) {
+    facade.allDriver$.subscribe(drivers => {
+      this.drivers = drivers;
+      changeDetectorRef.markForCheck();
+    });
   }
 
   transform(driverId: string, ...args: unknown[]): unknown {

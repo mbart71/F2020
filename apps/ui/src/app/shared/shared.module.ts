@@ -6,6 +6,8 @@ import { FlexLayoutModule } from '@angular/flex-layout';
 import { PlayerModule } from '../player/player.module';
 import { MaterialModule } from '../material.module';
 import { SidenavButtonComponent } from './component/sidenav-button/sidenav-button.component';
+import { PageComponent } from './component/page/page.component';
+import { CardPageComponent } from './component/card-page/card-page.component';
 
 const exportComponents = [
   LoginComponent,
@@ -18,11 +20,14 @@ const exportComponents = [
     exportComponents,
     LoadingComponent,
     SidenavButtonComponent,
+    PageComponent,
+    CardPageComponent,
   ],
   exports: [
     exportComponents,
     MaterialModule,
     SidenavButtonComponent,
+    CardPageComponent
   ],
   imports: [
     CommonModule,

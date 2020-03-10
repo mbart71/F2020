@@ -16,7 +16,10 @@ import { DriverNamePipe } from './pipe/driver-name.pipe';
     StoreModule.forFeature(fromDriver.DRIVER_FEATURE_KEY, fromDriver.reducer),
     EffectsModule.forFeature([DriverEffects]),
     HttpClientModule,
-    AngularFireModule,
+    AngularFireModule
+  ],
+  exports: [
+    DriverNamePipe
   ],
   providers: [DriverFacade]
 })

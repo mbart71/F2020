@@ -46,3 +46,12 @@ export interface IDriverRaceResult {
   grid: number;
   status: string;
 }
+
+export interface IDriverQualifying {
+  race: IRaceBasis;
+  driver: IDriver;
+  position: number;
+  q1: string;
+  q2: string;
+  q3: string;
+}
