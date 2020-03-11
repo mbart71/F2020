@@ -3,7 +3,7 @@ import { RacesComponent } from './component/races/races.component';
 
 const routes: Routes = [
   {
-    path: '',
+    path: 'race',
     component: RacesComponent
   }
 ];

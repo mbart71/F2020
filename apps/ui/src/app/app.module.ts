@@ -19,6 +19,7 @@ import { AngularFireModule } from '@angular/fire';
 import { DriverModule } from './driver/driver.module';
 import { SeasonModule } from './season/season.module';
 import { FirebaseModule } from './firebase';
+import { RaceModule } from './race/race.module';
 
 @NgModule({
   declarations: [AppComponent],
@@ -43,6 +44,7 @@ import { FirebaseModule } from './firebase';
     EffectsModule.forRoot([]),
     AppRoutingModule,
     SharedModule,
+    RaceModule,
     StoreDevtoolsModule.instrument({ maxAge: 25, logOnly: environment.production }),
   ],
   providers: [

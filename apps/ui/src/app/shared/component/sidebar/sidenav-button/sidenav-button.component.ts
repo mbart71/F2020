@@ -4,8 +4,9 @@ import { ChangeDetectionStrategy, Component, Input, OnInit } from '@angular/core
   selector: 'f2020-sidenav-button',
   template: `
     <button mat-list-item>
-          <span fxLayout fxLayoutAlign="start center" >
-            <mat-icon [fontSet]="iconSet" [fontIcon]="icon"></mat-icon> <ng-content></ng-content>
+          <span fxLayout fxLayoutAlign="start center" fxLayoutGap="8px" >
+             <mat-icon [fontSet]="iconSet" [fontIcon]="icon" style="height: auto !important;"></mat-icon>  
+             <ng-content></ng-content>
           </span>
     </button>`,
   styleUrls: ['./sidenav-button.component.scss'],
