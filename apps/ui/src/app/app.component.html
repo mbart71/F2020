@@ -4,15 +4,12 @@
     <!-- This fills the remaining space of the current row -->
     <span fxFlex></span>
     <button mat-icon-button>
-      <mat-icon aria-hidden="false" aria-label="Åbn sidemenu" (click)="sidenav.toggle()">menu</mat-icon>
+      <mat-icon aria-hidden="false" aria-label="Åbn menu" (click)="sidenav.toggle()">menu</mat-icon>
     </button>
   </mat-toolbar>
   <mat-sidenav-container fxFlex fxLayout="column">
     <mat-sidenav #sidenav mode="over" position="end">
-      <mat-action-list style="padding: 1rem 1.5rem 0 1.5rem">
-        <f2020-sidenav-button icon="fa-trophy" routerLink="standings" (click)="sidenav.close()">Stilling</f2020-sidenav-button>
-        <button mat-list-item (click)="signOut()" ><mat-icon fontSet="fa" fontIcon="fa-sign-out-alt"></mat-icon> Log ud</button>
-      </mat-action-list>
+      <f2020-sidebar (close)="sidenav.close()"></f2020-sidebar>
     </mat-sidenav>
     <mat-sidenav-content fxFlex fxLayout="column">
       <router-outlet></router-outlet>

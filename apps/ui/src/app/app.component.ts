@@ -34,9 +34,4 @@ export class AppComponent implements OnInit {
       this.driverFacade.dispatch(DriverActions.loadDrivers());
     });
   }
-
-  signOut() {
-    this.playerFacade.dispatch(PlayerActions.logoutPlayer());
-  }
-
 }
