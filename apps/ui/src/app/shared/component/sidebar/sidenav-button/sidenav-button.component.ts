@@ -1,16 +1,16 @@
-import { ChangeDetectionStrategy, Component, Input, OnInit } from '@angular/core';
+import { ChangeDetectionStrategy, Component, Input } from '@angular/core';
 
 @Component({
   selector: 'f2020-sidenav-button',
   template: `
     <button mat-list-item>
-          <span fxLayout fxLayoutAlign="start center" fxLayoutGap="8px" >
+          <span fxLayout fxLayoutAlign="start center" fxLayoutGap="8px">
              <mat-icon [fontSet]="iconSet" [fontIcon]="icon" style="height: auto !important;"></mat-icon>  
              <ng-content></ng-content>
           </span>
     </button>`,
   styleUrls: ['./sidenav-button.component.scss'],
-  changeDetection: ChangeDetectionStrategy.OnPush
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class SidenavButtonComponent {
 
