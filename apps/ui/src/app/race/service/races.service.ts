@@ -1,10 +1,11 @@
 import { Injectable } from '@angular/core';
 import { AngularFirestore } from '@angular/fire/firestore';
 import { Observable } from 'rxjs';
-import { IRace } from '@f2020/data';
+import { firestoreUtils, IRace } from '@f2020/data';
+import { map } from 'rxjs/operators';
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class RacesService {
 
@@ -13,6 +14,8 @@ export class RacesService {
   }
 
   getRaces(seasonId: string): Observable<IRace[]> {
-    return this.afs.collection<IRace>(`season/${seasonId}/races`).valueChanges();
+    return this.afs.collection<IRace>(`season/${seasonId}/races`).valueChanges().pipe(
+      map(firestoreUtils.convertTimestamps),
+    );
   }
 }

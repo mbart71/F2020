@@ -20,12 +20,13 @@ import { DriverModule } from './driver/driver.module';
 import { SeasonModule } from './season/season.module';
 import { FirebaseModule } from './firebase';
 import { RaceModule } from './race/race.module';
+import { DateTime } from 'luxon';
 
 @NgModule({
   declarations: [AppComponent],
   imports: [
-    BrowserModule, 
-    BrowserAnimationsModule, 
+    BrowserModule,
+    BrowserAnimationsModule,
     FlexLayoutModule,
     ServiceWorkerModule.register('ngsw-worker.js', { enabled: environment.production }),
     MaterialModule,
@@ -38,8 +39,8 @@ import { RaceModule } from './race/race.module';
       metaReducers,
       runtimeChecks: {
         strictStateImmutability: true,
-        strictActionImmutability: true
-      }
+        strictActionImmutability: true,
+      },
     }),
     EffectsModule.forRoot([]),
     AppRoutingModule,
@@ -50,13 +51,14 @@ import { RaceModule } from './race/race.module';
   providers: [
     {
       provide: LOCALE_ID,
-      useValue: 'da'
+      useValue: 'da',
     },
   ],
   bootstrap: [AppComponent],
 })
 export class AppModule {
   constructor() {
+    DateTime.local().setLocale('da');
     registerLocaleData(localeDa);
   }
 }

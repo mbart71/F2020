@@ -19,8 +19,8 @@ export interface RacesPartialState {
 }
 
 export const racesAdapter: EntityAdapter<IRace> = createEntityAdapter<IRace>({
-  sortComparer: (a, b) => a.open.toMillis() - a.open.toMillis(),
-  selectId: a => a.location.country,
+  sortComparer: (a, b) => a.open.toMillis() - b.open.toMillis(),
+  selectId: a => a.location.country.toLowerCase(),
 });
 
 export const initialState: State = racesAdapter.getInitialState(<State>{

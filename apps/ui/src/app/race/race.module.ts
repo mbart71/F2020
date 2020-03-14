@@ -8,6 +8,9 @@ import { MaterialModule } from '../material.module';
 import * as fromRaces from './+state/races.reducer';
 import { RacesEffects } from './+state/races.effects';
 import { RacesFacade } from './+state/races.facade';
+import { SharedModule } from '../shared/shared.module';
+import { RaceComponent } from './component/race/race.component';
+import { RaceStatusComponent } from './component/races/race-status/race-status.component';
 
 @NgModule({
   imports: [
@@ -16,8 +19,10 @@ import { RacesFacade } from './+state/races.facade';
     EffectsModule.forFeature([RacesEffects]),
     MaterialModule,
     RaceRoutingModule,
+    SharedModule,
   ],
   providers: [RacesFacade],
-  declarations: [RacesComponent]
+  declarations: [RacesComponent, RaceComponent, RaceStatusComponent],
 })
-export class RaceModule {}
+export class RaceModule {
+}

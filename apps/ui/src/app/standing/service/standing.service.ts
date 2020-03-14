@@ -23,8 +23,8 @@ export class StandingService {
         return <IDriverResult>{
           results,
           retired: results.reduce((acc, result) => acc += (finished.test(result.status) ? 0 : 1), 0),
-          averageFinishPosition: results.reduce((acc, result) => acc += result.position, 0) / results.length,
-          averageGridPosition:  results.reduce((acc, result) => acc += result.grid, 0) / results.length,
+          averageFinishPosition: results.reduce((acc, result) => acc + result.position, 0) / results.length,
+          averageGridPosition: results.reduce((acc, result) => acc + result.grid, 0) / results.length,
         };
       }),
     );
@@ -32,8 +32,8 @@ export class StandingService {
 
   getDriverQualify(seasonId: string | number, driverId: string): Observable<IDriverQualifying[]> {
     return this.service.get<ErgastDriverQualifying>(`${seasonId}/drivers/${driverId}/qualifying.json`, result => result.MRData.RaceTable.Races).pipe(
-      map(qualifings => qualifings.map(mapper.driverQualifying))
-    )
+      map(qualifings => qualifings.map(mapper.driverQualifying)),
+    );
   }
 
 }

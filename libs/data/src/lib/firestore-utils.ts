@@ -1,9 +1,9 @@
 import { DateTime } from 'luxon';
-import { Timestamp} from '@google-cloud/firestore'
+import { firestore } from 'firebase';
 
 export const regexISODate = /^(\d{4})-(\d{2})-(\d{2})T(\d{2}):(\d{2}):(\d{2}(?:\.{0,1}\d*))(?:Z|(\+|-)([\d|:]*))?$/;
 
-export const firebaseUtils = {
+export const firestoreUtils = {
   convertJSONDate(value: any): any {
     const reMsAjax = /^\/Date\((d|-|.*)\)[\/|\\]$/;
     if (typeof value === 'string') {
@@ -23,21 +23,21 @@ export const firebaseUtils = {
   convertJSONDates(input: any): any {
     // Ignore things that aren't objects.
     if (!input || typeof input !== 'object') {
-      return this.convertJSONDate(input);
+      return firestoreUtils.convertJSONDate(input);
     }
     Object.keys(input).map(key => {
       const value = input[key];
       // Check for string properties which look like dates.
       if (typeof value === 'string') {
-        input[key] = this.convertJSONDate(value);
+        input[key] = firestoreUtils.convertJSONDate(value);
       } else if (typeof value === 'object') {
-        this.convertJSONDates(value);
+        firestoreUtils.convertJSONDates(value);
       }
     });
     return input;
   },
-  convertTimestamp(input: Timestamp): DateTime | any {
-    if (input instanceof Timestamp) {
+  convertTimestamp(input: firestore.Timestamp): DateTime | any {
+    if (input instanceof firestore.Timestamp) {
       return DateTime.fromJSDate(input.toDate());
     }
     return input;
@@ -48,17 +48,17 @@ export const firebaseUtils = {
     }
     Object.keys(input).map(key => {
       const value = input[key];
-      if (value instanceof Timestamp) {
-        input[key] = this.convertTimestamp(value);
+      if (value instanceof firestore.Timestamp) {
+        input[key] = firestoreUtils.convertTimestamp(value);
       } else if (typeof value === 'object') {
-        this.convertTimestamps(value);
+        firestoreUtils.convertTimestamps(value);
       }
     });
     return input;
   },
-  convertDateTime(input: any): any | Timestamp {
+  convertDateTime(input: any): any | firestore.Timestamp {
     if (input instanceof DateTime) {
-      return Timestamp.fromMillis(input.toMillis());
+      return firestore.Timestamp.fromMillis(input.toMillis());
     }
     return input;
   },
@@ -69,9 +69,9 @@ export const firebaseUtils = {
     Object.keys(input).map(key => {
       const value = input[key];
       if (value instanceof DateTime) {
-        input[key] = this.convertDateTime(value);
-      } else if (typeof value === 'object' && value ) {
-        this.convertDateTimes(value);
+        input[key] = firestoreUtils.convertDateTime(value);
+      } else if (typeof value === 'object' && value) {
+        firestoreUtils.convertDateTimes(value);
       }
     });
     return input;

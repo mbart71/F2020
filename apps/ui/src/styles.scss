@@ -24,7 +24,7 @@ body {
 mat-sidenav-content > router-outlet + * {
   flex: 1 1 auto;
   display: flex;
-  flex-direction: column;
+  flex-direction: column !important;
 }
 
 .w-100 {

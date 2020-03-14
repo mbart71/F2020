@@ -10,6 +10,7 @@ import { CardPageComponent } from './component/card-page/card-page.component';
 import { SidebarComponent } from './component/sidebar/sidebar.component';
 import { RouterModule } from '@angular/router';
 import { SidenavButtonComponent } from './component/sidebar/sidenav-button/sidenav-button.component';
+import { RelativeToNowPipe } from './pipe/relative-to-now.pipe';
 
 const exportComponents = [
   LoginComponent,
@@ -25,12 +26,14 @@ const exportComponents = [
     PageComponent,
     CardPageComponent,
     SidebarComponent,
+    RelativeToNowPipe,
   ],
   exports: [
     exportComponents,
     MaterialModule,
     CardPageComponent,
     SidebarComponent,
+    RelativeToNowPipe,
   ],
   imports: [
     CommonModule,

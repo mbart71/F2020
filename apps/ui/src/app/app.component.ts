@@ -6,6 +6,8 @@ import { DriverFacade } from './driver/+state/driver.facade';
 import { DriverActions } from './driver/+state/driver.actions';
 import { SeasonFacade } from './season/+state/season.facade';
 import { SeasonActions } from './season/+state/season.actions';
+import { RacesFacade } from './race/+state/races.facade';
+import { RacesActions } from './race/+state/races.actions';
 
 @Component({
   selector: 'f2020-root',
@@ -17,12 +19,14 @@ export class AppComponent implements OnInit {
     private seasonFacade: SeasonFacade,
     private playerFacade: PlayerFacade,
     private driverFacade: DriverFacade,
+    private racesFacade: RacesFacade,
     private router: Router) {
 
   }
 
   ngOnInit() {
     this.playerFacade.dispatch(PlayerActions.loadPlayer());
+    this.racesFacade.dispatch(RacesActions.loadRaces());
     this.playerFacade.unauthorized$.pipe(
       filter(unauthorized => unauthorized),
     ).subscribe(() => this.router.navigate(['login']));
