@@ -13,9 +13,15 @@ const loadRacesFailure = createAction(
   props<{ error: any }>(),
 );
 
+const selectRace = createAction(
+  '[Races] Race page',
+  props<{ country: string }>(),
+);
+
 export const RacesActions = {
   loadRaces,
   loadRacesSuccess,
   loadRacesFailure,
+  selectRace,
 };
 

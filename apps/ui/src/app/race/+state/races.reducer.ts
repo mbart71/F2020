@@ -42,6 +42,7 @@ const racesReducer = createReducer(
     racesAdapter.addAll(races, { ...state, loaded: true }),
   ),
   on(RacesActions.loadRacesFailure, (state, { error }) => ({ ...state, error })),
+  on(RacesActions.selectRace, (state, { country }) => ({ ...state, selectedId: country })),
 );
 
 export function reducer(state: State | undefined, action: Action) {

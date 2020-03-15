@@ -11,6 +11,7 @@ import { RacesFacade } from './+state/races.facade';
 import { SharedModule } from '../shared/shared.module';
 import { RaceComponent } from './component/race/race.component';
 import { RaceStatusComponent } from './component/races/race-status/race-status.component';
+import { GoogleMapsModule } from '@angular/google-maps';
 
 @NgModule({
   imports: [
@@ -20,6 +21,7 @@ import { RaceStatusComponent } from './component/races/race-status/race-status.c
     MaterialModule,
     RaceRoutingModule,
     SharedModule,
+    GoogleMapsModule,
   ],
   providers: [RacesFacade],
   declarations: [RacesComponent, RaceComponent, RaceStatusComponent],
