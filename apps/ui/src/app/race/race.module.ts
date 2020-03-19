@@ -12,19 +12,31 @@ import { SharedModule } from '../shared/shared.module';
 import { RaceComponent } from './component/race/race.component';
 import { RaceStatusComponent } from './component/races/race-status/race-status.component';
 import { GoogleMapsModule } from '@angular/google-maps';
+import { BidComponent } from './bid/bid.component';
+import { FlexLayoutModule } from '@angular/flex-layout';
+import { ReactiveFormsModule } from '@angular/forms';
+import { ControlModule } from '@f2020/control';
 
 @NgModule({
   imports: [
     CommonModule,
     StoreModule.forFeature(fromRaces.RACES_FEATURE_KEY, fromRaces.reducer),
     EffectsModule.forFeature([RacesEffects]),
+    FlexLayoutModule,
+    ReactiveFormsModule,
     MaterialModule,
     RaceRoutingModule,
     SharedModule,
     GoogleMapsModule,
+    ControlModule,
   ],
   providers: [RacesFacade],
-  declarations: [RacesComponent, RaceComponent, RaceStatusComponent],
+  declarations: [
+    RacesComponent,
+    RaceComponent,
+    RaceStatusComponent,
+    BidComponent,
+  ],
 })
 export class RaceModule {
 }

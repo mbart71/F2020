@@ -2,12 +2,11 @@ import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { PlayerActions, PlayerFacade } from './player';
 import { filter, first } from 'rxjs/operators';
-import { DriverFacade } from './driver/+state/driver.facade';
-import { DriverActions } from './driver/+state/driver.actions';
 import { SeasonFacade } from './season/+state/season.facade';
 import { SeasonActions } from './season/+state/season.actions';
 import { RacesFacade } from './race/+state/races.facade';
 import { RacesActions } from './race/+state/races.actions';
+import { DriversActions, DriversFacade } from '@f2020/driver';
 
 @Component({
   selector: 'f2020-root',
@@ -18,7 +17,7 @@ export class AppComponent implements OnInit {
   constructor(
     private seasonFacade: SeasonFacade,
     private playerFacade: PlayerFacade,
-    private driverFacade: DriverFacade,
+    private driverFacade: DriversFacade,
     private racesFacade: RacesFacade,
     private router: Router) {
 
@@ -35,7 +34,7 @@ export class AppComponent implements OnInit {
       first(),
     ).subscribe(() => {
       this.seasonFacade.dispatch(SeasonActions.loadSeason());
-      this.driverFacade.dispatch(DriverActions.loadDrivers());
+      this.driverFacade.dispatch(DriversActions.loadDrivers());
     });
   }
 }

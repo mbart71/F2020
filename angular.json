@@ -119,10 +119,7 @@
               "apps/ui/tsconfig.app.json",
               "apps/ui/tsconfig.spec.json"
             ],
-            "exclude": [
-              "**/node_modules/**",
-              "!apps/ui/**"
-            ]
+            "exclude": ["**/node_modules/**", "!apps/ui/**"]
           }
         },
         "test": {
@@ -160,13 +157,8 @@
         "lint": {
           "builder": "@angular-devkit/build-angular:tslint",
           "options": {
-            "tsConfig": [
-              "apps/ui-e2e/tsconfig.e2e.json"
-            ],
-            "exclude": [
-              "**/node_modules/**",
-              "!apps/ui-e2e/**"
-            ]
+            "tsConfig": ["apps/ui-e2e/tsconfig.e2e.json"],
+            "exclude": ["**/node_modules/**", "!apps/ui-e2e/**"]
           }
         }
       }
@@ -184,9 +176,7 @@
             "outputPath": "dist/apps/builder",
             "main": "apps/builder/src/main.ts",
             "tsConfig": "apps/builder/tsconfig.app.json",
-            "assets": [
-              "apps/builder/src/assets"
-            ]
+            "assets": ["apps/builder/src/assets"]
           },
           "configurations": {
             "production": {
@@ -215,10 +205,7 @@
               "apps/builder/tsconfig.app.json",
               "apps/builder/tsconfig.spec.json"
             ],
-            "exclude": [
-              "**/node_modules/**",
-              "!apps/builder/**"
-            ]
+            "exclude": ["**/node_modules/**", "!apps/builder/**"]
           }
         },
         "test": {
@@ -243,10 +230,7 @@
               "libs/data/tsconfig.lib.json",
               "libs/data/tsconfig.spec.json"
             ],
-            "exclude": [
-              "**/node_modules/**",
-              "!libs/data/**"
-            ]
+            "exclude": ["**/node_modules/**", "!libs/data/**"]
           }
         },
         "test": {
@@ -271,10 +255,7 @@
               "libs/ergast/tsconfig.lib.json",
               "libs/ergast/tsconfig.spec.json"
             ],
-            "exclude": [
-              "**/node_modules/**",
-              "!libs/ergast/**"
-            ]
+            "exclude": ["**/node_modules/**", "!libs/ergast/**"]
           }
         },
         "test": {
@@ -285,6 +266,66 @@
           }
         }
       }
+    },
+    "control": {
+      "projectType": "library",
+      "root": "libs/control",
+      "sourceRoot": "libs/control/src",
+      "prefix": "f2020",
+      "architect": {
+        "lint": {
+          "builder": "@angular-devkit/build-angular:tslint",
+          "options": {
+            "tsConfig": [
+              "libs/control/tsconfig.lib.json",
+              "libs/control/tsconfig.spec.json"
+            ],
+            "exclude": ["**/node_modules/**", "!libs/control/**"]
+          }
+        },
+        "test": {
+          "builder": "@nrwl/jest:jest",
+          "options": {
+            "jestConfig": "libs/control/jest.config.js",
+            "tsConfig": "libs/control/tsconfig.spec.json",
+            "passWithNoTests": true,
+            "setupFile": "libs/control/src/test-setup.ts"
+          }
+        }
+      },
+      "schematics": {
+        "@nrwl/angular:component": {
+          "styleext": "scss"
+        }
+      }
+    },
+    "driver": {
+      "projectType": "library",
+      "root": "libs/driver",
+      "sourceRoot": "libs/driver/src",
+      "prefix": "f2020",
+      "architect": {
+        "lint": {
+          "builder": "@angular-devkit/build-angular:tslint",
+          "options": {
+            "tsConfig": [
+              "libs/driver/tsconfig.lib.json",
+              "libs/driver/tsconfig.spec.json"
+            ],
+            "exclude": ["**/node_modules/**", "!libs/driver/**"]
+          }
+        },
+        "test": {
+          "builder": "@nrwl/jest:jest",
+          "options": {
+            "jestConfig": "libs/driver/jest.config.js",
+            "tsConfig": "libs/driver/tsconfig.spec.json",
+            "passWithNoTests": true,
+            "setupFile": "libs/driver/src/test-setup.ts"
+          }
+        }
+      },
+      "schematics": {}
     }
   },
   "cli": {

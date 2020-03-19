@@ -5,16 +5,16 @@ const loadDrivers = createAction('[Driver] Load Drivers');
 
 const loadDriversSuccess = createAction(
   '[Driver] Load Drivers Success',
-  props<{ drivers: IDriver[] }>()
+  props<{ drivers: IDriver[] }>(),
 );
 
 const loadDriversFailure = createAction(
   '[Driver] Load Drivers Failure',
-  props<{ error: any }>()
+  props<{ error: any }>(),
 );
 
-export const DriverActions = {
+export const DriversActions = {
   loadDrivers,
   loadDriversSuccess,
-  loadDriversFailure ,
-}
+  loadDriversFailure,
+};

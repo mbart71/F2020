@@ -1,0 +1,10 @@
+<div [formGroup]="fg" fxLayout="column" fxLayout.gt-xs="row">
+  <ng-container formArrayName="grid" *ngFor="let _ of grid.controls; index as i">
+    <f2020-select-driver
+        fxFlex="100"
+        fxFlex.gt-xs="50"
+        [driverIds]="race?.drivers"
+        [formControlName]="i">
+    </f2020-select-driver>
+  </ng-container>
+</div>

@@ -26,6 +26,12 @@
     },
     "ergast": {
       "tags": []
+    },
+    "control": {
+      "tags": []
+    },
+    "driver": {
+      "tags": []
     }
   }
 }

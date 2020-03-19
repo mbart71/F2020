@@ -10,12 +10,14 @@ import { IRace } from '@f2020/data';
 @UntilDestroy()
 @Component({
   selector: 'f2020-race',
+  styleUrls: ['./race.component.scss'],
   templateUrl: './race.component.html',
 })
 export class RaceComponent implements OnInit {
 
   center$: Observable<google.maps.LatLng>;
   race$: Observable<IRace>;
+
 
   options: google.maps.MapOptions = {
     draggable: true,
@@ -25,7 +27,7 @@ export class RaceComponent implements OnInit {
     streetViewControl: true,
     mapTypeControl: false,
     zoom: 15,
-    mapTypeId: google.maps.MapTypeId.ROADMAP,
+    mapTypeId: 'roadmap',
   };
 
   constructor(private facade: RacesFacade, private route: ActivatedRoute) {
