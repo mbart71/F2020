@@ -1,8 +1,8 @@
-<div [formGroup]="fg" fxLayout="column" fxLayout.gt-xs="row">
+<div [formGroup]="fg" fxLayout="column" fxLayout.gt-xs="row wrap" fxLayoutAlign.gt-xs="space-between">
   <ng-container formArrayName="drivers" *ngFor="let _ of drivers.controls; index as i">
     <f2020-select-driver
         fxFlex="100"
-        fxFlex.gt-xs="50"
+        fxFlex.gt-xs="48"
         [driverIds]="race?.drivers"
         [formControlName]="i">
     </f2020-select-driver>
