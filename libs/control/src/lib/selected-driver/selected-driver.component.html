@@ -1,0 +1,16 @@
+<div fxLayout="column" fxLayout.gt-xs="row" [formGroup]="fg">
+  <mat-form-field>
+    <mat-label>Starts position</mat-label>
+    <mat-select formControlName="grid">
+      <mat-option [value]="null">Vælg</mat-option>
+      <mat-option *ngFor="let no of possiblePositions" [value]="no" >{{no}}</mat-option>
+    </mat-select>
+  </mat-form-field>
+  <mat-form-field>
+    <mat-label>Slut position</mat-label>
+    <mat-select formControlName="finish">
+      <mat-option [value]="null">Vælg</mat-option>
+      <mat-option *ngFor="let no of possiblePositions" [value]="no" >{{no}}</mat-option>
+    </mat-select>
+  </mat-form-field>
+</div>

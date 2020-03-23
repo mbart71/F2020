@@ -1,0 +1,60 @@
+
+  <mat-toolbar color="primary">
+    <span *ngIf="(race$ | async) as race; else loading">Bud - {{race.name}}</span>
+    <ng-template #loading><span><mat-spinner [diameter]="40" color="accent"></mat-spinner></span></ng-template>
+  </mat-toolbar>
+<div [formGroup]="fg">
+  <mat-accordion [multi]="true">
+    <mat-expansion-panel [expanded]="true" #qualifyPanel>
+      <mat-expansion-panel-header>
+        <mat-panel-title>Kvalifikation</mat-panel-title>
+        <mat-panel-description *ngIf="!qualifyPanel.expanded">
+          <f2020-driver-codes [driverIds]="fg.get('qualify').value"></f2020-driver-codes>
+        </mat-panel-description>
+      </mat-expansion-panel-header>
+      <div>
+        <f2020-select-drivers formControlName="qualify" [noOfDrivers]="6" [race]="race$ | async"></f2020-select-drivers>
+      </div>
+    </mat-expansion-panel>
+    <mat-expansion-panel [expanded]="true" >
+      <mat-expansion-panel-header >
+        <mat-panel-title>Hurtigste pilot</mat-panel-title>
+      </mat-expansion-panel-header>
+      <div>
+        <f2020-select-drivers formControlName="fastestDriver" [noOfDrivers]="1" [race]="race$ | async"></f2020-select-drivers>
+      </div>
+    </mat-expansion-panel>
+    <mat-expansion-panel [expanded]="true">
+      <mat-expansion-panel-header>
+        <mat-panel-title>Podium</mat-panel-title>
+      </mat-expansion-panel-header>
+      <div>
+        <f2020-select-drivers formControlName="podium" [noOfDrivers]="3" [race]="race$ | async"></f2020-select-drivers>
+      </div>
+    </mat-expansion-panel>
+    <mat-expansion-panel [expanded]="true">
+      <mat-expansion-panel-header>
+        <mat-panel-title>{{(race$ | async)?.selectedDriver | driverName }}</mat-panel-title>
+      </mat-expansion-panel-header>
+      <div *ngIf="race$ | async as race">
+        <f2020-selected-driver formControlName="selectedDriver" [race]="race"></f2020-selected-driver>
+      </div>
+    </mat-expansion-panel>
+    <mat-expansion-panel [expanded]="true">
+      <mat-expansion-panel-header>
+        <mat-panel-title>Først udgået</mat-panel-title>
+      </mat-expansion-panel-header>
+      <div>
+        <f2020-select-drivers formControlName="firstCrash" [noOfDrivers]="1" [race]="race$ | async"></f2020-select-drivers>
+      </div>
+    </mat-expansion-panel>
+    <mat-expansion-panel [expanded]="true">
+      <mat-expansion-panel-header>
+        <mat-panel-title>Pole position tid</mat-panel-title>
+      </mat-expansion-panel-header>
+      <div>
+        <f2020-pole-position-time formControlName="polePositionTime"></f2020-pole-position-time>
+      </div>
+    </mat-expansion-panel>
+  </mat-accordion>
+</div>

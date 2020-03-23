@@ -1,7 +1,8 @@
+import { firestoreUtils } from '@f2020/data';
+// import { firestoreUtils } from './converter/firestore-utils';
 import { getDrivers } from '@f2020/ergast';
 import { mapper } from '@f2020/data';
 import { firebaseApp } from './firebase';
-import { firebaseUtils } from './firebase-utils';
 
 export const buildDrivers = async (): Promise<number> => {
   const db = firebaseApp.datebase;
@@ -13,7 +14,7 @@ export const buildDrivers = async (): Promise<number> => {
   return db.runTransaction(transaction => {
     drivers
       .forEach(driver =>
-        transaction.set(driverCollection.doc(driver.driverId), firebaseUtils.convertTimestamps(driver)),
+        transaction.set(driverCollection.doc(driver.driverId), firestoreUtils.convertTimestamps(driver)),
       );
     return Promise.resolve(drivers.length);
   });

@@ -12,6 +12,7 @@ export interface ErgastDriver {
   readonly nationality: string;
 }
 
+
 export interface ErgastDriverStanding {
   wins: number;
   points: number;

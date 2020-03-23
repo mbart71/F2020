@@ -1,3 +1,4 @@
+import { DriverPipe } from './pipe/driver.pipe';
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { StoreModule } from '@ngrx/store';
@@ -9,6 +10,7 @@ import { AngularFireModule } from '@angular/fire';
 import { DriverNamePipe } from './pipe/driver-name.pipe';
 
 const pipes = [
+  DriverPipe,
   DriverNamePipe,
 ];
 

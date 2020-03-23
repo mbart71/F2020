@@ -1,3 +1,4 @@
+import { DriverModule } from '@f2020/driver';
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { StoreModule } from '@ngrx/store';
@@ -12,10 +13,11 @@ import { SharedModule } from '../shared/shared.module';
 import { RaceComponent } from './component/race/race.component';
 import { RaceStatusComponent } from './component/races/race-status/race-status.component';
 import { GoogleMapsModule } from '@angular/google-maps';
-import { BidComponent } from './bid/bid.component';
+import { BidComponent } from './component/bid/bid.component';
 import { FlexLayoutModule } from '@angular/flex-layout';
 import { ReactiveFormsModule } from '@angular/forms';
 import { ControlModule } from '@f2020/control';
+import { DriverCodesComponent } from './component/driver-codes/driver-codes.component';
 
 @NgModule({
   imports: [
@@ -29,6 +31,7 @@ import { ControlModule } from '@f2020/control';
     SharedModule,
     GoogleMapsModule,
     ControlModule,
+    DriverModule,
   ],
   providers: [RacesFacade],
   declarations: [
@@ -36,6 +39,7 @@ import { ControlModule } from '@f2020/control';
     RaceComponent,
     RaceStatusComponent,
     BidComponent,
+    DriverCodesComponent,
   ],
 })
 export class RaceModule {

@@ -1,4 +1,4 @@
-import { BidComponent } from './bid/bid.component';
+import { BidComponent } from './component/bid/bid.component';
 import { RouterModule, Routes } from '@angular/router';
 import { RacesComponent } from './component/races/races.component';
 import { RaceComponent } from './component/race/race.component';

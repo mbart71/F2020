@@ -4,6 +4,7 @@ import { IRace, IRaceBasis } from './race.model';
 export interface IDriver {
   readonly name: string;
   readonly driverId: string;
+  readonly code: string;
   readonly nationality: string;
   readonly permanentNumber: number
   readonly url: string;
@@ -12,13 +13,15 @@ export interface IDriver {
 export class DriverModel implements IDriver {
   readonly name: string;
   readonly driverId: string;
+  readonly code: string;
   readonly nationality: string;
   readonly permanentNumber: number;
   readonly url: string;
 
-  constructor({ name, driverId, nationality, permanentNumber, url }: IDriver) {
+  constructor({ name, driverId, code, nationality, permanentNumber, url }: IDriver) {
     this.name = name;
     this.driverId = driverId;
+    this.code = code;
     this.nationality = nationality;
     this.permanentNumber = permanentNumber;
     this.url = url;

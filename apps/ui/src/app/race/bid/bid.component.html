@@ -1,7 +1,0 @@
-<mat-toolbar color="primary">
-  <span *ngIf="(race$ | async) as race; else loading">Bud - {{race.name}}</span>
-  <ng-template #loading><span><mat-spinner [diameter]="40" color="accent"></mat-spinner></span></ng-template>
-</mat-toolbar>
-<div [formGroup]="fg">
-  <f2020-qualify formControlName="qualify" [race]="race$ | async"></f2020-qualify>
-</div>
