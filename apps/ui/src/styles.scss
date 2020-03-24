@@ -30,3 +30,9 @@ mat-sidenav-content > router-outlet + * {
 .w-100 {
   width: 100% !important;
 }
+
+button[mat-fab] {
+  position: fixed;
+  right: 16px;
+  bottom: 16px;
+}

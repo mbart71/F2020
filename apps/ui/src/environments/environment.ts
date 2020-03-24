@@ -13,6 +13,17 @@ export const environment = {
     messagingSenderId: "657968084413",
     appId: "1:657968084413:web:9a4fa397037ae453df4ed4",
     measurementId: "G-Q2XDV9KH10"
+  },
+  initialBid: {
+    qualify: ['hamilton', 'bottas', 'leclerc', 'vettel', 'max_verstappen', 'albon'],
+    fastestDriver: ['hamilton'],
+    podium: ['hamilton', 'bottas', 'leclerc'],
+    selectedDriver: {
+      grid: 10,
+      finish: 20
+    },
+    firstCrash: ['hamilton'],
+    polePositionTime: 72332
   }
 };
 
@@ -23,4 +34,5 @@ export const environment = {
  * This import should be commented out in production mode because it will have a negative impact
  * on performance if an error is thrown.
  */
-// import 'zone.js/dist/zone-error';  // Included with Angular CLI.
+import 'zone.js/dist/zone-error';  // Included with Angular CLI.
+

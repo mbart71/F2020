@@ -1,3 +1,4 @@
+import { environment } from './../../../../environments/environment';
 import { Component, OnInit } from '@angular/core';
 import { RacesFacade } from '../../+state/races.facade';
 import { Observable } from 'rxjs';
@@ -34,6 +35,7 @@ export class BidComponent implements OnInit {
       firstCrash: [null, Validators.required],
       polePositionTime: [null, Validators.required],
     });
+    this.fg.patchValue(environment.initialBid)
     this.race$ = this.facade.selectedRace$.pipe(
       filter(race => !!race),
       tap(_ => console.log(_)),
