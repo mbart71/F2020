@@ -1,10 +1,8 @@
 import { Component, forwardRef, Input, OnInit } from '@angular/core';
-import { FormArray, FormBuilder, FormGroup, NG_VALUE_ACCESSOR, Validators, NG_VALIDATORS, AbstractControl, ValidationErrors } from '@angular/forms';
+import { AbstractControl, FormArray, FormBuilder, FormGroup, NG_VALIDATORS, NG_VALUE_ACCESSOR, ValidationErrors, Validators } from '@angular/forms';
 import { IRace } from '@f2020/data';
-import { UntilDestroy, untilDestroyed } from '@ngneat/until-destroy';
 import { AbstractControlComponent } from '../abstract-control-component';
 
-@UntilDestroy()
 @Component({
   selector: 'f2020-select-drivers',
   templateUrl: './select-drivers.component.html',
@@ -39,7 +37,7 @@ export class SelectDriversComponent extends AbstractControlComponent implements 
         drivers: this.drivers,
       });
     this.drivers.valueChanges.pipe(
-      untilDestroyed(this),
+      this.takeUntilDestroyed(),
     ).subscribe(value => this.propagateChange(value));
   }
 
@@ -60,7 +58,7 @@ export class SelectDriversComponent extends AbstractControlComponent implements 
   }
 
   validate(control: AbstractControl): ValidationErrors | null {
-    return this.drivers && (this.drivers.value as Array<string>).every(Boolean) ? null : { required: true };
+    return (control?.value ?? [] as Array<string>).every(driverId => !!driverId) ? null : { required: true };
   }
 
 

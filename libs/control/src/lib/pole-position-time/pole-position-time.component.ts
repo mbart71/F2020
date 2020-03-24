@@ -1,11 +1,9 @@
-import { UntilDestroy, untilDestroyed } from '@ngneat/until-destroy';
-import { FormGroup, FormBuilder, Validators, NG_VALUE_ACCESSOR, NG_VALIDATORS, ValidationErrors } from '@angular/forms';
-import { Component, OnInit, forwardRef } from '@angular/core';
-import { AbstractControlComponent } from '../abstract-control-component';
-import { debounceTime, map } from 'rxjs/operators';
+import { Component, forwardRef, OnInit } from '@angular/core';
+import { FormBuilder, FormGroup, NG_VALIDATORS, NG_VALUE_ACCESSOR, ValidationErrors, Validators } from '@angular/forms';
 import { mapper } from '@f2020/data';
+import { debounceTime, map } from 'rxjs/operators';
+import { AbstractControlComponent } from '../abstract-control-component';
 
-@UntilDestroy()
 @Component({
   selector: 'f2020-pole-position-time',
   templateUrl: './pole-position-time.component.html',
@@ -38,7 +36,7 @@ export class PolePositionTimeComponent extends AbstractControlComponent implemen
       milliseconds: [null, [Validators.required, Validators.min(0), Validators.max(999)]],
     });
     this.fg.valueChanges.pipe(
-      untilDestroyed(this),
+      this.takeUntilDestroyed(),
       debounceTime(100),
       map(value => mapper.polePostion.join(value))
     ).subscribe(millis => this.propagateChange(millis));
