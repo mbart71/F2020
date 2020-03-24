@@ -3,7 +3,7 @@ import { Component, OnInit } from '@angular/core';
 import { RacesFacade } from '../../+state/races.facade';
 import { Observable } from 'rxjs';
 import { IRace } from '@f2020/data';
-import { filter, pluck, tap, share } from 'rxjs/operators';
+import { filter, pluck, tap, share, debounceTime } from 'rxjs/operators';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Params } from '@angular/router';
 import { UntilDestroy, untilDestroyed } from '@ngneat/until-destroy';
@@ -45,7 +45,15 @@ export class BidComponent implements OnInit {
       pluck<Params, string>('country'),
       untilDestroyed(this),
     ).subscribe(country => this.facade.dispatch(RacesActions.selectRace({ country })));
-    this.fg.valueChanges.subscribe(console.log);
+    this.fg.valueChanges.pipe(
+      debounceTime(400),
+      untilDestroyed(this),
+    ).subscribe(value => {
+      Object.keys(this.fg.controls)
+      .filter(key => this.fg.get(key).errors)
+      .forEach(key => console.log(key, this.fg.get(key).errors));
+      console.log(value)
+    });
   }
 
 }
