@@ -25,7 +25,7 @@ const loadBid = createAction(
 
 const loadBidSuccess = createAction(
   '[Bid page] Load current bid Success',
-  props<{ bid: Bid }>(),
+  props<{ bid: Partial<Bid> }>(),
 );
 
 const loadBidFailure = createAction(

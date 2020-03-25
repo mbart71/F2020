@@ -11,7 +11,7 @@ export interface State extends EntityState<IRace> {
   currentRace?: IRace;
   previousRace?: IRace;
   selectedId?: string; // which Races record has been selected
-  currentBid?: Bid;
+  currentBid?: Partial<Bid>;
   loaded: boolean; // has the Races list been loaded
   error?: string | null; // last none error (if any)
 }
