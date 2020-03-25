@@ -9,5 +9,5 @@ import { environment } from './environments/environment';
 //   .then(() => console.log('Completed'))
 //   .catch(error => console.error('Completed with errors', error));
 
-buildDrivers()
-.then(count => console.log(`Wrote ${count} drivers`));
+// buildDrivers()
+// .then(count => console.log(`Wrote ${count} drivers`));

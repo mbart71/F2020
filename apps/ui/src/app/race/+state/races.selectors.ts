@@ -43,3 +43,8 @@ export const getSelected = createSelector(
   getSelectedId,
   (entities, selectedId) => selectedId && entities[selectedId]
 );
+
+export const getCurrentBid = createSelector(
+  getRacesState,
+  state => state.currentBid
+);

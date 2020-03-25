@@ -1,3 +1,4 @@
+import { Bid } from './../model/bid.model';
 import { createAction, props } from '@ngrx/store';
 import { IRace } from '@f2020/data';
 
@@ -18,10 +19,39 @@ const selectRace = createAction(
   props<{ country: string }>(),
 );
 
+const loadBid = createAction(
+  '[Bid page] Load current bid',
+);
+
+const loadBidSuccess = createAction(
+  '[Bid page] Load current bid Success',
+  props<{ bid: Bid }>(),
+);
+
+const loadBidFailure = createAction(
+  '[Bid page] Load current bid Failure',
+  props<{ error: any }>(),
+);
+
+const updateBid = createAction(
+  '[Bid page] Update the current bid',
+  props<{bid: Bid}>()
+);
+
+const updateBidFailure = createAction(
+  '[Bid page] Update current bid Failure',
+  props<{ error: any }>(),
+);
+
 export const RacesActions = {
   loadRaces,
   loadRacesSuccess,
   loadRacesFailure,
   selectRace,
+  loadBid,
+  loadBidSuccess,
+  loadBidFailure,
+  updateBid,
+  updateBidFailure,
 };
 

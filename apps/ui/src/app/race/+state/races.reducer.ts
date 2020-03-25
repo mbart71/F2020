@@ -1,8 +1,9 @@
-import { Action, createReducer, on } from '@ngrx/store';
-import { createEntityAdapter, EntityAdapter, EntityState } from '@ngrx/entity';
-
-import { RacesActions } from './races.actions';
 import { IRace } from '@f2020/data';
+import { createEntityAdapter, EntityAdapter, EntityState } from '@ngrx/entity';
+import { Action, createReducer, on } from '@ngrx/store';
+import { Bid } from './../model';
+import { RacesActions } from './races.actions';
+
 
 export const RACES_FEATURE_KEY = 'races';
 
@@ -10,6 +11,7 @@ export interface State extends EntityState<IRace> {
   currentRace?: IRace;
   previousRace?: IRace;
   selectedId?: string; // which Races record has been selected
+  currentBid?: Bid;
   loaded: boolean; // has the Races list been loaded
   error?: string | null; // last none error (if any)
 }
@@ -41,8 +43,17 @@ const racesReducer = createReducer(
   on(RacesActions.loadRacesSuccess, (state, { races }) =>
     racesAdapter.addAll(races, { ...state, loaded: true }),
   ),
-  on(RacesActions.loadRacesFailure, (state, { error }) => ({ ...state, error })),
+  on(
+    RacesActions.loadRacesFailure, 
+    RacesActions.loadBidFailure,
+    RacesActions.updateBidFailure,
+    (state, { error }) => {
+      console.error(error);
+      return { ...state, error: error['message'] ?? error }
+    }
+  ),
   on(RacesActions.selectRace, (state, { country }) => ({ ...state, selectedId: country })),
+  on(RacesActions.loadBidSuccess, (state, { bid }) => ({ ...state, currentBid: bid })),
 );
 
 export function reducer(state: State | undefined, action: Action) {

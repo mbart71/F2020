@@ -27,6 +27,7 @@ export class BidComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    this.facade.dispatch(RacesActions.loadBid());
     this.fg = this.fb.group({
       qualify: [null, Validators.required],
       fastestDriver: [null, Validators.required],
@@ -35,12 +36,15 @@ export class BidComponent implements OnInit {
       firstCrash: [null, Validators.required],
       polePositionTime: [null, Validators.required],
     });
-    this.fg.patchValue(environment.initialBid)
     this.race$ = this.facade.selectedRace$.pipe(
       filter(race => !!race),
       tap(_ => console.log(_)),
       share()
     );
+    this.facade.bid$.pipe(
+      untilDestroyed(this)
+    ).subscribe(bid => this.fg.patchValue(bid || {}));
+
     this.route.params.pipe(
       pluck<Params, string>('country'),
       untilDestroyed(this),
@@ -54,6 +58,10 @@ export class BidComponent implements OnInit {
       .forEach(key => console.log(key, this.fg.get(key).errors));
       console.log(value)
     });
+    this.fg.valueChanges.pipe(
+      debounceTime(3000),
+      untilDestroyed(this),
+    ).subscribe(value => this.facade.dispatch(RacesActions.updateBid({bid: value})));
   }
 
 }
