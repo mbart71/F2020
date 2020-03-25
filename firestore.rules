@@ -10,9 +10,13 @@ service cloud.firestore {
       allow read: if getUserData().role.hasAny(['editor', 'admin', 'player']);
       allow update,write, delete, create:  if getUserData().role.hasAny(['editor', 'admin']);
     }
+    match /season/{Season}/races/{Races} {
+      allow read: if getUserData().role.hasAny(['editor', 'admin', 'player']);
+      allow update,write, delete, create:  if getUserData().role.hasAny(['editor', 'admin']);
+    }
     match /player/{player} {
       allow read: if request.auth.uid == player || getUserData().role.hasAny(['editor', 'admin']); 
-      allow update, write: if request.auth.uid == player && notUpdating('role', 'uid') || getUserData().role.hasAny(['editor', 'admin']); 
+      allow update, write: if request.auth.uid == player && notUpdating('role') || request.auth.uid == player && notUpdating('uid') || getUserData().role.hasAny(['editor', 'admin']); 
       allow create, delete: if getUserData().role.hasAny(['editor', 'admin']);
     }  
     function getUserData() {
