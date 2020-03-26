@@ -1,6 +1,12 @@
 <mat-action-list>
   <button mat-list-item *ngFor="let bid of bids">
     <img matListAvatar [src]="bid.player.photoURL" [alt]="bid.player.displayName">
-    <span matLine>{{bid.player.displayName}}</span>
+    <span matLine>{{bid.player.displayName}} </span>
+    <i class="fal fa-tire-flat" 
+      *ngIf="!bid.submitted"
+      #tooltip="matTooltip"
+      (click)="tooltip.toggle(); $event.preventDefault();"
+      [matTooltip]="bid.player.displayName + ' har ikke indsendt sit bud'">
+    </i>
   </button>
 </mat-action-list>
