@@ -20,6 +20,10 @@ export class BidComponent implements OnInit {
   fg: FormGroup;
   race$: Observable<IRace>;
 
+  fastestLapLabelFn = () => 'Hurtigste kører';
+  firstCrashLabelFn = () => 'Første udgået';
+  podiumLabelFn = (index: number) => `${index}. plads`;
+
   constructor(
     private facade: RacesFacade,
     private route: ActivatedRoute,

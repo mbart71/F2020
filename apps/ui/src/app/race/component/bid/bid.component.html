@@ -23,7 +23,7 @@
           </mat-panel-description>
         </mat-expansion-panel-header>
         <div>
-          <f2020-select-drivers formControlName="fastestDriver" [noOfDrivers]="1" [race]="race"></f2020-select-drivers>
+          <f2020-select-drivers formControlName="fastestDriver" [noOfDrivers]="1" [race]="race" [labelFn]="fastestLapLabelFn"></f2020-select-drivers>
         </div>
       </mat-expansion-panel>
       <mat-expansion-panel [expanded]="true" #podium>
@@ -34,12 +34,16 @@
           </mat-panel-description>
         </mat-expansion-panel-header>
         <div>
-          <f2020-select-drivers formControlName="podium" [noOfDrivers]="3" [race]="race"></f2020-select-drivers>
+          <f2020-select-drivers formControlName="podium" [noOfDrivers]="3" [race]="race" [labelFn]="podiumLabelFn"></f2020-select-drivers>
         </div>
       </mat-expansion-panel>
-      <mat-expansion-panel [expanded]="true">
+      <mat-expansion-panel [expanded]="true" #selectedDriver>
         <mat-expansion-panel-header>
           <mat-panel-title>{{race.selectedDriver | driverName }}</mat-panel-title>
+          <mat-panel-description *ngIf="!selectedDriver.expanded" fxLayoutAlign="end">
+            Start: {{fg.get('selectedDriver').value?.grid}}
+            Slut: {{fg.get('selectedDriver').value?.finish}}
+          </mat-panel-description>        
         </mat-expansion-panel-header>
         <div>
           <f2020-selected-driver formControlName="selectedDriver" [race]="race"></f2020-selected-driver>
@@ -47,13 +51,13 @@
       </mat-expansion-panel>
       <mat-expansion-panel [expanded]="true" #firstCrash>
         <mat-expansion-panel-header>
-          <mat-panel-title>Først udgået</mat-panel-title>
+          <mat-panel-title>Første udgået</mat-panel-title>
           <mat-panel-description *ngIf="!firstCrash.expanded" fxLayoutAlign="end">
             <f2020-driver-codes [driverIds]="fg.get('firstCrash').value"></f2020-driver-codes>
           </mat-panel-description>
         </mat-expansion-panel-header>
         <div>
-          <f2020-select-drivers formControlName="firstCrash" [noOfDrivers]="1" [race]="race"></f2020-select-drivers>
+          <f2020-select-drivers formControlName="firstCrash" [noOfDrivers]="1" [race]="race" [labelFn]="firstCrashLabelFn"></f2020-select-drivers>
         </div>
       </mat-expansion-panel>
       <mat-expansion-panel [expanded]="true" #time>

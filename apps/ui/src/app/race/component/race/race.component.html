@@ -16,14 +16,16 @@
         <a mat-button [href]="race.url" target="_blank">WIKI</a>
       </mat-card-actions>
     </mat-card>
-    <mat-card *ngIf="bids$ | async as bids">
-      <mat-card-header>
-        <mat-card-title>Bud</mat-card-title>
-      </mat-card-header>
-      <mat-card-content>
-        <f2020-bids [bids]="bids"></f2020-bids>
-      </mat-card-content>
-    </mat-card>
+    <ng-container *ngIf="bids$ | async as bids">
+      <mat-card *ngIf="bids.length">
+        <mat-card-header>
+          <mat-card-title>Bud</mat-card-title>
+        </mat-card-header>
+        <mat-card-content>
+          <f2020-bids [bids]="bids"></f2020-bids>
+        </mat-card-content>
+      </mat-card>
+    </ng-container>
   </f2020-card-page>
   <button mat-fab aria-label="Deltag i løbet" routerLink="bid" *ngIf="race.state === 'open' && !(bid$ | async)?.submitted">
     <mat-icon>add</mat-icon>

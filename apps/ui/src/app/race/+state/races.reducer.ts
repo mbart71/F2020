@@ -49,8 +49,8 @@ const racesReducer = createReducer(
     RacesActions.loadBidFailure,
     RacesActions.loadBidsFailure,
     RacesActions.updateBidFailure,
-    (state, { error }) => {
-      console.error(error);
+    (state, { type, error }) => {
+      console.error(type, error);
       return { ...state, error: error['message'] ?? error }
     }
   ),

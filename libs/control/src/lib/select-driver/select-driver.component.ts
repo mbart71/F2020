@@ -17,6 +17,7 @@ import { FormControl, NG_VALUE_ACCESSOR } from '@angular/forms';
 export class SelectDriverComponent extends AbstractControlComponent implements OnInit {
 
   @Input() driverIds: string[];
+  @Input() label: string;
   selectControl = new FormControl();
 
   constructor() {

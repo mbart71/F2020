@@ -3,6 +3,8 @@ import { AbstractControl, FormArray, FormBuilder, FormGroup, NG_VALIDATORS, NG_V
 import { IRace } from '@f2020/data';
 import { AbstractControlComponent } from '../abstract-control-component';
 
+type LabelFn = (index: number) => string;
+
 @Component({
   selector: 'f2020-select-drivers',
   templateUrl: './select-drivers.component.html',
@@ -24,8 +26,11 @@ export class SelectDriversComponent extends AbstractControlComponent implements 
 
   @Input() race: IRace;
   @Input() noOfDrivers: number;
+  
   fg: FormGroup;
   drivers: FormArray;
+
+  @Input() labelFn: LabelFn = (index: number) => `Vælg ${index}. køre`;
 
   constructor(private fb: FormBuilder) {
     super();

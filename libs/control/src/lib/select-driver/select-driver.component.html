@@ -1,5 +1,5 @@
 <mat-form-field fxFlex>
-  <mat-label>Vælg pilot</mat-label>
+  <mat-label>{{label}}</mat-label>
   <mat-select [formControl]="selectControl">
     <mat-option *ngFor="let driverId of driverIds" [value]="driverId">
       {{driverId | driverName}}

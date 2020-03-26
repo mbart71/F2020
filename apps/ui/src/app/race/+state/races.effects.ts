@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { Actions, createEffect, ofType } from '@ngrx/effects';
 import { fetch } from '@nrwl/angular';
 import { combineLatest, of } from 'rxjs';
-import { catchError, concatMap, filter, map, startWith, switchMap, takeUntil, first } from 'rxjs/operators';
+import { catchError, concatMap, debounceTime, filter, first, map, startWith, switchMap, takeUntil } from 'rxjs/operators';
 import { SeasonFacade } from '../../season/+state/season.facade';
 import { RacesService } from '../service/races.service';
 import { environment } from './../../../environments/environment';
@@ -54,13 +54,17 @@ export class RacesEffects {
     concatMap(() => combineLatest([
       this.seasonFacade.season$, 
       this.facade.selectedRace$, 
+      this.facade.bid$.pipe(map(bid => !!bid.submitted)),
     ]).pipe(
-        takeUntil(this.actions$.pipe(ofType(RacesActions.loadBids))),
-        switchMap(([season, race]) => this.service.getBids(season.id, race.location.country)),
-        map(bids => RacesActions.loadBidsSuccess({ bids })),
-        catchError(error => of(RacesActions.loadBidFailure({ error }))),
-      ),
-    )
+      takeUntil(this.actions$.pipe(ofType(RacesActions.loadBids))),
+      debounceTime(200),
+      switchMap(([season, race, submitted]) => submitted ? this.service.getBids(season.id, race.location.country) : of([])),
+      map(bids => RacesActions.loadBidsSuccess({ bids })),
+      catchError(error => {
+        const permissionError = error.code === 'permission-denied'
+        return of(permissionError ? RacesActions.loadBidsSuccess({ bids: [] }) : RacesActions.loadBidsFailure({ error }));
+      }),
+    ))
   ));
 
 
