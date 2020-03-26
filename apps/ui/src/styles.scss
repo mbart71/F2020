@@ -36,3 +36,10 @@ button[mat-fab] {
   right: 16px;
   bottom: 16px;
 }
+
+@import './scss/variables';
+
+.bg-warn {
+  background-color: $warn;
+  color: white !important;
+}
