@@ -1,3 +1,4 @@
+import { untilDestroyed } from '@ngneat/until-destroy';
 import { IRace, Bid } from '@f2020/data';
 import { createEntityAdapter, EntityAdapter, EntityState } from '@ngrx/entity';
 import { Action, createReducer, on } from '@ngrx/store';
@@ -12,7 +13,7 @@ export interface State extends EntityState<IRace> {
   selectedId?: string; // which Races record has been selected
   yourBid?: Partial<Bid>;
   bids?: Bid[];
-  shoew
+  bid?: Partial<Bid>;
   loaded: boolean; // has the Races list been loaded
   error?: string | null; // last none error (if any)
 }
@@ -46,8 +47,9 @@ const racesReducer = createReducer(
   ),
   on(
     RacesActions.loadRacesFailure, 
-    RacesActions.loadBidFailure,
+    RacesActions.loadYourBidFailure,
     RacesActions.loadBidsFailure,
+    RacesActions.loadBidFailure,
     RacesActions.updateBidFailure,
     (state, { type, error }) => {
       console.error(type, error);
@@ -55,8 +57,9 @@ const racesReducer = createReducer(
     }
   ),
   on(RacesActions.selectRace, (state, { country }) => ({ ...state, selectedId: country })),
-  on(RacesActions.loadBidSuccess, (state, { bid }) => ({ ...state, yourBid: bid })),
+  on(RacesActions.loadYourBidSuccess, (state, { bid }) => ({ ...state, yourBid: bid })),
   on(RacesActions.loadBidsSuccess, (state, { bids }) => ({ ...state, bids })),
+  on(RacesActions.loadBidSuccess, (state, { bid }) => ({ ...state, bid })),
 );
 
 export function reducer(state: State | undefined, action: Action) {

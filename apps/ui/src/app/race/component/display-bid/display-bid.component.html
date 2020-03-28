@@ -1,1 +1,10 @@
-<p>display-bid works!</p>
+<ng-container *ngIf="(bid$ | async) as bid; else loading">
+  <mat-toolbar color="primary">
+    <img class="avatar" [src]="bid.player.photoURL" alt="Profil billede">
+    <span>{{bid.player.displayName}}</span>
+  </mat-toolbar>      
+  <f2020-bid [formControl]="bidControl" [race]="race$ | async"></f2020-bid>
+</ng-container>  
+<ng-template #loading>
+  <f2020-loading></f2020-loading>
+</ng-template>

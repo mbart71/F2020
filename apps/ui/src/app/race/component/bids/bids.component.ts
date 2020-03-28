@@ -17,8 +17,6 @@ export class BidsComponent {
   }
 
   gotoBid(uid: string) {
-    console.log(uid);
     this.router.navigate(['bid', uid], {relativeTo: this.route})
-    
   }
 }

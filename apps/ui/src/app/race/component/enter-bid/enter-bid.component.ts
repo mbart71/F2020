@@ -25,7 +25,7 @@ export class EnterBidComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.facade.dispatch(RacesActions.loadBid());
+    this.facade.dispatch(RacesActions.loadYourBid());
     this.route.params.pipe(
       pluck<Params, string>('country'),
       untilDestroyed(this),
@@ -37,11 +37,11 @@ export class EnterBidComponent implements OnInit {
       tap(_ => console.log(_)),
       share(),
     );
-    this.facade.bid$.pipe(
+    this.facade.yourBid$.pipe(
       filter(bid => !bid.submitted),
       untilDestroyed(this),
     ).subscribe(bid => this.bidControl.patchValue(bid || {}, {emitEvent: false}));
-    this.facade.bid$.pipe(
+    this.facade.yourBid$.pipe(
       filter(bid => bid.submitted),
       untilDestroyed(this),
     ).subscribe(() => this.bidControl.disable());

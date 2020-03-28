@@ -36,7 +36,7 @@ export class RaceComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.facade.dispatch(RacesActions.loadBid());
+    this.facade.dispatch(RacesActions.loadYourBid());
     this.facade.dispatch(RacesActions.loadBids());
 
     const raceId$ = this.route.params.pipe(
@@ -46,7 +46,7 @@ export class RaceComponent implements OnInit {
 
     raceId$.subscribe(id => this.facade.dispatch(RacesActions.selectRace({ country: id })));
     this.race$ = this.facade.selectedRace$.pipe(filter(race => !!race));
-    this.bid$ = this.facade.bid$;
+    this.bid$ = this.facade.yourBid$;
     this.bids$ = this.facade.bids$;
     this.center$ = this.race$.pipe(
       map(race => new google.maps.LatLng(race.location.lat, race.location.lng)),

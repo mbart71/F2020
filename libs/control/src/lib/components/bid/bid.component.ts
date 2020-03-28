@@ -28,7 +28,6 @@ export class BidComponent extends AbstractControlComponent implements OnInit {
 
   @Input() race: IRace;
   fg: FormGroup;
-  race$: Observable<IRace>;
 
   fastestLapLabelFn = () => 'Hurtigste kører';
   firstCrashLabelFn = () => 'Første udgået';
