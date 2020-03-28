@@ -55,7 +55,15 @@ export class BidComponent extends AbstractControlComponent implements OnInit {
 
   writeValue(value: Bid): void {
     if (value) {
-      this.fg.patchValue(value);
+      this.fg.patchValue({
+        qualify: null,
+        fastestDriver: null,
+        podium: null,
+        selectedDriver: null,
+        firstCrash: null,
+        polePositionTime: null,
+        ...value
+      });
     } else {
       this.fg.reset();
     }

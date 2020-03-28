@@ -1,12 +1,7 @@
 import { Component, forwardRef, Input, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, NG_VALIDATORS, NG_VALUE_ACCESSOR, ValidationErrors, Validators } from '@angular/forms';
-import { IRace } from '@f2020/data';
+import { IRace, SelectedDriverValue } from '@f2020/data';
 import { AbstractControlComponent } from '../../abstract-control-component';
-
-export interface SelectedDriverValue {
-  grid: number;
-  finish: number;
-}
 
 @Component({
   selector: 'f2020-selected-driver',

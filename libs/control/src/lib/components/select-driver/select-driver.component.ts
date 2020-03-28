@@ -42,7 +42,7 @@ export class SelectDriverComponent extends AbstractControlComponent implements O
     if (value) {
       this.selectControl.patchValue(value, {emitEvent: false});
     } else {
-      this.selectControl.reset();
+      this.selectControl.reset(null);
     }
   }
 }
