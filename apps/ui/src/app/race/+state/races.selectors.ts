@@ -44,9 +44,9 @@ export const getSelected = createSelector(
   (entities, selectedId) => selectedId && entities[selectedId]
 );
 
-export const getCurrentBid = createSelector(
+export const getYourBid = createSelector(
   getRacesState,
-  state => state.currentBid
+  state => state.yourBid
 );
 
 export const getBids = createSelector(

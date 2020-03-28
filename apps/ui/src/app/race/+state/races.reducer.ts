@@ -10,8 +10,9 @@ export interface State extends EntityState<IRace> {
   currentRace?: IRace;
   previousRace?: IRace;
   selectedId?: string; // which Races record has been selected
-  currentBid?: Partial<Bid>;
+  yourBid?: Partial<Bid>;
   bids?: Bid[];
+  shoew
   loaded: boolean; // has the Races list been loaded
   error?: string | null; // last none error (if any)
 }
@@ -54,7 +55,7 @@ const racesReducer = createReducer(
     }
   ),
   on(RacesActions.selectRace, (state, { country }) => ({ ...state, selectedId: country })),
-  on(RacesActions.loadBidSuccess, (state, { bid }) => ({ ...state, currentBid: bid })),
+  on(RacesActions.loadBidSuccess, (state, { bid }) => ({ ...state, yourBid: bid })),
   on(RacesActions.loadBidsSuccess, (state, { bids }) => ({ ...state, bids })),
 );
 
