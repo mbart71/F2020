@@ -6,8 +6,7 @@ import { UntilDestroy, untilDestroyed } from '@ngneat/until-destroy';
 import { ActivatedRoute, Params } from '@angular/router';
 import { filter, map, pluck } from 'rxjs/operators';
 import { Observable, combineLatest } from 'rxjs';
-import { IRace } from '@f2020/data';
-import { Bid } from '../../model';
+import { IRace, Bid } from '@f2020/data';
 
 @UntilDestroy()
 @Component({

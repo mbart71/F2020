@@ -1,5 +1,5 @@
 import { Component, forwardRef, Input, OnInit } from '@angular/core';
-import { AbstractControlComponent } from '../abstract-control-component';
+import { AbstractControlComponent } from '../../abstract-control-component';
 import { FormControl, NG_VALUE_ACCESSOR } from '@angular/forms';
 
 @Component({

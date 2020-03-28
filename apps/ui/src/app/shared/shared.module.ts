@@ -11,7 +11,6 @@ import { SidebarComponent } from './component/sidebar/sidebar.component';
 import { RouterModule } from '@angular/router';
 import { SidenavButtonComponent } from './component/sidebar/sidenav-button/sidenav-button.component';
 import { RelativeToNowPipe } from './pipe/relative-to-now.pipe';
-import { PolePositionTimePipe } from './pipe/pole-position-time.pipe';
 
 const exportComponents = [
   LoginComponent,
@@ -21,7 +20,6 @@ const exportComponents = [
 
 const pipes = [
   RelativeToNowPipe,
-  PolePositionTimePipe,
 ]
 
 @NgModule({

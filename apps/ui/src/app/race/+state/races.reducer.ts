@@ -1,7 +1,6 @@
-import { IRace } from '@f2020/data';
+import { IRace, Bid } from '@f2020/data';
 import { createEntityAdapter, EntityAdapter, EntityState } from '@ngrx/entity';
 import { Action, createReducer, on } from '@ngrx/store';
-import { Bid } from './../model';
 import { RacesActions } from './races.actions';
 
 

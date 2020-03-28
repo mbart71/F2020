@@ -1,8 +1,7 @@
-import { Bid } from './../model/bid.model';
 import { Injectable } from '@angular/core';
 import { AngularFirestore } from '@angular/fire/firestore';
 import { Observable } from 'rxjs';
-import { firestoreUtils, IRace, Player } from '@f2020/data';
+import { firestoreUtils, IRace, Player, Bid } from '@f2020/data';
 import { map } from 'rxjs/operators';
 
 @Injectable({

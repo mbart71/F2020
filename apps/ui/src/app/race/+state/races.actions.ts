@@ -1,6 +1,5 @@
-import { Bid } from './../model/bid.model';
 import { createAction, props } from '@ngrx/store';
-import { IRace } from '@f2020/data';
+import { IRace, Bid } from '@f2020/data';
 
 const loadRaces = createAction('[Races] Load Races');
 

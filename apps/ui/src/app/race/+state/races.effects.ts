@@ -1,3 +1,4 @@
+import { PlayerActions } from './../../player/+state/player.actions';
 import { Injectable } from '@angular/core';
 import { Actions, createEffect, ofType } from '@ngrx/effects';
 import { fetch } from '@nrwl/angular';
@@ -18,7 +19,7 @@ export class RacesEffects {
       fetch({
         run: action => {
           return this.seasonFacade.season$.pipe(
-            takeUntil(this.actions$.pipe(ofType(RacesActions.loadRaces))),
+            takeUntil(this.actions$.pipe(ofType(RacesActions.loadRaces, PlayerActions.logoutPlayer))),
             switchMap(season => this.service.getRaces(season.id)),
             map(races => RacesActions.loadRacesSuccess({ races })),
           );
@@ -38,7 +39,7 @@ export class RacesEffects {
       this.facade.selectedRace$, 
       this.playerFacade.player$
     ]).pipe(
-        takeUntil(this.actions$.pipe(ofType(RacesActions.loadBid))),
+        takeUntil(this.actions$.pipe(ofType(RacesActions.loadBid, PlayerActions.logoutPlayer))),
         switchMap(([season, race, player]) => this.service.getBid(season.id, race.location.country, player.uid)),
         startWith(environment.initialBid),
         filter(bid => !!bid),
@@ -56,7 +57,7 @@ export class RacesEffects {
       this.facade.selectedRace$, 
       this.facade.bid$.pipe(map(bid => !!bid.submitted)),
     ]).pipe(
-      takeUntil(this.actions$.pipe(ofType(RacesActions.loadBids))),
+      takeUntil(this.actions$.pipe(ofType(RacesActions.loadBids, PlayerActions.logoutPlayer))),
       debounceTime(200),
       switchMap(([season, race, submitted]) => submitted ? this.service.getBids(season.id, race.location.country) : of([])),
       map(bids => RacesActions.loadBidsSuccess({ bids })),
