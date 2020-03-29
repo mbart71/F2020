@@ -2,11 +2,6 @@
   <button mat-list-item *ngFor="let bid of bids">
     <img matListAvatar [src]="bid.player.photoURL" [alt]="bid.player.displayName"  (click)="gotoBid(bid.player.uid)">
     <span  (click)="gotoBid(bid.player.uid)" matLine>{{bid.player.displayName}} </span>
-    <i class="fal fa-tire-flat" 
-      *ngIf="!bid.submitted"
-      #tooltip="matTooltip"
-      (click)="tooltip.toggle(); $event.preventDefault();"
-      [matTooltip]="bid.player.displayName + ' har ikke indsendt sit bud'">
-    </i>
+    <f2020-partial-bid-warning [bid]="bid"></f2020-partial-bid-warning>
   </button>
 </mat-action-list>

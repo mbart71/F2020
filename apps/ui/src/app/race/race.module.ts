@@ -19,6 +19,7 @@ import { ControlModule } from '@f2020/control';
 import { BidsComponent } from './component/bids/bids.component';
 import { EnterBidComponent } from './component/enter-bid/enter-bid.component';
 import { DisplayBidComponent } from './component/display-bid/display-bid.component';
+import { PartialBidWarningComponent } from './component/partial-bid-warning/partial-bid-warning.component';
 
 @NgModule({
   imports: [
@@ -42,6 +43,7 @@ import { DisplayBidComponent } from './component/display-bid/display-bid.compone
     BidsComponent,
     EnterBidComponent,
     DisplayBidComponent,
+    PartialBidWarningComponent,
   ],
 })
 export class RaceModule {
