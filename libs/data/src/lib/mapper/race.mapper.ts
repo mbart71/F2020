@@ -4,6 +4,10 @@ import { DateTime } from 'luxon';
 
 
 export const basisMap = (source: ErgastRace): IRaceBasis => {
+  const cc = countries[source.Circuit.Location.country];
+  if (!cc) {
+    throw new Error(source.Circuit.Location.country + ' not found');
+  }
   return {
     name: source.raceName,
     countryCode: countries[source.Circuit.Location.country],

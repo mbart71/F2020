@@ -19,4 +19,8 @@ export class RacesComponent implements OnInit {
     this.races$ = this.facade.allRaces$;
   }
 
+  flagURL(race: IRace) {
+    return `https://www.countryflags.io/${race.countryCode.toLocaleLowerCase()}/flat/64.png`
+  }
+
 }
