@@ -56,7 +56,14 @@ const racesReducer = createReducer(
       return { ...state, error: error['message'] ?? error }
     }
   ),
-  on(RacesActions.selectRace, (state, { country }) => ({ ...state, selectedId: country })),
+  on(RacesActions.selectRace, (state, { country }) => ({ 
+      ...state, 
+      selectedId: country,
+      bids: null,
+      bid: null,
+      yourBid: null, 
+    })
+  ),
   on(RacesActions.loadYourBidSuccess, (state, { bid }) => ({ ...state, yourBid: bid })),
   on(RacesActions.loadBidsSuccess, (state, { bids }) => ({ ...state, bids })),
   on(RacesActions.loadBidSuccess, (state, { bid }) => ({ ...state, bid })),
