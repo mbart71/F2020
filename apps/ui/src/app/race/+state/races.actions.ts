@@ -1,6 +1,5 @@
-import { Bid } from './../model/bid.model';
 import { createAction, props } from '@ngrx/store';
-import { IRace } from '@f2020/data';
+import { IRace, Bid } from '@f2020/data';
 
 const loadRaces = createAction('[Races] Load Races');
 
@@ -19,17 +18,27 @@ const selectRace = createAction(
   props<{ country: string }>(),
 );
 
-const loadBid = createAction(
-  '[Bid page] Load current bid',
+const loadYourBid = createAction(
+  '[Enter bid page] Load your bid',
 );
 
-const loadBidSuccess = createAction(
-  '[Bid page] Load current bid Success',
+const loadYourBidSuccess = createAction(
+  '[Bid API] Load your bid Success',
   props<{ bid: Partial<Bid> }>(),
 );
 
-const loadBidFailure = createAction(
-  '[Bid page] Load current bid Failure',
+const loadYourBidFailure = createAction(
+  '[Bid API] Load your bid Failure',
+  props<{ error: any }>(),
+);
+
+const updateYourBid = createAction(
+  '[Enter bid page] Update the your bid',
+  props<{bid: Bid}>()
+);
+
+const updateYourBidFailure = createAction(
+  '[Bid API] Update your bid Failure',
   props<{ error: any }>(),
 );
 
@@ -47,13 +56,18 @@ const loadBidsFailure = createAction(
   props<{ error: any }>(),
 );
 
-const updateBid = createAction(
-  '[Bid page] Update the current bid',
-  props<{bid: Bid}>()
+const loadBid = createAction(
+  '[Bid page] Load bid',
+  props<{uid: string}>()
 );
 
-const updateBidFailure = createAction(
-  '[Bid page] Update current bid Failure',
+const loadBidSuccess = createAction(
+  '[Bid API] Load bid Success',
+  props<{ bid: Bid }>(),
+);
+
+const loadBidFailure = createAction(
+  '[Bid API] Load bid Failure',
   props<{ error: any }>(),
 );
 
@@ -62,13 +76,16 @@ export const RacesActions = {
   loadRacesSuccess,
   loadRacesFailure,
   selectRace,
-  loadBid,
-  loadBidSuccess,
-  loadBidFailure,
+  loadYourBid,
+  loadYourBidSuccess,
+  loadYourBidFailure,
   loadBids,
   loadBidsSuccess,
   loadBidsFailure,
-  updateBid,
-  updateBidFailure,
+  loadBid,
+  loadBidSuccess,
+  loadBidFailure,
+  updateBid: updateYourBid,
+  updateBidFailure: updateYourBidFailure,
 };
 

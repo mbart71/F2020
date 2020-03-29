@@ -1,6 +1,7 @@
 /* You can add global styles to this file, and also import other style files */
 
 @import "~@fortawesome/fontawesome-pro/css/all.css";
+@import "./scss/toolbar";
 
 html, body {
   height: 100%;
@@ -35,4 +36,11 @@ button[mat-fab] {
   position: fixed;
   right: 16px;
   bottom: 16px;
+}
+
+@import './scss/variables';
+
+.bg-warn {
+  background-color: $warn;
+  color: white !important;
 }

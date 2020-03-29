@@ -18,8 +18,17 @@ export abstract class AbstractControlComponent implements OnDestroy, ControlValu
   }
 
   ngOnDestroy() {
-    this.destroyed$.next(true);
-    this.subscriptions.forEach(subscription => subscription.unsubscribe());
+    // TODO FIX THIS WHEN V9 BEHAVES!!
+    const destroy = function() {
+      this.destroyed$.next(true);
+      this.subscriptions.forEach(subscription => subscription.unsubscribe());
+    };
+    if (Array.isArray(this)) {
+      this.filter(component  => component instanceof AbstractControlComponent)
+        .forEach(component => destroy.bind(component)());
+    } else {
+      destroy.bind(this)();
+    }
   }
 
   onBlur() {

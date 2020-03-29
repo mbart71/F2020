@@ -1,5 +1,5 @@
-import { firestoreUtils } from '@f2020/data';
-// import { firestoreUtils } from './converter/firestore-utils';
+// import { firestoreUtils } from '@f2020/data';
+import { firestoreUtils } from './converter/firestore-utils';
 import { getDrivers } from '@f2020/ergast';
 import { mapper } from '@f2020/data';
 import { firebaseApp } from './firebase';

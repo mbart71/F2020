@@ -1,5 +1,5 @@
 import { Component, forwardRef, Input, OnInit } from '@angular/core';
-import { AbstractControlComponent } from '../abstract-control-component';
+import { AbstractControlComponent } from '../../abstract-control-component';
 import { FormControl, NG_VALUE_ACCESSOR } from '@angular/forms';
 
 @Component({
@@ -17,6 +17,7 @@ import { FormControl, NG_VALUE_ACCESSOR } from '@angular/forms';
 export class SelectDriverComponent extends AbstractControlComponent implements OnInit {
 
   @Input() driverIds: string[];
+  @Input() label: string;
   selectControl = new FormControl();
 
   constructor() {
@@ -41,7 +42,7 @@ export class SelectDriverComponent extends AbstractControlComponent implements O
     if (value) {
       this.selectControl.patchValue(value, {emitEvent: false});
     } else {
-      this.selectControl.reset();
+      this.selectControl.reset(null);
     }
   }
 }

@@ -1,8 +1,7 @@
-import { Bid } from './../model/bid.model';
 import { Injectable } from '@angular/core';
 import { AngularFirestore } from '@angular/fire/firestore';
 import { Observable } from 'rxjs';
-import { firestoreUtils, IRace, Player } from '@f2020/data';
+import { firestoreUtils, IRace, Player, Bid } from '@f2020/data';
 import { map } from 'rxjs/operators';
 
 @Injectable({
@@ -39,5 +38,11 @@ export class RacesService {
       photoURL: player.photoURL,
       email: player.email,
     }});
+  }
+
+  su(seasonId: string, raceId: string, uid: string): Promise<void> {
+    return this.afs.doc<Bid>(`season/${seasonId}/races/${raceId}/bids/${uid}`).update({ 
+      submitted: true
+    });
   }
 }

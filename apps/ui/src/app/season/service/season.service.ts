@@ -1,6 +1,5 @@
 import { Injectable } from '@angular/core';
 import { AngularFirestore } from '@angular/fire/firestore';
-import { throwError } from 'rxjs';
 import { map } from 'rxjs/operators';
 
 @Injectable({
