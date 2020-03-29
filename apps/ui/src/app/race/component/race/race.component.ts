@@ -53,4 +53,9 @@ export class RaceComponent implements OnInit {
     );
   }
 
+  flagURL(race: IRace) {
+    return `https://www.countryflags.io/${race.countryCode.toLocaleLowerCase()}/flat/64.png`
+  }
+
+
 }

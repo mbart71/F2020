@@ -20,6 +20,7 @@ export const buildNewSeason = async (seasonId: string) => {
   }, []);
   console.log(races.filter(r => !r.open.isValid || !r.close.isValid));
   const season = mapper.season(ergastSeason, races[3].open);
+  season['current'] = true;
 
   return writeSeason(season, races);
 };

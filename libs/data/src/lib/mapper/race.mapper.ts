@@ -5,11 +5,13 @@ import { DateTime } from 'luxon';
 
 export const basisMap = (source: ErgastRace): IRaceBasis => {
   const cc = countries[source.Circuit.Location.country];
+  const raceStart = DateTime.fromISO(`${source.date}T${source.time || '00:00:00Z'}`);
   if (!cc) {
     throw new Error(source.Circuit.Location.country + ' not found');
   }
   return {
     name: source.raceName,
+    raceStart,
     countryCode: countries[source.Circuit.Location.country],
     location: {
       lat: source.Circuit.Location.lat,
