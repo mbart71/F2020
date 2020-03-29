@@ -74,7 +74,7 @@ export class BidComponent extends AbstractControlComponent implements OnInit {
   }
 
   validate(control: AbstractControl): ValidationErrors | null {
-    return control.valid ? null : { required: true };
+    return this.fg.valid ? null : { required: true };
   }
 
   setDisabledState(isDisabled: boolean) {

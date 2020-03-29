@@ -39,4 +39,10 @@ export class RacesService {
       email: player.email,
     }});
   }
+
+  su(seasonId: string, raceId: string, uid: string): Promise<void> {
+    return this.afs.doc<Bid>(`season/${seasonId}/races/${raceId}/bids/${uid}`).update({ 
+      submitted: true
+    });
+  }
 }
