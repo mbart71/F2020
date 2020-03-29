@@ -6,6 +6,7 @@ export type State = 'waiting' | 'open' | 'closed' | 'completed';
 export interface IRaceBasis {
   readonly round: number;
   readonly name: string;
+  readonly countryCode: string;
   readonly location: CoordinateModel;
   readonly url: string;
 }

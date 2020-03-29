@@ -1,9 +1,12 @@
+import { countries } from './countries';
 import { ErgastRace, IDriver, IRace, IRaceBasis } from '../model';
 import { DateTime } from 'luxon';
+
 
 export const basisMap = (source: ErgastRace): IRaceBasis => {
   return {
     name: source.raceName,
+    countryCode: countries[source.Circuit.Location.country],
     location: {
       lat: source.Circuit.Location.lat,
       lng: source.Circuit.Location.long,
@@ -26,3 +29,4 @@ export const map = (source: ErgastRace, selectedDriver: IDriver, previousRace?: 
     open: previousRace?.close.startOf('day').plus({ day: 3 }) ?? closeTime.minus({ day: 7 }),
   };
 };
+
