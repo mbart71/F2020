@@ -14,5 +14,5 @@ import { Transaction } from './app/model/mysq.model';
 // buildDrivers()
 // .then(count => console.log(`Wrote ${count} drivers`));
 
- readUser().then(transactions => console.log(transactions.slice(0, 10)));
+ readUser().then(transactions => console.log(transactions.slice(0, 10000)));
 // Bare skriv de først ti ud

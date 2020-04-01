@@ -1,15 +1,14 @@
 import { Transaction, accountMap } from '../model/mysq.model'
-import { connect, getaccount_entry } from './mysql.config'
+import { connect } from './mysql.config'
 import { resolve } from 'url';
 
 export const readUser = (): Promise<Transaction[]> => {
   //const connection = connect();
-  const queryString = getaccount_entry;
- 
+  const queryString = 'SELECT account_entry.id, account_entry.DTYPE, account_entry.amount, account_entry.date, account_entry.message, IFNULL( account_entry.to_account_id, account_entry_link.Account_id) AS to_account_id, IFNULL( account_entry.from_account_id, account_entry_link.Account_id) AS from_account_id FROM account_entry LEFT JOIN account_entry_link ON account_entry.id =  account_entry_link.entries_id';
   // Her har du kode der læser fra database og laver det om til Transaction data
   // open the MySQL connection
   return new Promise<Transaction[]>((resolve,reject)=> {
-     connect.connect(); 
+    connect.connect(); 
     connect.query(queryString, (err, rows, fields) => {
       if (err) {
         reject(err)
@@ -19,7 +18,7 @@ export const readUser = (): Promise<Transaction[]> => {
         return <Transaction> {
           amount:row.amount,
           date:new Date(row.date),
-          message:row.message,
+          message:row.message, 
           from:accountMap.get(row.from_account_id),
           to:accountMap.get(row.to_account_id),
         }
