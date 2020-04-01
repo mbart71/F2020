@@ -1,5 +1,4 @@
-import { ErgastConstructor, ErgastDriver } from './ergast';
-import { IRace, IRaceBasis } from './race.model';
+import { IRaceBasis } from './race.model';
 
 export interface IDriver {
   readonly name: string;

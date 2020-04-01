@@ -1,13 +1,8 @@
-import * as functions from 'firebase-functions';
+// Start writing Firebase Functions
+// https://firebase.google.com/docs/functions/typescript
+
 import * as firebase from 'firebase-admin';
 
-// // Start writing Firebase Functions
-// // https://firebase.google.com/docs/functions/typescript
-//
-export const helloWorld = functions.https.onRequest((request, response) => {
-  firebase.initializeApp();
-  firebase.credential;
-  // console.log('sdfdsfdsfdsfsfd', firebase.auth().);
-  
- response.send("Hello from Firebase!");
-});
+firebase.initializeApp();
+
+export * from './app/bid/bid';

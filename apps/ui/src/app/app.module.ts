@@ -32,7 +32,7 @@ import { DriverModule } from '@f2020/driver';
     FlexLayoutModule,
     ServiceWorkerModule.register('ngsw-worker.js', { enabled: environment.production }),
     MaterialModule,
-    FirebaseModule,
+    FirebaseModule.forRoot(),
     PlayerModule,
     DriverModule,
     SeasonModule,

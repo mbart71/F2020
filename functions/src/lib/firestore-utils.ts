@@ -23,15 +23,15 @@ export const firestoreUtils = {
   convertJSONDates(input: any): any {
     // Ignore things that aren't objects.
     if (!input || typeof input !== 'object') {
-      return this.convertJSONDate(input);
+      return firestoreUtils.convertDateTime;
     }
     Object.keys(input).map(key => {
       const value = input[key];
       // Check for string properties which look like dates.
       if (typeof value === 'string') {
-        input[key] = this.convertJSONDate(value);
+        input[key] = firestoreUtils.convertJSONDate(value);
       } else if (typeof value === 'object') {
-        this.convertJSONDates(value);
+        firestoreUtils.convertJSONDates(value);
       }
     });
     return input;
@@ -49,9 +49,9 @@ export const firestoreUtils = {
     Object.keys(input).map(key => {
       const value = input[key];
       if (value instanceof firebase.firestore.Timestamp) {
-        input[key] = this.convertTimestamp(value);
+        input[key] = firestoreUtils.convertTimestamp(value);
       } else if (typeof value === 'object') {
-        this.convertTimestamps(value);
+        firestoreUtils.convertTimestamps(value);
       }
     });
     return input;
@@ -69,9 +69,9 @@ export const firestoreUtils = {
     Object.keys(input).map(key => {
       const value = input[key];
       if (value instanceof DateTime) {
-        input[key] = this.convertDateTime(value);
+        input[key] = firestoreUtils.convertDateTime(value);
       } else if (typeof value === 'object' && value ) {
-        this.convertDateTimes(value);
+        firestoreUtils.convertDateTimes(value);
       }
     });
     return input;

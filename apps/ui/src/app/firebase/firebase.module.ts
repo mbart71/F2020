@@ -1,5 +1,5 @@
 import { environment } from './../../environments/environment';
-import { NgModule } from "@angular/core";
+import { NgModule, InjectionToken, ModuleWithProviders } from "@angular/core";
 import { CommonModule } from '@angular/common';
 
 // Firebase App (the core Firebase SDK) is always required and must be listed first
@@ -9,13 +9,23 @@ import * as firebase from "firebase/app";
 import "firebase/auth";
 import "firebase/firestore";
 
+export const GoogleFunctions = new InjectionToken<firebase.functions.Functions>('GOOGLE_FUNCTIONS')
+
 @NgModule({
   imports: [CommonModule]
 })
 export class FirebaseModule {
 
-  constructor() {
+  static forRoot(): ModuleWithProviders {
     console.log('Firebase initialized', environment.firebaseConfig);
-    firebase.initializeApp(environment.firebaseConfig);
+    const app = firebase.initializeApp(environment.firebaseConfig);
+    const functions = app.functions('europe-west1');
+    return {
+      ngModule: FirebaseModule,
+      providers: [{
+        provide: GoogleFunctions,
+        useValue: functions
+      }]
+    }
   }
 }
