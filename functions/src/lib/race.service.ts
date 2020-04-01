@@ -4,8 +4,8 @@ import * as admin from 'firebase-admin';
 import { converter} from './';
 
 export const getCurrentRace = async (): Promise<IRace | undefined> => {
-  return currentSeason.then(season => admin.firestore()
-    .collection(`season/${season.id}/race`)
+  return currentSeason().then(season => admin.firestore()
+    .collection(`season/${season.id}/races`)
     .where('state', '==', 'open')
     .withConverter<IRace>(converter.timestamp)
     .get()

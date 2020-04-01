@@ -1,15 +1,16 @@
-import { Injectable } from '@angular/core';
+import { Injectable, Injector, Inject } from '@angular/core';
 import { AngularFirestore } from '@angular/fire/firestore';
 import { Observable } from 'rxjs';
 import { firestoreUtils, IRace, Player, Bid } from '@f2020/data';
 import { map } from 'rxjs/operators';
+import { GoogleFunctions } from '../../firebase';
 
 @Injectable({
   providedIn: 'root',
 })
 export class RacesService {
 
-  constructor(private afs: AngularFirestore) {
+  constructor(private afs: AngularFirestore, @Inject(GoogleFunctions) private functions: firebase.functions.Functions) {
 
   }
 
@@ -40,9 +41,7 @@ export class RacesService {
     }});
   }
 
-  su(seasonId: string, raceId: string, uid: string): Promise<void> {
-    return this.afs.doc<Bid>(`season/${seasonId}/races/${raceId}/bids/${uid}`).update({ 
-      submitted: true
-    });
+  async submitBid(): Promise<true> {
+    return this.functions.httpsCallable('submitBid')().then(() => true);
   }
 }

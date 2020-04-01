@@ -1,5 +1,5 @@
 import { RacesService } from './../../service/races.service';
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Injector } from '@angular/core';
 import { FormControl } from '@angular/forms';
 import { ActivatedRoute, Params } from '@angular/router';
 import { IRace } from '@f2020/data';
@@ -52,6 +52,6 @@ export class EnterBidComponent implements OnInit {
   }
 
   submitBid() {
-    this.service.su("2020", "Azerbaijan", 'i18w2Ol5jqQVxUz11VZbiC1Mlqp2')
+    this.service.submitBid();
   }
 }

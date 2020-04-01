@@ -1,5 +1,12 @@
 import { DateTime } from 'luxon';
 import * as firebase from 'firebase-admin'
+import { FunctionsErrorCode } from 'firebase-functions/lib/providers/https';
+import * as functions from 'firebase-functions';
+
+export const sendError = (httpError: FunctionsErrorCode, message: string): never => {
+  console.error(message);
+  throw new functions.https.HttpsError(httpError, message)
+}
 
 export const regexISODate = /^(\d{4})-(\d{2})-(\d{2})T(\d{2}):(\d{2}):(\d{2}(?:\.{0,1}\d*))(?:Z|(\+|-)([\d|:]*))?$/;
 

@@ -16,15 +16,21 @@ export const GoogleFunctions = new InjectionToken<firebase.functions.Functions>(
 })
 export class FirebaseModule {
 
-  static forRoot(): ModuleWithProviders {
+  static functions: firebase.functions.Functions;
+
+  constructor() {
     console.log('Firebase initialized', environment.firebaseConfig);
     const app = firebase.initializeApp(environment.firebaseConfig);
-    const functions = app.functions('europe-west1');
+    FirebaseModule.functions = app.functions('europe-west1');
+    
+  }
+
+  static forRoot(): ModuleWithProviders {
     return {
       ngModule: FirebaseModule,
       providers: [{
         provide: GoogleFunctions,
-        useValue: functions
+        useFactory: () => FirebaseModule.functions
       }]
     }
   }

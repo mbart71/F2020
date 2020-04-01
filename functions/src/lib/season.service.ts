@@ -2,8 +2,13 @@ import { converter } from './';
 import * as admin from 'firebase-admin';
 import { ISeason } from './model';
 
-const firestore = admin.firestore().collection(`season`)
-export const currentSeason: Promise<ISeason> = firestore
+let _currentSeason: Promise<ISeason>;
+
+export const currentSeason = (): Promise<ISeason> => {
+  if (_currentSeason) {
+    return _currentSeason;
+  }
+  _currentSeason = admin.firestore().collection(`season`)
   .where('current', '==', true)
   .withConverter<ISeason>(converter.timestamp)
   .get()
@@ -12,4 +17,6 @@ export const currentSeason: Promise<ISeason> = firestore
       return snapshot.docs[0].data();
     } 
     return Promise.reject(`Found ${snapshot.docs.length} with state open`);
-  });
+  })
+  return _currentSeason;
+};

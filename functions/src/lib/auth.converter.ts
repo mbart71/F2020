@@ -8,9 +8,8 @@ export const converter = {
     return firestoreUtils.convertDateTimes(player);
   },
   fromFirestore(
-    snapshot: firestore.QueryDocumentSnapshot,
-  ): PlayerImpl {
-    const data = snapshot.data();
+    data: firestore.QueryDocumentSnapshot,
+    ): PlayerImpl {
     return new PlayerImpl(firestoreUtils.convertTimestamps(data));
   }
 };

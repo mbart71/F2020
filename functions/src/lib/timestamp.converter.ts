@@ -6,9 +6,8 @@ export const converter = {
     return firestoreUtils.convertDateTimes(data);
   },
   fromFirestore<T>(
-    snapshot: firestore.QueryDocumentSnapshot,
+    data: firestore.QueryDocumentSnapshot,
   ): T {
-    const data = snapshot.data();
     return firestoreUtils.convertTimestamps(data);
   }
 };

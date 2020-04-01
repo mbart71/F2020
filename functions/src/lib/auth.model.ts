@@ -1,4 +1,4 @@
-import { Player } from './model'
+import { Player, Role } from './model'
 
 export class PlayerImpl implements Player  {
 
@@ -6,7 +6,7 @@ export class PlayerImpl implements Player  {
   readonly displayName: string;
   readonly photoURL: string;
   readonly email: string;
-  roles: string[];
+  roles: Role[];
   balance: number;
 
   constructor({uid,
@@ -23,7 +23,7 @@ export class PlayerImpl implements Player  {
       this.balance = balance || 0;
   }
 
-  isInRole(role: string): boolean {
+  isInRole(role: Role): boolean {
     return this.roles.includes(role);
   }
 }
