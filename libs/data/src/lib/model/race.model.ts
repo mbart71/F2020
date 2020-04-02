@@ -1,5 +1,6 @@
 import { DateTime } from 'luxon';
 import { CoordinateModel } from './coordinate.model';
+import { IDriverRaceResult } from './driver.model';
 
 export type State = 'waiting' | 'open' | 'closed' | 'completed';
 
@@ -19,4 +20,8 @@ export interface IRace extends IRaceBasis {
   readonly close: DateTime;
   drivers?: string[];
   selectedDriver: string;
+}
+
+export interface IRaceResult extends IRaceBasis {
+  results: IDriverRaceResult[];
 }

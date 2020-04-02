@@ -1,4 +1,5 @@
 import { map as race, basisMap as basisRace } from './race.mapper';
+import { map as raceResult } from './race-result.mapper';
 import { map as season } from './season.mapper';
 import { map as nationality } from './nationality.mapper';
 import { driver, drivers } from './driver.mapper';
@@ -10,6 +11,7 @@ import { polePostion } from './pole-position.mapper';
 export const mapper = {
   basisRace,
   race,
+  raceResult,
   driver,
   drivers,
   driverStanding,
