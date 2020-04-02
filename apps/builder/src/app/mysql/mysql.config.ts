@@ -9,5 +9,5 @@ export const connect = mysql.createConnection({
    password: "new22pas",
    database: "f2007",
   });
-export const getaccount_entry = 'select DTYPE,amount,date,message,to_account_id,from_account_id from account_entry';
+// export const getaccount_entry = 'select DTYPE,amount,date,message,to_account_id,from_account_id from account_entry';
 // export default getaccount_entry; 
