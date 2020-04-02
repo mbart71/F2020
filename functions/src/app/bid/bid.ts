@@ -8,6 +8,6 @@ export const submitBid = functions.region('europe-west1').https.onCall(async(dat
     .then(() => service.submitBid(context.auth!.uid))
     .then(() => true)
     .catch(errorMessage => {
-      logAndCreateError('internal', errorMessage);
-    })
+      throw logAndCreateError('internal', errorMessage)
+    });
 });
