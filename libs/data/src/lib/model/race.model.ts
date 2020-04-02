@@ -5,6 +5,7 @@ export type State = 'waiting' | 'open' | 'closed' | 'completed';
 
 export interface IRaceBasis {
   readonly round: number;
+  readonly season: number;
   readonly name: string;
   readonly raceStart: DateTime;
   readonly countryCode: string;
