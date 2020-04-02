@@ -1,7 +1,7 @@
-import { IRace } from '@f2020/data';
+import { untilDestroyed } from '@ngneat/until-destroy';
+import { IRace, Bid } from '@f2020/data';
 import { createEntityAdapter, EntityAdapter, EntityState } from '@ngrx/entity';
 import { Action, createReducer, on } from '@ngrx/store';
-import { Bid } from './../model';
 import { RacesActions } from './races.actions';
 
 
@@ -11,8 +11,9 @@ export interface State extends EntityState<IRace> {
   currentRace?: IRace;
   previousRace?: IRace;
   selectedId?: string; // which Races record has been selected
-  currentBid?: Partial<Bid>;
+  yourBid?: Partial<Bid>;
   bids?: Bid[];
+  bid?: Partial<Bid>;
   loaded: boolean; // has the Races list been loaded
   error?: string | null; // last none error (if any)
 }
@@ -46,17 +47,26 @@ const racesReducer = createReducer(
   ),
   on(
     RacesActions.loadRacesFailure, 
-    RacesActions.loadBidFailure,
+    RacesActions.loadYourBidFailure,
     RacesActions.loadBidsFailure,
+    RacesActions.loadBidFailure,
     RacesActions.updateBidFailure,
-    (state, { error }) => {
-      console.error(error);
+    (state, { type, error }) => {
+      console.error(type, error);
       return { ...state, error: error['message'] ?? error }
     }
   ),
-  on(RacesActions.selectRace, (state, { country }) => ({ ...state, selectedId: country })),
-  on(RacesActions.loadBidSuccess, (state, { bid }) => ({ ...state, currentBid: bid })),
+  on(RacesActions.selectRace, (state, { country }) => ({ 
+      ...state, 
+      selectedId: country,
+      bids: null,
+      bid: null,
+      yourBid: null, 
+    })
+  ),
+  on(RacesActions.loadYourBidSuccess, (state, { bid }) => ({ ...state, yourBid: bid })),
   on(RacesActions.loadBidsSuccess, (state, { bids }) => ({ ...state, bids })),
+  on(RacesActions.loadBidSuccess, (state, { bid }) => ({ ...state, bid })),
 );
 
 export function reducer(state: State | undefined, action: Action) {

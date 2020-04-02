@@ -2,7 +2,7 @@ import { Component, forwardRef, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, NG_VALIDATORS, NG_VALUE_ACCESSOR, ValidationErrors, Validators } from '@angular/forms';
 import { mapper } from '@f2020/data';
 import { debounceTime, map } from 'rxjs/operators';
-import { AbstractControlComponent } from '../abstract-control-component';
+import { AbstractControlComponent } from '../../abstract-control-component';
 
 @Component({
   selector: 'f2020-pole-position-time',

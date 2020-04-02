@@ -1,16 +1,16 @@
-import { Bid } from './../model/bid.model';
-import { Injectable } from '@angular/core';
+import { Injectable, Injector, Inject } from '@angular/core';
 import { AngularFirestore } from '@angular/fire/firestore';
 import { Observable } from 'rxjs';
-import { firestoreUtils, IRace, Player } from '@f2020/data';
+import { firestoreUtils, IRace, Player, Bid } from '@f2020/data';
 import { map } from 'rxjs/operators';
+import { GoogleFunctions } from '../../firebase';
 
 @Injectable({
   providedIn: 'root',
 })
 export class RacesService {
 
-  constructor(private afs: AngularFirestore) {
+  constructor(private afs: AngularFirestore, @Inject(GoogleFunctions) private functions: firebase.functions.Functions) {
 
   }
 
@@ -39,5 +39,9 @@ export class RacesService {
       photoURL: player.photoURL,
       email: player.email,
     }});
+  }
+
+  async submitBid(): Promise<true> {
+    return this.functions.httpsCallable('submitBid')().then(() => true);
   }
 }

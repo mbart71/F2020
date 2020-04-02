@@ -6,8 +6,7 @@ import { UntilDestroy, untilDestroyed } from '@ngneat/until-destroy';
 import { ActivatedRoute, Params } from '@angular/router';
 import { filter, map, pluck } from 'rxjs/operators';
 import { Observable, combineLatest } from 'rxjs';
-import { IRace } from '@f2020/data';
-import { Bid } from '../../model';
+import { IRace, Bid } from '@f2020/data';
 
 @UntilDestroy()
 @Component({
@@ -37,7 +36,7 @@ export class RaceComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.facade.dispatch(RacesActions.loadBid());
+    this.facade.dispatch(RacesActions.loadYourBid());
     this.facade.dispatch(RacesActions.loadBids());
 
     const raceId$ = this.route.params.pipe(
@@ -47,11 +46,16 @@ export class RaceComponent implements OnInit {
 
     raceId$.subscribe(id => this.facade.dispatch(RacesActions.selectRace({ country: id })));
     this.race$ = this.facade.selectedRace$.pipe(filter(race => !!race));
-    this.bid$ = this.facade.bid$;
+    this.bid$ = this.facade.yourBid$;
     this.bids$ = this.facade.bids$;
     this.center$ = this.race$.pipe(
       map(race => new google.maps.LatLng(race.location.lat, race.location.lng)),
     );
   }
+
+  flagURL(race: IRace) {
+    return `https://www.countryflags.io/${race.countryCode.toLocaleLowerCase()}/flat/64.png`
+  }
+
 
 }

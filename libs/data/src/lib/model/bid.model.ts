@@ -1,5 +1,10 @@
-import { SelectedDriverValue } from '@f2020/control';
-import { Player } from '@f2020/data';
+import { Player } from './player.model';
+
+
+export interface SelectedDriverValue {
+  grid: number;
+  finish: number;
+}
 
 export interface Bid {
   qualify: [string, string, string, string, string, string];
@@ -8,5 +13,5 @@ export interface Bid {
   selectedDriver: SelectedDriverValue;
   polePositionTime: number;
   submitted?:  boolean;
-  player?: Player
+  player?: Player;
 }

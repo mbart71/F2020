@@ -1,6 +1,7 @@
 <mat-action-list>
   <button mat-list-item *ngFor="let bid of bids">
-    <img matListAvatar [src]="bid.player.photoURL" [alt]="bid.player.displayName">
-    <span matLine>{{bid.player.displayName}}</span>
+    <img matListAvatar [src]="bid.player.photoURL" [alt]="bid.player.displayName"  (click)="gotoBid(bid.player.uid)">
+    <span  (click)="gotoBid(bid.player.uid)" matLine>{{bid.player.displayName}} </span>
+    <f2020-partial-bid-warning [bid]="bid"></f2020-partial-bid-warning>
   </button>
 </mat-action-list>
