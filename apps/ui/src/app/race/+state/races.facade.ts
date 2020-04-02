@@ -9,6 +9,7 @@ import * as RacesSelectors from './races.selectors';
 @Injectable()
 export class RacesFacade {
   loaded$ = this.store.pipe(select(RacesSelectors.getRacesLoaded));
+  updating$ = this.store.pipe(select(RacesSelectors.getUpdating));
   allRaces$ = this.store.pipe(select(RacesSelectors.getAllRaces));
   selectedRace$ = this.store.pipe(select(RacesSelectors.getSelected), filter(race => !!race));
   yourBid$ = this.store.pipe(select(RacesSelectors.getYourBid));

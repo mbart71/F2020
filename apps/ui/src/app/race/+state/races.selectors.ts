@@ -58,3 +58,8 @@ export const getBid = createSelector(
   getRacesState,
   state => state.bid
 );
+
+export const getUpdating = createSelector(
+  getRacesState,
+  state => state.updating
+);

@@ -1,12 +1,11 @@
-import { RacesService } from './../../service/races.service';
-import { Component, OnInit, Injector } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { FormControl } from '@angular/forms';
-import { ActivatedRoute, Params } from '@angular/router';
+import { ActivatedRoute, Params, Router } from '@angular/router';
 import { IRace } from '@f2020/data';
 import { UntilDestroy, untilDestroyed } from '@ngneat/until-destroy';
-import { Observable } from 'rxjs';
-import { debounceTime, filter, pluck, share, tap } from 'rxjs/operators';
-import { RacesFacade, RacesActions } from '../../+state';
+import { Observable, pairs } from 'rxjs';
+import { debounceTime, filter, pluck, share, tap, pairwise, takeUntil } from 'rxjs/operators';
+import { RacesActions, RacesFacade } from '../../+state';
 
 @UntilDestroy()
 @Component({
@@ -18,10 +17,11 @@ export class EnterBidComponent implements OnInit {
 
   bidControl: FormControl = new FormControl();
   race$: Observable<IRace>;
+  updating$: Observable<boolean>;
 
   constructor(
     private facade: RacesFacade,
-    private service: RacesService,
+    private router: Router,
     private route: ActivatedRoute) {
   }
 
@@ -37,6 +37,7 @@ export class EnterBidComponent implements OnInit {
       tap(_ => console.log(_)),
       share(),
     );
+    this.updating$ = this.facade.updating$;
     this.facade.yourBid$.pipe(
       filter(bid => bid && !bid.submitted),
       untilDestroyed(this),
@@ -48,10 +49,15 @@ export class EnterBidComponent implements OnInit {
     this.bidControl.valueChanges.pipe(
       debounceTime(3000),
       untilDestroyed(this),
-    ).subscribe(value => this.facade.dispatch(RacesActions.updateBid({bid: value})));
+    ).subscribe(value => this.facade.dispatch(RacesActions.updateYourBid({bid: value})));
+    this.updating$.pipe(
+      pairwise(),
+      filter(([previous, current]) => previous && current === false) ,
+      untilDestroyed(this),
+    ).subscribe(() => this.router.navigate(['/']));
   }
 
   submitBid() {
-    this.service.submitBid();
+    this.facade.dispatch(RacesActions.submitBid());
   }
 }
