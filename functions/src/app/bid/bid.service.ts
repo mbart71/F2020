@@ -4,7 +4,10 @@ import { logAndCreateError } from './../../lib/firestore-utils';
 import { getCurrentRace } from './../../lib/race.service';
 import { currentSeason } from './../../lib/season.service';
 
-const noNullsInArray = (array: (string | null)[]): boolean => array.every(Boolean);
+const noNullsInArrayFn = (array: (string | null)[]): boolean => array.every(Boolean);
+const uniqueDriversFn = (array: (string | null)[]): boolean => array.length === new Set(array).size;
+
+const validArraysFn = (array: (string | null)[]): boolean => noNullsInArrayFn(array) && uniqueDriversFn(array);
 
 export const submitBid = async(uid: string): Promise<admin.firestore.WriteResult> => {
   const season = await currentSeason();
@@ -17,7 +20,7 @@ export const submitBid = async(uid: string): Promise<admin.firestore.WriteResult
   if (!bid) {
     throw logAndCreateError('not-found', `No bid exists for uid: ${uid} for race ${race.location.country}`);
   }
-  const validArrays: boolean = Object.values(bid).filter(v => Array.isArray(v)).map(noNullsInArray).every(Boolean);
+  const validArrays: boolean = Object.values(bid).filter(v => Array.isArray(v)).map(validArraysFn).every(Boolean);
   const validPole: boolean = !!(bid.polePositionTime && bid.polePositionTime < 1000 * 60 * 2);
   const validSelected: boolean = !!(bid.selectedDriver.grid && bid.selectedDriver.finish); 
 
