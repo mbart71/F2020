@@ -27,6 +27,7 @@ import { AbstractControlComponent } from '../../abstract-control-component';
 export class BidComponent extends AbstractControlComponent implements OnInit {
 
   @Input() race: IRace;
+  @Input() isResult = false;
   fg: FormGroup;
 
   fastestLapLabelFn = () => 'Hurtigste kører';
