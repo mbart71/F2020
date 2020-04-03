@@ -1,21 +1,21 @@
-import { environment } from '../environments/environment';
-import { readUser } from './mysql/account';
-import { Transaction } from './model/mysq.model';
+import { firestoreUtils } from './converter/firestore-utils';
 import { firebaseApp } from './firebase';
-import { WriteResult } from '@google-cloud/firestore';
+import { readUser } from './mysql/account';
 
 export const buildTransactions = async (): Promise<number> => {
   const db = firebaseApp.datebase;
-  const mysqldata = (await readUser())
-  //const mysqldata1 = JSON.parse(mysqldata1) 
-  const transactionCollection = db.collection('transactions');
+  const rows = (await readUser())
+  
+  const transactions = db.collection('transactions');
 
-  return db.runTransaction(transaction => {
-    mysqldata.forEach(docKey =>
-        transaction.set(transactionCollection.add(docKey).then(documentReference => {
-            console.log(`Added document with name: ${documentReference.id}`)
-        })),
-        );
-    return Promise.resolve(mysqldata.length);
-  });
+  const chuncks = (Array.from({ length: (rows.length / 500) + 1 }, (_, index) => index)
+    .map(index => rows.slice(index * 500, (index+1)*500))
+  );  
+
+  return Promise.all(chuncks.map(chunck => {
+    return db.runTransaction(transaction => {
+      chunck.forEach(docKey => transaction.set(transactions.doc(), firestoreUtils.convertTimestamps(docKey)));
+      return Promise.resolve(rows.length);
+    });
+  })).then(() => rows.length)
 }

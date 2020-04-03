@@ -45,4 +45,4 @@ Thumbs.db
 apps/builder/src/environments/*
 
 #Configs
-app/builder/src/app/mysql/mysql.config.ts
+apps/builder/src/app/mysql/mysql.config.ts

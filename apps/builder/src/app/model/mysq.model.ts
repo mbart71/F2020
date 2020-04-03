@@ -1,6 +1,6 @@
 export interface Transaction {
-  from?: string;
-  to?: string;
+  from: string | null;
+  to: string | null;
   date: Date;
   message: string;
   amount: number;

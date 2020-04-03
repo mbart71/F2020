@@ -1,6 +1,5 @@
 import { Transaction, accountMap } from '../model/mysq.model'
 import { connect } from './mysql.config'
-import { resolve } from 'url';
 
 export const readUser = (): Promise<Transaction[]> => {
   //const connection = connect();
@@ -11,7 +10,7 @@ export const readUser = (): Promise<Transaction[]> => {
   // open the MySQL connection
   return new Promise<Transaction[]>((resolve,reject)=> {
     connect.connect(); 
-    connect.query(queryString, (err, rows, fields) => {
+    connect.query(queryString, (err, rows) => {
       if (err) {
         reject(err)
         return
@@ -21,8 +20,8 @@ export const readUser = (): Promise<Transaction[]> => {
           amount:row.amount,
           date:new Date(row.date),
           message:row.message, 
-          from:accountMap.get(row.from_account_id),
-          to:accountMap.get(row.to_account_id),
+          from:accountMap.get(row.from_account_id) || null,
+          to:accountMap.get(row.to_account_id) || null,
         }
       }))
      });
