@@ -11,7 +11,7 @@ export class ErgastService {
   constructor(private http: HttpClient) {
   }
 
-  get<T>(url: string, mapFn: (ergastData: any) => T[]): Observable<T[]> {
+  get<T>(url: string, mapFn: (ergastData: any) => T): Observable<T> {
     return this.http.get(`https://ergast.com/api/f1/${url}`).pipe(
       map(mapFn),
     );

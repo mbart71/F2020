@@ -1,7 +1,8 @@
+import { ErgastService } from './../../shared/service/ergast.service';
 import { Injectable, Injector, Inject } from '@angular/core';
 import { AngularFirestore } from '@angular/fire/firestore';
 import { Observable } from 'rxjs';
-import { firestoreUtils, IRace, Player, Bid } from '@f2020/data';
+import { firestoreUtils, IRace, Player, Bid, IRaceResult, mapper } from '@f2020/data';
 import { map } from 'rxjs/operators';
 import { GoogleFunctions } from '../../firebase';
 
@@ -10,7 +11,10 @@ import { GoogleFunctions } from '../../firebase';
 })
 export class RacesService {
 
-  constructor(private afs: AngularFirestore, @Inject(GoogleFunctions) private functions: firebase.functions.Functions) {
+  constructor(
+    private afs: AngularFirestore, 
+    private ergastService: ErgastService,
+    @Inject(GoogleFunctions) private functions: firebase.functions.Functions) {
 
   }
 
@@ -40,6 +44,11 @@ export class RacesService {
       email: player.email,
     }});
   }
+
+  getResult(seasonId: string | number, round: number): Observable<IRaceResult> {
+    return this.ergastService.get<IRaceResult>(`${seasonId}/${round}/results.json`, ergastData => mapper.raceResult(ergastData.MRData.RaceTable.Races[0]));
+  }
+
 
   async submitBid(): Promise<true> {
     return this.functions.httpsCallable('submitBid')().then(() => true);
