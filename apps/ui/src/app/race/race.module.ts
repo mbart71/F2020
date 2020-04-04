@@ -20,6 +20,8 @@ import { BidsComponent } from './component/bids/bids.component';
 import { EnterBidComponent } from './component/enter-bid/enter-bid.component';
 import { DisplayBidComponent } from './component/display-bid/display-bid.component';
 import { PartialBidWarningComponent } from './component/partial-bid-warning/partial-bid-warning.component';
+import { SubmitResultComponent } from './component/submit-result/submit-result.component';
+import { RaceOutletComponent } from './component/race-outlet/race-outlet.component';
 
 @NgModule({
   imports: [
@@ -42,8 +44,10 @@ import { PartialBidWarningComponent } from './component/partial-bid-warning/part
     RaceStatusComponent,
     BidsComponent,
     EnterBidComponent,
+    SubmitResultComponent,
     DisplayBidComponent,
     PartialBidWarningComponent,
+    RaceOutletComponent,
   ],
 })
 export class RaceModule {

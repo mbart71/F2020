@@ -1,5 +1,5 @@
 import { createAction, props } from '@ngrx/store';
-import { IRace, Bid } from '@f2020/data';
+import { IRace, Bid, IRaceResult } from '@f2020/data';
 
 const loadRaces = createAction('[Races] Load Races');
 
@@ -71,6 +71,46 @@ const loadBidFailure = createAction(
   props<{ error: any }>(),
 );
 
+const loadResult = createAction(
+  '[Result page] Load result',
+);
+
+const loadResultSuccess = createAction(
+  '[Result API] Load result Success',
+  props<{ result: IRaceResult }>(),
+);
+
+const loadResultFailure = createAction(
+  '[Result API] Load result Failure',
+  props<{ error: any }>(),
+);
+
+const submitBid = createAction(
+  '[Bid page] submit bid',
+);
+
+const submitBidSuccess = createAction(
+  '[Bid API] Submit bid Success',
+);
+
+const submitBidFailure = createAction(
+  '[Bid API] Submit bid Failure',
+  props<{ error: any }>(),
+);
+
+const submitResult = createAction(
+  '[Result page] submit result',
+);
+
+const submitResultSuccess = createAction(
+  '[Result API] Submit result Success',
+);
+
+const submitResultFailure = createAction(
+  '[Result API] Submit result Failure',
+  props<{ error: any }>(),
+);
+
 export const RacesActions = {
   loadRaces,
   loadRacesSuccess,
@@ -85,7 +125,16 @@ export const RacesActions = {
   loadBid,
   loadBidSuccess,
   loadBidFailure,
-  updateBid: updateYourBid,
-  updateBidFailure: updateYourBidFailure,
+  loadResult,
+  loadResultSuccess,
+  loadResultFailure,
+  updateYourBid,
+  updateYourBidFailure,
+  submitBid,
+  submitBidSuccess,
+  submitBidFailure,
+  submitResult,
+  submitResultSuccess,
+  submitResultFailure,
 };
 

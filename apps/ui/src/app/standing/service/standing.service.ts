@@ -17,7 +17,7 @@ export class StandingService {
   }
 
   getDriverResult(seasonId: string | number, driverId: string): Observable<IDriverResult> {
-    return this.service.get<ErgastDriverResult>(`${seasonId}/drivers/${driverId}/results.json`, result => result.MRData.RaceTable.Races).pipe(
+    return this.service.get<ErgastDriverResult[]>(`${seasonId}/drivers/${driverId}/results.json`, result => result.MRData.RaceTable.Races).pipe(
       map(raceResults => {
         const results = raceResults.map(mapper.driverResult);
         return <IDriverResult>{
@@ -31,7 +31,7 @@ export class StandingService {
   }
 
   getDriverQualify(seasonId: string | number, driverId: string): Observable<IDriverQualifying[]> {
-    return this.service.get<ErgastDriverQualifying>(`${seasonId}/drivers/${driverId}/qualifying.json`, result => result.MRData.RaceTable.Races).pipe(
+    return this.service.get<ErgastDriverQualifying[]>(`${seasonId}/drivers/${driverId}/qualifying.json`, result => result.MRData.RaceTable.Races).pipe(
       map(qualifings => qualifings.map(mapper.driverQualifying)),
     );
   }

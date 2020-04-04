@@ -20,6 +20,17 @@ export interface ErgastDriverStanding {
   Constructor: ErgastConstructor;
 }
 
+export interface ErgastFastestLap {
+  rank: string;
+  lap: string;
+  Time: {
+      time: string;
+  },
+  AverageSpeed: {
+      speed: string;
+  }  
+}
+
 export interface ErgastDriverResult extends ErgastRace {
   Results: [{
     Driver: ErgastDriver;
@@ -28,6 +39,7 @@ export interface ErgastDriverResult extends ErgastRace {
     position: string;
     grid: string;
     status: string;
+    FastestLap: ErgastFastestLap;
   }]
 }
 

@@ -32,6 +32,10 @@ export class PlayerService {
     return firebase.auth().signInWithRedirect(new firebase.auth.GoogleAuthProvider()).then(_ => console.log('Signed in using google'));
   }
 
+  signInWithFacebook(): Promise<void> {
+    return firebase.auth().signInWithRedirect(new firebase.auth.FacebookAuthProvider()).then(_ => console.log('Signed in using facebook'));
+  }
+
   signOut(): Promise<void> {
     return firebase.auth().signOut();
   }

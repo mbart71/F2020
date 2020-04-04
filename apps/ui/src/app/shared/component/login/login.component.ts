@@ -16,4 +16,8 @@ export class LoginComponent {
     this.router.navigate(['/']).then(() => this.service.signInWithGoogle());
   }
 
+  loginWithFacebook() {
+    this.router.navigate(['/']).then(() => this.service.signInWithFacebook());
+  }
+
 }
