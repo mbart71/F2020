@@ -46,3 +46,5 @@ apps/builder/src/environments/*
 
 #Configs
 apps/builder/src/app/mysql/mysql.config.ts
+# Symbolic links
+functions/src/lib/model

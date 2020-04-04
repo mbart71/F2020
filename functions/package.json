@@ -7,7 +7,8 @@
     "shell": "npm run build && firebase functions:shell",
     "start": "npm run shell",
     "deploy": "firebase deploy --only functions",
-    "logs": "firebase functions:log"
+    "logs": "firebase functions:log",
+    "postinstall": "ln -sf ../../../libs/data/src/lib/model model"
   },
   "engines": {
     "node": "8"
@@ -15,7 +16,8 @@
   "main": "lib/index.js",
   "dependencies": {
     "firebase-admin": "^8.6.0",
-    "firebase-functions": "^3.3.0"
+    "firebase-functions": "^3.3.0",
+    "luxon": "^1.22.2"
   },
   "devDependencies": {
     "tslint": "^5.12.0",

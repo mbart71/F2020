@@ -7,9 +7,10 @@ export interface SelectedDriverValue {
 }
 
 export interface Bid {
-  qualify: [string, string, string, string, string, string];
-  fastestDriver: [string];
-  podium: [string, string, string];
+  qualify: [string, string, string, string, string, string, string?];
+  fastestDriver: [string, string?];
+  firstCrash: [string, string?];
+  podium: [string, string, string, string?];
   selectedDriver: SelectedDriverValue;
   polePositionTime: number;
   submitted?:  boolean;
