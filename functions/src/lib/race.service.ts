@@ -1,9 +1,7 @@
-import { currentSeason, seasonsURL } from './season.service';
-import { IRace } from "./model";
 import * as admin from 'firebase-admin';
-import { converter} from './';
-
-const racesURL = 'races';
+import { currentSeason, converter } from './';
+import { racesURL, seasonsURL } from './collection-names';
+import { IRace } from "./model";
 const currentRaceURL = (seasonId: string) => `${seasonsURL}/${seasonId}/${racesURL}`
 
 export const getCurrentRace = async (): Promise<IRace | undefined> => {

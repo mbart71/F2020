@@ -1,9 +1,8 @@
+import { seasonsURL } from './collection-names';
 import { converter } from './';
 import * as admin from 'firebase-admin';
 import { ISeason } from './model';
 import { logAndCreateError } from './firestore-utils';
-
-export const seasonsURL = 'seasons' 
 
 let _currentSeason: Promise<ISeason>;
 
