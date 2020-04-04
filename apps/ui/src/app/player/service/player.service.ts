@@ -10,6 +10,8 @@ import { Observable, ReplaySubject } from 'rxjs';
 })
 export class PlayerService {
 
+  static readonly playersURL = 'players';
+
   constructor(private afs: AngularFirestore) {
     firebase.auth().getRedirectResult().then(result => {
       if (result && result.user) {
@@ -18,6 +20,7 @@ export class PlayerService {
     });
     firebase.auth().onAuthStateChanged(user => {
       this._player$.next({ ...user });
+      this.updateBaseInformation(user).toPromise().then(() => console.log('Base information updated'));
       console.log(user);
     });
   }
@@ -47,7 +50,7 @@ export class PlayerService {
       email: player.email,
       photoURL: player.photoURL,
     };
-    const doc = this.afs.collection('player').doc(player.uid);
+    const doc = this.afs.doc(`${PlayerService.playersURL}/${player.uid}`);
     return doc.get().pipe(
       switchMap(snapshot => snapshot.exists ? doc.update(_player) : doc.set(_player)),
       first(),

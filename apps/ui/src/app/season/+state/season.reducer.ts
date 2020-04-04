@@ -30,10 +30,10 @@ const seasonReducer = createReducer(
   on(SeasonActions.loadSeasonSuccess, (state, { season }) =>
     ({ ...state, season, loaded: true }),
   ),
-  on(SeasonActions.loadSeasonFailure, (state, { error }) => ({
-    ...state,
-    error,
-  })),
+  on(SeasonActions.loadSeasonFailure, (state, { type, error }) => {
+    console.error(type, error);
+    return { ...state, error: error['message'] ?? error, updating: false, loaded: false }
+  }),
 );
 
 export function reducer(state: State | undefined, action: Action) {
