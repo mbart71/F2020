@@ -46,13 +46,14 @@ export const buildPreviousSeason = async (seasonId: string) => {
   //   .catch(error => console.error(error));
 };
 
+const seasonsURL = 'seasons';
+const racesURL = seasonId => `${seasonsURL}/${seasonId}/races`;  
 
 const writeSeason = (season: ISeason, races: IRace[]): Promise<WriteResult[]> => {
-  return firebaseApp.datebase.collection('season').doc(season.id).withConverter(converter.season).set(season)
+  return firebaseApp.datebase.collection(seasonsURL).doc(season.id).withConverter(converter.season).set(season)
     .then(() => {
-      const ref = firebaseApp.datebase.doc(`season/${season.id}`).collection('races');
+      const ref = firebaseApp.datebase.collection(racesURL(season.id));
       const racesWrite = races.map(race => ref.doc(race.location.country).withConverter(converter.race).set(race));
       return Promise.all(racesWrite);
     });
-
 };

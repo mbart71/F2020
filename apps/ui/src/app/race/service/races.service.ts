@@ -1,3 +1,4 @@
+import { SeasonService } from './../../season/service/season.service';
 import { ErgastService } from './../../shared/service/ergast.service';
 import { Injectable, Injector, Inject } from '@angular/core';
 import { AngularFirestore } from '@angular/fire/firestore';
@@ -19,25 +20,25 @@ export class RacesService {
   }
 
   getRaces(seasonId: string): Observable<IRace[]> {
-    return this.afs.collection<IRace>(`season/${seasonId}/races`).valueChanges().pipe(
+    return this.afs.collection<IRace>(`${SeasonService.seasonsURL}/${seasonId}/races`).valueChanges().pipe(
       map(firestoreUtils.convertTimestamps),
     );
   }
 
   getBids(seasonId: string, raceId: string): Observable<Bid[]> {
-    return this.afs.collection<Bid>(`season/${seasonId}/races/${raceId}/bids`).valueChanges().pipe(
+    return this.afs.collection<Bid>(`${SeasonService.seasonsURL}/${seasonId}/races/${raceId}/bids`).valueChanges().pipe(
       map(firestoreUtils.convertDateTimes),
     );
   }
 
   getBid(seasonId: string, raceId: string, uid: string): Observable<Bid> {
-    return this.afs.doc<Bid>(`season/${seasonId}/races/${raceId}/bids/${uid}`).valueChanges().pipe(
+    return this.afs.doc<Bid>(`${SeasonService.seasonsURL}/${seasonId}/races/${raceId}/bids/${uid}`).valueChanges().pipe(
       map(firestoreUtils.convertDateTimes),
     );
   }
 
   updateBid(seasonId: string, raceId: string, player: Player, bid: Bid): Promise<void> {
-    return this.afs.doc<Bid>(`season/${seasonId}/races/${raceId}/bids/${player.uid}`).set({...bid, player: {
+    return this.afs.doc<Bid>(`${SeasonService.seasonsURL}/${seasonId}/races/${raceId}/bids/${player.uid}`).set({...bid, player: {
       uid: player.uid,
       displayName: player.displayName,
       photoURL: player.photoURL,
