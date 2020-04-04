@@ -1,7 +1,7 @@
 import * as admin from 'firebase-admin';
 import { converter } from './auth.converter';
 import { PlayerImpl } from './auth.model';
-import { getUser } from './auth.service';
+import { getUser, playersURL } from './auth.service';
 import { logAndCreateError } from './firestore-utils';
 import { Role } from './model/player.model';
 
@@ -28,7 +28,7 @@ export const getBookie = (): Promise<PlayerImpl> => {
   if (_bookie) {
     return _bookie;
   }
-  _bookie = admin.firestore().collection('player')
+  _bookie = admin.firestore().collection(playersURL)
     .where('roles', 'array-contains', 'bookie')
     .withConverter(converter)
     .get()
