@@ -26,6 +26,9 @@ const pipes = [
   exports: [
     pipes,
   ],
+  providers: [
+    DriverNamePipe,
+  ]
 })
 export class DriverModule {
 }

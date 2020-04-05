@@ -5,6 +5,7 @@
         fxFlex.gt-xs="48"
         [driverIds]="race?.drivers"
         [label]="labelFn(i + 1)"
+        [error]="errorMessage(i)"
         [formControlName]="i">
     </f2020-select-driver>
   </ng-container>
