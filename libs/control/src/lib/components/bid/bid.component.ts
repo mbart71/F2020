@@ -64,9 +64,9 @@ export class BidComponent extends AbstractControlComponent implements OnInit {
         firstCrash: null,
         polePositionTime: null,
         ...value
-      });
+      }, {emitEvent: false});
     } else {
-      this.fg.reset();
+      this.fg.reset({}, {emitEvent: false});
     }
   }
 

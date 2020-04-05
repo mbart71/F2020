@@ -44,7 +44,7 @@ export class SelectedDriverComponent extends AbstractControlComponent implements
     if (value) {
       this.fg.patchValue(value, {emitEvent: false});
     } else {
-      this.fg.reset();
+      this.fg.reset({}, {emitEvent: false});
     }
   }
 

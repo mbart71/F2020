@@ -51,10 +51,10 @@ export class PolePositionTimeComponent extends AbstractControlComponent implemen
   }
 
   writeValue(value: number): void {
-    if (value) {
+    if (value !== null) {
       this.fg.patchValue(mapper.polePostion.split(value), {emitEvent: false});
     } else {
-      this.fg.reset()
+      this.fg.reset({}, {emitEvent: false})
     }
   }
 
