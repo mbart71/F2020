@@ -32,7 +32,7 @@ const uniqueDrivers = (driverArray: FormArray): null | string[] => {
     },
     {
       provide: NG_VALIDATORS,
-      useClass: SelectDriversComponent,
+      useExisting: forwardRef(() => SelectDriversComponent),
       multi: true
     }
   ],
@@ -78,7 +78,9 @@ export class SelectDriversComponent extends AbstractControlComponent implements 
   }
 
   validate(control: AbstractControl): ValidationErrors | null {
-    return (control?.value ?? [] as Array<string>).every(driverId => !!driverId) ? null : { required: true };
+    console.log(this);
+    
+    return this.drivers?.valid ? null : { required: true };
   }
 
   errorMessage(index: number): string {
