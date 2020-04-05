@@ -121,9 +121,10 @@ export class RacesEffects {
     ]).pipe(
       first(),
       switchMap(([season, race, player]) => this.service.updateBid(season.id, race.location.country, player, bid)),
+      map(() => RacesActions.updateYourBidSuccess()),
       catchError(error => of(RacesActions.updateYourBidFailure({ error }))),
     ))
-  ), {dispatch: false});
+  ));
 
   constructor(
     private actions$: Actions, 

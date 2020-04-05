@@ -37,6 +37,10 @@ const updateYourBid = createAction(
   props<{bid: Bid}>()
 );
 
+const updateYourBidSuccess = createAction(
+  '[Enter bid page] Update the your success',
+);
+
 const updateYourBidFailure = createAction(
   '[Bid API] Update your bid Failure',
   props<{ error: any }>(),
@@ -129,6 +133,7 @@ export const RacesActions = {
   loadResultSuccess,
   loadResultFailure,
   updateYourBid,
+  updateYourBidSuccess,
   updateYourBidFailure,
   submitBid,
   submitBidSuccess,

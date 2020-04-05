@@ -50,7 +50,7 @@ export class SelectDriversComponent extends AbstractControlComponent implements 
     if (value) {
       this.drivers.patchValue(Array.isArray(value) ? value : [value], {emitEvent: false});
     } else {
-      this.fg.reset();
+      this.fg.reset({}, {emitEvent: false});
     }
   }
 
