@@ -1,3 +1,4 @@
+import { seasonsURL, racesURL } from './../../lib/collection-names';
 import { Bid, logAndCreateError, PlayerImpl, validateAccess, currentSeason, getCurrentRace, getBookie, Transaction } from "../../lib";
 import * as admin from 'firebase-admin';
 import * as functions from 'firebase-functions';
@@ -44,7 +45,7 @@ const buildBid = async (player: PlayerImpl) => {
   }
 
   const db = admin.firestore();
-  const doc = db.doc(`season/${season.id}/races/${race.location.country}/bids/${player.uid}`) as admin.firestore.DocumentReference<Bid>;
+  const doc = db.doc(`${seasonsURL}/${season.id}/${racesURL}/${race.location.country}/bids/${player.uid}`) as admin.firestore.DocumentReference<Bid>;
   const bid = (await doc.get()).data();
   
   if (!bid) {
