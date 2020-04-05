@@ -20,7 +20,9 @@ export class PlayerService {
     });
     firebase.auth().onAuthStateChanged(user => {
       this._player$.next({ ...user });
-      this.updateBaseInformation(user).toPromise().then(() => console.log('Base information updated'));
+      if (user) {
+        this.updateBaseInformation(user).toPromise().then(() => console.log('Base information updated'));
+      }
       console.log(user);
     });
   }
