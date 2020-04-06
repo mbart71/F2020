@@ -3,8 +3,9 @@ import { FormControl } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { IRace } from '@f2020/data';
 import { UntilDestroy, untilDestroyed } from '@ngneat/until-destroy';
+import { DateTime } from 'luxon';
 import { Observable } from 'rxjs';
-import { debounceTime, filter, pairwise, share, tap, withLatest, switchMap, switchMapTo } from 'rxjs/operators';
+import { debounceTime, filter, pairwise, share, switchMapTo, tap } from 'rxjs/operators';
 import { RacesActions, RacesFacade } from '../../+state';
 
 @UntilDestroy()
@@ -60,5 +61,9 @@ export class EnterBidComponent implements OnInit {
   submitBid() {
     this.facade.dispatch(RacesActions.submitBid());
     this.bidControl.disable({emitEvent: false});
+  }
+
+  isOpen(race: IRace): boolean {
+    return race.close >= DateTime.local()
   }
 }
