@@ -19,6 +19,7 @@ export const buildTransactions = async (): Promise<number> => {
     });
   })).then(() => rows.length)
 }
+
 export const buildTransactionsNullNegative = async (): Promise<number> => {
   const db = firebaseApp.datebase;
   const rows = (await readUserNullNegative())
@@ -36,6 +37,7 @@ export const buildTransactionsNullNegative = async (): Promise<number> => {
     });
   })).then(() => rows.length)
 }
+
 export const buildTransactionsNullPositive = async (): Promise<number> => {
   const db = firebaseApp.datebase;
   const rows = (await readUserNullPositive())

@@ -5,6 +5,10 @@ export interface Transaction {
   message: string;
   amount: number;
 };
+export interface Balance {
+  amount: number;
+  uid: string | null;
+};
 
 export const accountMap = new Map<number, string>([
   [1, 'i18w2Ol5jqQVxUz11VZbiC1Mlqp2'],
