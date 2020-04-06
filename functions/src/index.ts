@@ -1,8 +1,6 @@
-// Start writing Firebase Functions
-// https://firebase.google.com/docs/functions/typescript
-
-const functions = require('firebase-functions')
-const admin = require('firebase-admin')
+import * as functions from 'firebase-functions';
+import * as admin from 'firebase-admin';
 admin.initializeApp(functions.config().firebase)
 
-export * from './app/bid/bid';
+export * from './app/bid/bid.call';
+export * from './app/transaction/transaction.trigger';
