@@ -11,7 +11,10 @@ import { RacesFacade } from './../../+state/races.facade';
 })
 export class RaceOutletComponent implements OnInit {
 
-  constructor(private facade: RacesFacade, private route: ActivatedRoute) { }
+  constructor(
+    private facade: RacesFacade, 
+    private route: ActivatedRoute) {
+  }
 
   ngOnInit(): void {
     this.route.params.pipe(

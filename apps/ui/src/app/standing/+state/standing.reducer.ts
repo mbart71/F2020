@@ -30,10 +30,10 @@ const standingReducer = createReducer(
   on(StandingActions.loadStandingsSuccess, (state, { standings }) =>
     ({ ...state, standings, loaded: true }),
   ),
-  on(StandingActions.loadStandingsFailure, (state, { error }) => ({
-    ...state,
-    error,
-  })),
+  on(StandingActions.loadStandingsFailure, (state, { type, error }) => {
+    console.error(type, error);
+    return { ...state, error: error['message'] ?? error, updating: false, loaded: false }
+  }),
 );
 
 export function reducer(state: State | undefined, action: Action) {

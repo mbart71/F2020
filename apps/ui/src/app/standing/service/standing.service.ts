@@ -13,7 +13,7 @@ export class StandingService {
   }
 
   getStandings(seasonId: string | number): Observable<IDriverStanding[]> {
-    return this.service.get(`${seasonId}/driverStandings.json`, ergastData => mapper.driverStandings(ergastData.MRData.StandingsTable.StandingsLists[0].DriverStandings));
+    return this.service.get(`${seasonId}/driverStandings.json`, ergastData => mapper.driverStandings(ergastData.MRData.StandingsTable.StandingsLists[0]?.DriverStandings ?? []));
   }
 
   getDriverResult(seasonId: string | number, driverId: string): Observable<IDriverResult> {
