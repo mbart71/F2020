@@ -78,8 +78,6 @@ export class SelectDriversComponent extends AbstractControlComponent implements 
   }
 
   validate(control: AbstractControl): ValidationErrors | null {
-    console.log(this);
-    
     return this.drivers?.valid ? null : { required: true };
   }
 

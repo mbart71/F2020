@@ -16,6 +16,7 @@ export class RacesFacade {
   bids$ = this.store.pipe(select(RacesSelectors.getBids));
   bid$ = this.store.pipe(select(RacesSelectors.getBid));
   result$ = this.store.pipe(select(RacesSelectors.getResult));
+  error$ = this.store.pipe(select(RacesSelectors.getRacesError));
 
   constructor(private store: Store<fromRaces.RacesPartialState>) {
   }

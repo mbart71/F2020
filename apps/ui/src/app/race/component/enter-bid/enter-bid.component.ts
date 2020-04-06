@@ -50,9 +50,14 @@ export class EnterBidComponent implements OnInit {
       filter(([previous, current]) => previous && current === false) ,
       untilDestroyed(this),
     ).subscribe(() => this.router.navigate(['/']));
+    this.facade.error$.pipe(
+      filter(error => !!error),
+      untilDestroyed(this)
+    ).subscribe(error => this.bidControl.enable({emitEvent: false}));
   }
 
   submitBid() {
     this.facade.dispatch(RacesActions.submitBid());
+    this.bidControl.disable({emitEvent: false});
   }
 }
