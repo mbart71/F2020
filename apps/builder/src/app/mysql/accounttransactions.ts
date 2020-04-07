@@ -1,4 +1,4 @@
-import { Transaction, accountMap, Balance } from '../model/mysq.model'
+import { Transaction, accountMap } from '../model/mysq.model'
 import { connect } from './mysql.config'
 
 export const readUser = (): Promise<Transaction[]> => {
@@ -60,23 +60,6 @@ export const readUserNullPositive = (): Promise<Transaction[]> => {
           to:accountMap.get(row.to_account_id) || null,
         }
       }))
-     });
-  })
-}
-export const readBalance = (account): Promise<Balance[]> => {
-  const queryStringBalance = 'select balance from Account where id = ?';
-  return new Promise<Balance[]>((resolve,reject)=> {
-    connect.query(queryStringBalance,[account], (err, rows) => {
-      if (err) {
-        reject(err)
-        return
-      } ; 
-        resolve(rows.map(row=>{
-          return <Balance> {
-            amount: row.balance,
-            uid:accountMap.get(account) || null,
-          }
-         }))
      });
   })
 }
