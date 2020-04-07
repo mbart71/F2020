@@ -1,4 +1,4 @@
-import { Transaction, accountMap, Balance } from '../model/mysq.model'
+import { accountMap, Balance } from '../model/mysq.model'
 import { connect } from './mysql.config'
 
 export const readBalance = (account): Promise<Balance[]> => {
@@ -12,7 +12,7 @@ export const readBalance = (account): Promise<Balance[]> => {
       } ; 
         resolve(rows.map(row=>{
           return <Balance> {
-            amount: row.balance,
+            balance: row.balance,
             uid:accountMap.get(account) || null,
           }
          }))

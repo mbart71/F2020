@@ -6,7 +6,7 @@ export interface Transaction {
   amount: number;
 };
 export interface Balance {
-  amount: number;
+  balance: number;
   uid: string | null;
 };
 
