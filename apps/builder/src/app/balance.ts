@@ -1,6 +1,6 @@
 import { firestoreUtils } from './converter/firestore-utils';
 import { firebaseApp } from './firebase';
-import { readBalance} from './mysql/account_balance';
+import { readBalance} from './mysql/account-balance';
 
 export const buildBalance= async (account: number): Promise<number> => {
   const db = firebaseApp.datebase;

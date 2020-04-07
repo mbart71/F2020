@@ -1,6 +1,6 @@
 import { firestoreUtils } from './converter/firestore-utils';
 import { firebaseApp } from './firebase';
-import { readUser, readUserNullNegative, readUserNullPositive } from './mysql/account_transactions';
+import { readUser, readUserNullNegative, readUserNullPositive } from './mysql/account-transactions';
 
 export const buildTransactions = async (): Promise<number> => {
   const db = firebaseApp.datebase;
