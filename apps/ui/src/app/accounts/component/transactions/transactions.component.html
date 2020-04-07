@@ -1,0 +1,6 @@
+<mat-toolbar color="primary">
+  <span fxFlex>Saldo</span><span>{{balance$ | async | currency: 'DKK'}}</span>
+</mat-toolbar>
+<button mat-fab aria-label="Udfør transaktion" (click)="openActions()">
+  <i class="fas fa-lg fa-coins"></i>
+</button>

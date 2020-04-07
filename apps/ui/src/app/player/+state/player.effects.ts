@@ -14,10 +14,10 @@ export class PlayerEffects {
   loadPlayer$ = createEffect(() =>
     this.actions$.pipe(
       ofType(PlayerActions.loadPlayer),
-      concatMap(action => this.service.player$.pipe(
-        map(({ uid, displayName, photoURL, email }) => {
-          if (uid) {
-            return PlayerActions.loadPlayerSuccess({ player: { uid, displayName, photoURL, email } });
+      concatMap(() => this.service.player$.pipe(
+        map(player => {
+          if (player) {
+            return PlayerActions.loadPlayerSuccess({ player });
           }
           return PlayerActions.loadPlayerUnauthorized();
         }),

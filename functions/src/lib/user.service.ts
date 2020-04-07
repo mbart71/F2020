@@ -1,9 +1,10 @@
 import * as admin from 'firebase-admin';
 import { converter } from './auth.converter';
 import { PlayerImpl } from './auth.model';
-import { getUser, playersURL } from './auth.service';
+import { getUser } from './auth.service';
 import { logAndCreateError } from './firestore-utils';
 import { Role } from './model/player.model';
+import { playersURL } from './collection-names';
 
 export const validateAccess = async (uid: string | undefined, ...role: Role[]): Promise<PlayerImpl> => {
   if (uid) {

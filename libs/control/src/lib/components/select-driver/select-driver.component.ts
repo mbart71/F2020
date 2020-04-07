@@ -18,6 +18,7 @@ export class SelectDriverComponent extends AbstractControlComponent implements O
 
   @Input() driverIds: string[];
   @Input() label: string;
+  @Input() error: string;
   selectControl = new FormControl();
 
   constructor() {

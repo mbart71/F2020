@@ -1,11 +1,10 @@
 import { Injectable } from '@angular/core';
 import { Actions, createEffect, ofType } from '@ngrx/effects';
-import { StandingActions } from './standing.actions';
-import { catchError, concatMap, map, switchMap } from 'rxjs/operators';
-import { PlayerActions } from '../../player/+state';
 import { of } from 'rxjs';
-import { StandingService } from '../service/standing.service';
+import { catchError, concatMap, map, switchMap } from 'rxjs/operators';
 import { SeasonFacade } from '../../season/+state/season.facade';
+import { StandingService } from '../service/standing.service';
+import { StandingActions } from './standing.actions';
 
 @Injectable()
 export class StandingEffects {
@@ -15,7 +14,7 @@ export class StandingEffects {
       switchMap(() => this.seasonFacade.season$),
       concatMap(season => season ? this.service.getStandings(season.id).pipe(
         map(standings => StandingActions.loadStandingsSuccess({ standings })),
-        catchError(error => of(PlayerActions.loadPlayerFailure({ error }))),
+        catchError(error => of(StandingActions.loadStandingsFailure({ error }))),
       ) : of(StandingActions.loadStandingsSuccess({ standings: null }))),
     ),
   );

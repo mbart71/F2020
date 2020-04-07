@@ -1,5 +1,5 @@
-import { LandingComponent, LoginComponent } from './shared';
 import { RouterModule, Routes } from '@angular/router';
+import { LandingComponent, LoginComponent } from './shared';
 
 const routes: Routes = [
   {
@@ -13,6 +13,10 @@ const routes: Routes = [
   {
     path: 'standings',
     loadChildren: () => import('../app/standing/standing.module').then(m => m.StandingModule),
+  },
+  {
+    path: 'account',
+    loadChildren: () => import('../app/accounts/accounts.module').then(m => m.AccountsModule),
   },
 ];
 
