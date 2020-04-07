@@ -1,5 +1,4 @@
-import { ErgastConstructor, ErgastDriver } from './ergast';
-import { IRace, IRaceBasis } from './race.model';
+import { IRaceBasis } from './race.model';
 
 export interface IDriver {
   readonly name: string;
@@ -28,6 +27,13 @@ export class DriverModel implements IDriver {
   }
 }
 
+export interface IFastestLap {
+  rank: number;
+  lap: number;
+  time: number;
+  averageSpeed: number;
+}
+
 export interface IDriverStanding {
   wins: number;
   points: number;
@@ -48,6 +54,7 @@ export interface IDriverRaceResult {
   position: number;
   grid: number;
   status: string;
+  fastestLap: IFastestLap;
 }
 
 export interface IDriverQualifying {

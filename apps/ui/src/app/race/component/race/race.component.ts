@@ -1,18 +1,17 @@
-import { SeasonFacade } from './../../../season/+state/season.facade';
-import { Component, OnInit } from '@angular/core';
-import { RacesFacade } from '../../+state/races.facade';
+import { Component, OnInit, ChangeDetectionStrategy } from '@angular/core';
+import { ActivatedRoute } from '@angular/router';
+import { Bid, IRace } from '@f2020/data';
+import { Observable } from 'rxjs';
+import { filter, map } from 'rxjs/operators';
 import { RacesActions } from '../../+state/races.actions';
-import { UntilDestroy, untilDestroyed } from '@ngneat/until-destroy';
-import { ActivatedRoute, Params } from '@angular/router';
-import { filter, map, pluck } from 'rxjs/operators';
-import { Observable, combineLatest } from 'rxjs';
-import { IRace, Bid } from '@f2020/data';
+import { RacesFacade } from '../../+state/races.facade';
+import { SeasonFacade } from './../../../season/+state/season.facade';
 
-@UntilDestroy()
 @Component({
   selector: 'f2020-race',
   styleUrls: ['./race.component.scss'],
   templateUrl: './race.component.html',
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class RaceComponent implements OnInit {
 
@@ -39,12 +38,6 @@ export class RaceComponent implements OnInit {
     this.facade.dispatch(RacesActions.loadYourBid());
     this.facade.dispatch(RacesActions.loadBids());
 
-    const raceId$ = this.route.params.pipe(
-      pluck<Params, string>('country'),
-      untilDestroyed(this),
-    );
-
-    raceId$.subscribe(id => this.facade.dispatch(RacesActions.selectRace({ country: id })));
     this.race$ = this.facade.selectedRace$.pipe(filter(race => !!race));
     this.bid$ = this.facade.yourBid$;
     this.bids$ = this.facade.bids$;
@@ -56,6 +49,4 @@ export class RaceComponent implements OnInit {
   flagURL(race: IRace) {
     return `https://www.countryflags.io/${race.countryCode.toLocaleLowerCase()}/flat/64.png`
   }
-
-
 }

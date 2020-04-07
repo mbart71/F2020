@@ -1,3 +1,4 @@
+import { filter } from 'rxjs/operators';
 import { Component, OnInit } from '@angular/core';
 import { Observable } from 'rxjs';
 import { IRace } from '@f2020/data';
@@ -16,7 +17,9 @@ export class RacesComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.races$ = this.facade.allRaces$;
+    this.races$ = this.facade.allRaces$.pipe(
+      filter(races => !!races.length)
+    );
   }
 
   flagURL(race: IRace) {

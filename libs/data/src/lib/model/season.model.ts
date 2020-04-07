@@ -7,7 +7,7 @@ export interface ISeason {
 }
 
 export class Season implements ISeason {
-  readonly id: string;
+  readonly id?: string;
   readonly name: string;
   readonly latestWBCJoinDate: DateTime;
 

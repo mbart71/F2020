@@ -1,3 +1,4 @@
+import { ErgastDriverResult } from './driver.model';
 import { ErgastLocation } from './location.model';
 
 export interface ErgastCircuit {
@@ -15,4 +16,8 @@ export interface ErgastRace {
   readonly Circuit: ErgastCircuit,
   readonly date: string,
   readonly time: string
+}
+
+export interface ErgastRaceResult extends ErgastRace {
+  Results: ErgastDriverResult[];
 }

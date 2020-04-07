@@ -20,6 +20,7 @@ export const basisMap = (source: ErgastRace): IRaceBasis => {
       country: source.Circuit.Location.country,
     },
     url: source.url,
+    season: parseInt(source.season, 10),
     round: parseInt(source.round, 10),
   };
 };
