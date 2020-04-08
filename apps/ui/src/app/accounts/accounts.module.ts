@@ -1,3 +1,4 @@
+import { ScrollingModule } from '@angular/cdk/scrolling';
 import { AccountService } from './service/account.service';
 import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
@@ -31,6 +32,7 @@ import { TransactionsComponent } from './component/transactions/transactions.com
     MatBottomSheetModule,
     MatSnackBarModule,
     FlexLayoutModule,
+    ScrollingModule,
   ],
   providers: [
     AccountService
