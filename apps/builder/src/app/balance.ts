@@ -9,7 +9,7 @@ export const buildBalance= async (account: number): Promise<number> => {
   const players = db.collection('players');
 
   return db.runTransaction(transaction => {
-      rows.forEach(({uid, balance}) => transaction.set(players.doc(uid).update({balance}), firestoreUtils.convertDateTime()));
+      rows.forEach(({uid, balance}) => transaction.update(players.doc(uid), ({balance})));
       return Promise.resolve(rows.length);
     }); 
 }

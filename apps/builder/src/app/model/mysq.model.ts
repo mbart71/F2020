@@ -4,6 +4,7 @@ export interface Transaction {
   date: Date;
   message: string;
   amount: number;
+  involved: string[];
 };
 export interface Balance {
   balance: number;
