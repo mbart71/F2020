@@ -1,5 +1,6 @@
+import { transferInTransaction } from './../../lib/transactions.service';
 import { seasonsURL, racesURL } from '../../lib/collection-names';
-import { Bid, logAndCreateError, PlayerImpl, validateAccess, currentSeason, getCurrentRace, getBookie, Transaction } from "../../lib";
+import { Bid, logAndCreateError, PlayerImpl, validateAccess, currentSeason, getCurrentRace, getBookie } from "../../lib";
 import * as admin from 'firebase-admin';
 import * as functions from 'firebase-functions';
 
@@ -55,16 +56,15 @@ const buildBid = async (player: PlayerImpl) => {
   validateBid(bid);
   validateBalance(player);
 
-  const transactions = db.collection('transactions');
   return db.runTransaction(transaction => {
     transaction.update(doc, {submitted: true});
-    transaction.create(transactions.doc(), <Transaction> {
+    transferInTransaction({
       date: new Date(),
       amount: 20,
       message: `Deltagelse ${race.name}`,
       from: player.uid,
-      to: bookie.uid
-    })
+      to: bookie.uid,
+    }, transaction);
     return Promise.resolve('Bid submitted');
   })
 

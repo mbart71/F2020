@@ -2,7 +2,6 @@ import { Transaction, accountMap } from '../model/mysq.model'
 import { connect } from './mysql.config'
 
 export const readUser = (): Promise<Transaction[]> => {
-  const connection = connect();
   const queryString = 'SELECT  id,DTYPE,amount,date,message,to_account_id,from_account_id from account_entry WHERE from_account_id IS NOT NULL';
   // Her har du kode der læser fra database og laver det om til Transaction data
   // open the MySQL connection
@@ -20,6 +19,7 @@ export const readUser = (): Promise<Transaction[]> => {
           message:row.message, 
           from:accountMap.get(row.from_account_id) || null,
           to:accountMap.get(row.to_account_id) || null,
+          involved: [accountMap.get(row.from_account_id), accountMap.get(row.to_account_id)]
         }
       }))
      });
@@ -39,6 +39,7 @@ export const readUser = (): Promise<Transaction[]> => {
             date:new Date(row.date),
             message:row.message,
             from:accountMap.get(row.from_account_id) || null,
+            involved: [accountMap.get(row.from_account_id)]
           }
         }))
        });
@@ -58,6 +59,7 @@ export const readUserNullPositive = (): Promise<Transaction[]> => {
           date:new Date(row.date),
           message:row.message,
           to:accountMap.get(row.to_account_id) || null,
+          involved: [accountMap.get(row.to_account_id)]
         }
       }))
      });

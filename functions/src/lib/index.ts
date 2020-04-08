@@ -7,6 +7,7 @@ export * from './timestamp.converter';
 export * from './firestore-utils';
 export * from './user.service';
 export * from './collection-names';
+export * from './transactions.service';
 
 
 import { converter as playerConverter } from './auth.converter';
