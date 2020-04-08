@@ -2,7 +2,7 @@
   <mat-toolbar color="primary">
     <span fxFlex>Saldo</span><span>{{balance$ | async | currency: 'DKK'}}</span>
   </mat-toolbar>
-  <mat-list fxFlex fxFill fxLayout="column">
+  <!-- <mat-list fxFlex fxFill fxLayout="column">
     <cdk-virtual-scroll-viewport
     fxFlex fxFill
     itemSize="48"
@@ -11,7 +11,7 @@
         {{transaction.amount | currency: 'DKK'}}
       </mat-list-item>
     </cdk-virtual-scroll-viewport>  
-  </mat-list>
+  </mat-list> -->
   <button mat-fab aria-label="Udfør transaktion" (click)="openActions()">
     <i class="fas fa-lg fa-coins"></i>
   </button>
