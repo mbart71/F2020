@@ -35,7 +35,6 @@ const withdraw = async (player: PlayerImpl) => {
 
   const transactions = db.collection('transaction');
   return db.runTransaction(transaction => {
-    transaction.update(doc, {balance: newBalance});
     transaction.create(transactions.doc(), <Transaction> {
       date: new Date(),
       amount: amount,
