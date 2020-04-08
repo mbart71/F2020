@@ -4,6 +4,11 @@ export interface Transaction {
   date: Date;
   message: string;
   amount: number;
+  involved: string[];
+};
+export interface Balance {
+  balance: number;
+  uid: string | null;
 };
 
 export const accountMap = new Map<number, string>([
@@ -26,6 +31,7 @@ export const accountMap = new Map<number, string>([
   [23, 'nino'],
   [26, 'RShomwi2DsNj7b00Vpnm0AoUauo1'],
   [27, 'rusche'],
+  [28, 'dummy28'],
   [30, 'jacob'],
   [31, 'STR'],
   [32, 'jette'],
