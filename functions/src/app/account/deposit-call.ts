@@ -1,4 +1,4 @@
-import { logAndCreateError, PlayerImpl, validateAccess, Transaction } from "../../lib";
+import { Dep, logAndCreateError, PlayerImpl, validateAccess, Transaction } from "../../lib";
 import * as admin from 'firebase-admin';
 import * as functions from 'firebase-functions';
 
@@ -16,8 +16,8 @@ const deposit = async (player: PlayerImpl) => {
   const db = admin.firestore();
   const doc = db.doc(`${player.uid}`) as admin.firestore.DocumentReference<Dep>;
   const user = (await doc.get()).data();
-  const newBalance = context.text.amount + player.balance
-  const amount = context.text.amount
+  const newBalance = data.text.amount + player.balance
+  const amount = data.text.amount 
   
   if (!user) {
     throw logAndCreateError('not-found', `No user exists for uid: ${player.uid} `);
