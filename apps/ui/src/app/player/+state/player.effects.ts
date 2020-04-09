@@ -16,7 +16,7 @@ export class PlayerEffects {
       ofType(PlayerActions.loadPlayer),
       concatMap(() => this.service.player$.pipe(
         map(player => {
-          if (player) {
+          if (player?.uid) {
             return PlayerActions.loadPlayerSuccess({ player });
           }
           return PlayerActions.loadPlayerUnauthorized();

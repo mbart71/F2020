@@ -2,8 +2,8 @@ import { Injectable } from '@angular/core';
 import { AngularFirestore } from '@angular/fire/firestore';
 import { Player } from '@f2020/data';
 import * as firebase from 'firebase/app';
-import { Observable, ReplaySubject } from 'rxjs';
-import { first, switchMap } from 'rxjs/operators';
+import { merge, Observable, ReplaySubject } from 'rxjs';
+import { filter, first, switchMap } from 'rxjs/operators';
 
 @Injectable({
   providedIn: 'root',
@@ -11,14 +11,20 @@ import { first, switchMap } from 'rxjs/operators';
 export class PlayerService {
 
   static readonly playersURL = 'players';
-  
+
   readonly player$: Observable<Player>;
   private currentUser$ = new ReplaySubject<firebase.UserInfo | null>(1);
 
   constructor(private afs: AngularFirestore) {
-    this.player$ = this.currentUser$.pipe(
-      switchMap(user => this.afs.doc<Player>(`${PlayerService.playersURL}/${user.uid}`).valueChanges())
-    )
+    this.player$ = merge(
+      this.currentUser$.pipe(
+        filter(user => !!user?.uid),
+        switchMap(user => this.afs.doc<Player>(`${PlayerService.playersURL}/${user.uid}`).valueChanges()),
+      ),
+      this.currentUser$.pipe(
+        filter(user => !user || !(user?.uid))
+      )
+    );
     firebase.auth().getRedirectResult().then(result => {
       if (result && result.user) {
         this.updateBaseInformation(result.user).toPromise().then(() => console.log('Base information updated'));

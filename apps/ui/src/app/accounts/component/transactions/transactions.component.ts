@@ -1,13 +1,12 @@
 import { DataSource } from '@angular/cdk/table';
 import { Transaction } from '@f2020/data';
 import { TransactionsActionsComponent } from './../transactions-actions/transactions-actions.component';
-import { filter, map, first } from 'rxjs/operators';
+import { filter, first, map } from 'rxjs/operators';
 import { Observable } from 'rxjs';
 import { PlayerFacade } from './../../../player';
 import { Component, OnInit } from '@angular/core';
 import { MatBottomSheet } from '@angular/material/bottom-sheet';
 import { AccountService, TransactionsDataSource } from '../../service';
-import { transition } from '@angular/animations';
 
 @Component({
   selector: 'f2020-transactions',
