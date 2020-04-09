@@ -1,3 +1,4 @@
+import { DateTime } from 'luxon';
 import { transferInTransaction } from './../../lib/transactions.service';
 import { seasonsURL, racesURL } from '../../lib/collection-names';
 import { Bid, logAndCreateError, PlayerImpl, validateAccess, currentSeason, getCurrentRace, getBookie } from "../../lib";
@@ -59,7 +60,7 @@ const buildBid = async (player: PlayerImpl) => {
   return db.runTransaction(transaction => {
     transaction.update(doc, {submitted: true});
     transferInTransaction({
-      date: new Date(),
+      date: DateTime.local(),
       amount: 20,
       message: `Deltagelse ${race.name}`,
       from: player.uid,
