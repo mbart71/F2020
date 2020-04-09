@@ -1,37 +1,37 @@
-import { Dep, logAndCreateError, PlayerImpl, validateAccess, Transaction } from "../../lib";
+import { transferInTransaction } from './../../lib/transactions.service';
+import { logAndCreateError, PlayerImpl, validateAccess } from "../../lib";
 import * as admin from 'firebase-admin';
 import * as functions from 'firebase-functions';
 
 
 export const deposit = functions.region('europe-west1').https.onCall(async(data, context) => {
-  return validateAccess(context.auth?.uid, 'admin')
-    .then(player => deposit(player))
+  return validateAccess(context.auth?.uid, 'bankadmin')
+    .then(player => buildDeposit(player))
     .then(() => true)
     .catch(errorMessage => {
       throw logAndCreateError('internal', errorMessage)
     });
 });
 
-const deposit = async (player: PlayerImpl) => {
-  const db = admin.firestore();
-  const doc = db.doc(`${player.uid}`) as admin.firestore.DocumentReference<Dep>;
-  const user = (await doc.get()).data();
-  const newBalance = data.text.amount + player.balance
-  const amount = data.text.amount 
+const buildDeposit = async (player: PlayerImpl) => {
+  const amount = data.match(/\d/g);
+  const message = data.replace(/[0-9]/g, '');
+  ; 
   
-  if (!user) {
-    throw logAndCreateError('not-found', `No user exists for uid: ${player.uid} `);
+  if (!amount) {
+    throw logAndCreateError('not-found', `No amount specified for uid: ${player.uid} `);
   }
 
-  const transactions = db.collection('transaction');
+  const db = admin.firestore();
+
   return db.runTransaction(transaction => {
-    transaction.create(transactions.doc(), <Transaction> {
+    transferInTransaction({
       date: new Date(),
       amount: amount,
-      message: `Indsat af admin ${amount}`,
-      to: player.uid
-    })
+      message: message,
+      from: 'CIQTphNeEfMXGUftQfoKvQt3lp73',
+      to: player.uid,
+    }, transaction);
     return Promise.resolve('Deposit request submitted');
   })
-
 }
