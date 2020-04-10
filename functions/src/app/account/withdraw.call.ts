@@ -1,4 +1,4 @@
-import { transfer } from './../../lib/transactions.service';
+import { transfer } from '../../lib/transactions.service';
 import { logAndCreateError, PlayerImpl, validateAccess, getUser } from "../../lib";
 import * as functions from 'firebase-functions';
 import { DateTime } from 'luxon';
