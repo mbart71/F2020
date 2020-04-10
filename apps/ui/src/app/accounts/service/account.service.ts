@@ -16,13 +16,13 @@ export class AccountService {
 
   async deposit(amount: number, message: string): Promise<true> {
     return this.functions.httpsCallable('deposit')({
-      amount, message
+      amount, message, uid:'tdaLwa33t9gZ2n3rTbmQMW7CgbT2'
     }).then(() => true);
   }
 
   async withdraw(amount: number, message: string): Promise<true> {
     return this.functions.httpsCallable('withdraw')({
-      amount, message
+      amount, message, uid:'tdaLwa33t9gZ2n3rTbmQMW7CgbT2'
     }).then(() => true);
   }
 
