@@ -1,3 +1,4 @@
+import { writeDocument, writeCollection } from './app/write-document';
 import { buildDrivers } from './app/drivers';
 import { buildTransactions, buildTransactionsNullNegative, buildTransactionsNullPositive } from './app/transactions';
 import { buildBalance} from './app/balance';
@@ -38,3 +39,4 @@ buildBalance(8)
 // readUser().then(transactions => console.log(transactions.slice(0, 10000)));
 // Bare skriv de først ti ud
 
+// writeCollection('seasons/2020/races/Azerbaijan/bids').then(console.log)
