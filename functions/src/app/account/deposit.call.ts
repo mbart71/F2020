@@ -19,11 +19,11 @@ export const deposit = functions.region('europe-west1').https.onCall(async (data
 });
 
 const buildDeposit = async ({ uid, amount, message }: DepositData) => {
-  if (!amount) {
-    throw logAndCreateError('not-found', `No amount specified for uid: ${uid} `);
-  }
   if (!uid) {
     throw logAndCreateError('not-found', `No uid specified for request `);
+  }
+  if (!amount) {
+    throw logAndCreateError('not-found', `No amount specified for uid: ${uid} `);
   }
 
   return transfer({

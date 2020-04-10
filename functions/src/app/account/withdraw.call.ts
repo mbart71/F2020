@@ -5,7 +5,7 @@ import { DateTime } from 'luxon';
 
 const validateBalance = (player: PlayerImpl, amount: number): void => {
   if ((player.balance || 0) - amount < 0) {
-    throw logAndCreateError('failed-precondition', `${player.displayName} has insufficient funds. Balance: ${(player.balance || 0).toFixed(2)}`)
+    throw logAndCreateError('failed-precondition', `${player.displayName} has insufficient funds can't redraw ${amount}. Balance: ${(player.balance || 0).toFixed(2)}`)
   }
 }
 
@@ -29,7 +29,6 @@ const buildWithdraw = async ({ uid, amount, message }: WithdrawData) => {
   if (!uid) {
     throw logAndCreateError('not-found', `No uid specified for request `);
   }
-  
   const player = await getUser(uid);
   if (!player) {
     throw logAndCreateError('not-found', `No player with uid: ${uid} not found`)
