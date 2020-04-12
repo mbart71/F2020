@@ -8,7 +8,7 @@
     "start": "npm run shell",
     "deploy": "firebase deploy --only functions",
     "logs": "firebase functions:log",
-    "test": "jest ./src --all --verbose=false",
+    "test": "jest ./src --all --verbose=false --watchAll",
     "test:livereload": "firebase emulators:exec --only firestore \"jest ./src --watchAll --verbose=false\"",
     "postinstall": "ln -sf ../../../libs/data/src/lib/model model"
   },
@@ -22,14 +22,14 @@
     "luxon": "^1.22.2"
   },
   "devDependencies": {
-    "firebase-functions-test": "^0.2.0",
     "@firebase/firestore-types": "^1.10.1",
     "@firebase/testing": "^0.19.0",
+    "@types/jest": "^24.0.19",
+    "firebase-functions-test": "^0.2.0",
+    "firebase-tools": "^8.0.2",
     "jest": "^24.9.0",
     "ts-jest": "^24.1.0",
     "tslint": "^5.12.0",
-    "firebase-tools": "^8.0.2",
-    "@types/jest": "^24.0.19",
     "typescript": "^3.8.3"
   },
   "private": true

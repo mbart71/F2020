@@ -2,6 +2,7 @@ import { transfer } from '../../lib/transactions.service';
 import { logAndCreateError, validateAccess } from "../../lib";
 import * as functions from 'firebase-functions';
 import { DateTime } from 'luxon';
+import { HttpsError } from 'firebase-functions/lib/providers/https';
 
 interface DepositData {
   amount: number;
@@ -11,10 +12,13 @@ interface DepositData {
 
 export const deposit = functions.region('europe-west1').https.onCall(async (data: DepositData, context) => {
   return validateAccess(context.auth?.uid, 'bank-admin')
-    .then(player => buildDeposit(data))
+    .then(() => buildDeposit(data))
     .then(() => true)
     .catch(errorMessage => {
-      throw logAndCreateError('internal', errorMessage)
+      if (errorMessage instanceof HttpsError === false) {
+        throw logAndCreateError('internal', errorMessage)
+      }
+      throw errorMessage
     });
 });
 
