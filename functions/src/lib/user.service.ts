@@ -15,7 +15,7 @@ export const validateAccess = async (uid: string | undefined, ...role: Role[]): 
     }
     
     if (!player.isInRole(...role)) {
-      throw logAndCreateError('permission-denied', `${player.displayName} does not have sufficient permissions. Role 'player' required. Has ${player.roles.join(', ')} `)
+      throw logAndCreateError('permission-denied', `${player.displayName} does not have sufficient permissions. Role '${role.join(',')}' required. Has ${player.roles.join(', ')} `)
     }
     return player;
   }

@@ -27,7 +27,11 @@ const buildDeposit = async ({ uid, amount, message }: DepositData) => {
     throw logAndCreateError('not-found', `No uid specified for request `);
   }
   if (!amount) {
-    throw logAndCreateError('not-found', `No amount specified for uid: ${uid} `);
+    throw logAndCreateError('failed-precondition', `No amount specified for uid: ${uid} `);
+  }
+
+  if (amount < 0) {
+    throw logAndCreateError('failed-precondition', `Amount specified is negative. Amount: ${amount.toFixed(2)} specified for uid: ${uid} `);
   }
 
   return transfer({
