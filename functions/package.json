@@ -8,7 +8,7 @@
     "start": "npm run shell",
     "deploy": "firebase deploy --only functions",
     "logs": "firebase functions:log",
-    "test": "jest ./src --all --verbose=false --watchAll --runInBand",
+    "test": "jest ./src -o --verbose=false --watch --runInBand --testTimeout 10000",
     "test:livereload": "firebase emulators:exec --only firestore \"jest ./src --watchAll --verbose=false\"",
     "postinstall": "ln -sf ../../../libs/data/src/lib/model model"
   },
@@ -18,6 +18,7 @@
   "main": "lib/index.js",
   "dependencies": {
     "firebase-admin": "^8.10.0",
+    "firebase-tools": "^8.0.2",
     "firebase-functions": "^3.6.0",
     "luxon": "^1.22.2"
   },
@@ -25,8 +26,8 @@
     "@firebase/firestore-types": "^1.10.1",
     "@firebase/testing": "^0.19.0",
     "@types/jest": "^24.0.19",
+    "clone": "^2.1.2",
     "firebase-functions-test": "^0.2.0",
-    "firebase-tools": "^8.0.2",
     "jest": "^24.9.0",
     "ts-jest": "^24.1.0",
     "tslint": "^5.12.0",

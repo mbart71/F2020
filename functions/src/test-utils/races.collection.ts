@@ -1,5 +1,3 @@
-import * as firebase from '@firebase/testing';
-
 export const races = [
   {
     url: 'https://en.wikipedia.org/wiki/2020_Austrian_Grand_Prix',
@@ -12,16 +10,16 @@ export const races = [
       lng: '14.7647',
       nationality: 'Spielburg'
     },
-    raceStart: firebase.firestore.Timestamp.fromMillis(159395460000),
+    raceStart: new Date(159395460000),
     season: 2020,
     countryCode: 'AT',
-    open: firebase.firestore.Timestamp.fromMillis(159338160000),
+    open: new Date(159338160000),
     round: 4,
     drivers: [],
-    close: firebase.firestore.Timestamp.fromMillis(159376680000)
+    close: new Date(159376680000)
   },
   {
-    close: firebase.firestore.Timestamp.fromMillis(159134400000),
+    close: new Date(159134400000),
     url: 'https://en.wikipedia.org/wiki/2020_Azerbaijan_Grand_Prix',
     state: 'open',
     selectedDriver: 'max_verstappen',
@@ -32,11 +30,10 @@ export const races = [
       nationality: 'Baku',
       country: 'Azerbaijan'
     },
-    raceStart: firebase.firestore.Timestamp.fromMillis(159153180000),
+    raceStart: new Date(159153180000),
     season: 2020,
     countryCode: 'AZ',
-    open: firebase.firestore.Timestamp.fromMillis(159073920000),
-    result: { podium: [Array], fastestDriver: [Array] },
+    open: new Date(159073920000),
     round: 1,
     drivers: [
       'hamilton',        'bottas',
@@ -58,13 +55,13 @@ export const races = [
       nationality: 'Spa',
       country: 'Belgium'
     },
-    raceStart: firebase.firestore.Timestamp.fromMillis(159879300000),
+    raceStart: new Date(159879300000),
     season: 2020,
     countryCode: 'BE',
-    open: firebase.firestore.Timestamp.fromMillis(159640560000),
+    open: new Date(159640560000),
     round: 7,
     drivers: [],
-    close: firebase.firestore.Timestamp.fromMillis(159860520000),
+    close: new Date(159860520000),
     url: 'https://en.wikipedia.org/wiki/2020_Belgian_Grand_Prix',
     state: 'waiting',
     selectedDriver: 'kevin_magnussen',
@@ -80,17 +77,17 @@ export const races = [
       lat: '-23.7036',
       lng: '-46.6997'
     },
-    raceStart: firebase.firestore.Timestamp.fromMillis(160546020000),
+    raceStart: new Date(160546020000),
     season: 2020,
     countryCode: 'BR',
-    open: firebase.firestore.Timestamp.fromMillis(160427160000),
+    open: new Date(160427160000),
     round: 14,
     drivers: [],
-    close: firebase.firestore.Timestamp.fromMillis(160527240000),
+    close: new Date(160527240000),
     url: 'https://en.wikipedia.org/wiki/2020_Brazilian_Grand_Prix'
   },
   {
-    close: firebase.firestore.Timestamp.fromMillis(159197040000),
+    close: new Date(159197040000),
     url: 'https://en.wikipedia.org/wiki/2020_Canadian_Grand_Prix',
     state: 'waiting',
     selectedDriver: 'stroll',
@@ -101,10 +98,10 @@ export const races = [
       lat: '45.5',
       lng: '-73.5228'
     },
-    raceStart: firebase.firestore.Timestamp.fromMillis(159215820000),
+    raceStart: new Date(159215820000),
     season: 2020,
     countryCode: 'CA',
-    open: firebase.firestore.Timestamp.fromMillis(159156720000),
+    open: new Date(159156720000),
     round: 2,
     drivers: []
   },
@@ -118,20 +115,20 @@ export const races = [
       nationality: 'Le Castellet',
       country: 'France'
     },
-    raceStart: firebase.firestore.Timestamp.fromMillis(159334980000),
+    raceStart: new Date(159334980000),
     season: 2020,
     countryCode: 'FR',
-    open: firebase.firestore.Timestamp.fromMillis(159217200000),
+    open: new Date(159217200000),
     round: 3,
     drivers: [],
-    close: firebase.firestore.Timestamp.fromMillis(159316200000),
+    close: new Date(159316200000),
     url: 'https://en.wikipedia.org/wiki/2020_French_Grand_Prix'
   },
   {
-    open: firebase.firestore.Timestamp.fromMillis(159519600000),
+    open: new Date(159519600000),
     round: 6,
     drivers: [],
-    close: firebase.firestore.Timestamp.fromMillis(159618600000),
+    close: new Date(159618600000),
     url: 'https://en.wikipedia.org/wiki/2020_Hungarian_Grand_Prix',
     state: 'waiting',
     selectedDriver: 'hulkenberg',
@@ -142,18 +139,18 @@ export const races = [
       lat: '47.5789',
       lng: '19.2486'
     },
-    raceStart: firebase.firestore.Timestamp.fromMillis(159637380000),
+    raceStart: new Date(159637380000),
     season: 2020,
     countryCode: 'HU'
   },
   {
-    raceStart: firebase.firestore.Timestamp.fromMillis(159939780000),
+    raceStart: new Date(159939780000),
     season: 2020,
     countryCode: 'IT',
-    open: firebase.firestore.Timestamp.fromMillis(159882480000),
+    open: new Date(159882480000),
     round: 8,
     drivers: [],
-    close: firebase.firestore.Timestamp.fromMillis(159921000000),
+    close: new Date(159921000000),
     url: 'https://en.wikipedia.org/wiki/2020_Italian_Grand_Prix',
     state: 'waiting',
     selectedDriver: 'giovinazzi',
@@ -175,17 +172,17 @@ export const races = [
       nationality: 'Suzuka',
       country: 'Japan'
     },
-    raceStart: firebase.firestore.Timestamp.fromMillis(160238940000),
+    raceStart: new Date(160238940000),
     season: 2020,
     countryCode: 'JP',
-    open: firebase.firestore.Timestamp.fromMillis(160124400000),
+    open: new Date(160124400000),
     round: 11,
     drivers: [],
-    close: firebase.firestore.Timestamp.fromMillis(160220160000),
+    close: new Date(160220160000),
     url: 'https://en.wikipedia.org/wiki/2020_Japanese_Grand_Prix'
   },
   {
-    close: firebase.firestore.Timestamp.fromMillis(160407000000),
+    close: new Date(160407000000),
     url: 'https://en.wikipedia.org/wiki/2020_Mexican_Grand_Prix',
     state: 'waiting',
     selectedDriver: 'perez',
@@ -196,17 +193,17 @@ export const races = [
       lng: '-99.0907',
       nationality: 'Mexico City'
     },
-    raceStart: firebase.firestore.Timestamp.fromMillis(160425780000),
+    raceStart: new Date(160425780000),
     season: 2020,
     countryCode: 'MX',
-    open: firebase.firestore.Timestamp.fromMillis(160366680000),
+    open: new Date(160366680000),
     round: 13,
     drivers: []
   },
   {
     round: 10,
     drivers: [],
-    close: firebase.firestore.Timestamp.fromMillis(160101720000),
+    close: new Date(160101720000),
     url: 'https://en.wikipedia.org/wiki/2020_Russian_Grand_Prix',
     state: 'waiting',
     selectedDriver: 'kvyat',
@@ -217,10 +214,10 @@ export const races = [
       lng: '39.9578',
       nationality: 'Sochi'
     },
-    raceStart: firebase.firestore.Timestamp.fromMillis(160120500000),
+    raceStart: new Date(160120500000),
     season: 2020,
     countryCode: 'RU',
-    open: firebase.firestore.Timestamp.fromMillis(160063920000)
+    open: new Date(160063920000)
   },
   {
     url: 'https://en.wikipedia.org/wiki/2020_Singapore_Grand_Prix',
@@ -233,13 +230,13 @@ export const races = [
       lng: '103.864',
       nationality: 'Marina Bay'
     },
-    raceStart: firebase.firestore.Timestamp.fromMillis(160060380000),
+    raceStart: new Date(160060380000),
     season: 2020,
     countryCode: 'SG',
-    open: firebase.firestore.Timestamp.fromMillis(159942960000),
+    open: new Date(159942960000),
     round: 9,
     drivers: [],
-    close: firebase.firestore.Timestamp.fromMillis(160041600000)
+    close: new Date(160041600000)
   },
   {
     location: {
@@ -248,13 +245,13 @@ export const races = [
       lng: '54.6031',
       nationality: 'Abu Dhabi'
     },
-    raceStart: firebase.firestore.Timestamp.fromMillis(160665540000),
+    raceStart: new Date(160665540000),
     season: 2020,
     countryCode: 'AE',
-    open: firebase.firestore.Timestamp.fromMillis(160548120000),
+    open: new Date(160548120000),
     round: 15,
     drivers: [],
-    close: firebase.firestore.Timestamp.fromMillis(160646760000),
+    close: new Date(160646760000),
     url: 'https://en.wikipedia.org/wiki/2020_Abu_Dhabi_Grand_Prix',
     state: 'waiting',
     selectedDriver: 'kubica',
@@ -263,7 +260,7 @@ export const races = [
   {
     round: 5,
     drivers: [],
-    close: firebase.firestore.Timestamp.fromMillis(159498000000),
+    close: new Date(159498000000),
     url: 'https://en.wikipedia.org/wiki/2020_British_Grand_Prix',
     state: 'waiting',
     selectedDriver: 'hamilton',
@@ -274,10 +271,10 @@ export const races = [
       nationality: 'Silverstone',
       country: 'UK'
     },
-    raceStart: firebase.firestore.Timestamp.fromMillis(159516780000),
+    raceStart: new Date(159516780000),
     season: 2020,
     countryCode: 'GB',
-    open: firebase.firestore.Timestamp.fromMillis(159398640000)
+    open: new Date(159398640000)
   },
   {
     selectedDriver: 'vettel',
@@ -288,13 +285,13 @@ export const races = [
       lat: '30.1328',
       lng: '-97.6411'
     },
-    raceStart: firebase.firestore.Timestamp.fromMillis(160365300000),
+    raceStart: new Date(160365300000),
     season: 2020,
     countryCode: 'US',
-    open: firebase.firestore.Timestamp.fromMillis(160245360000),
+    open: new Date(160245360000),
     round: 12,
     drivers: [],
-    close: firebase.firestore.Timestamp.fromMillis(160346160000),
+    close: new Date(160346160000),
     url: 'https://en.wikipedia.org/wiki/2020_United_States_Grand_Prix',
     state: 'waiting'
   }

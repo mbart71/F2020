@@ -1,6 +1,5 @@
 export const bids = [
   {
-    submitted: true,
     polePositionTime: 72123,
     podium: [ 'bottas', 'max_verstappen', 'hamilton' ],
     selectedDriver: { grid: 1, finish: 6 },
@@ -23,7 +22,6 @@ export const bids = [
   },
   {
     firstCrash: [ 'albon' ],
-    submitted: true,
     polePositionTime: 71111,
     podium: [ 'leclerc', 'vettel', 'max_verstappen' ],
     selectedDriver: { finish: 2, grid: 2 },

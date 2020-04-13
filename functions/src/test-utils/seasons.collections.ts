@@ -1,10 +1,8 @@
-import * as firebase from '@firebase/testing';
-
-export const season = [
+export const seasons = [
   {
-    name: 'F2020',
+    name: 'F9999',
     current: true,
-    latestWBCJoinDate: firebase.firestore.Timestamp.fromMillis(1593381600000),
-    id: '2020'
+    latestWBCJoinDate: new Date(1593381600000),
+    id: '9999'
   }
 ];
