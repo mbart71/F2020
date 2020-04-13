@@ -11,7 +11,7 @@ export const validateAccess = async (uid: string | undefined, ...role: Role[]): 
     const player: PlayerImpl | undefined = await getUser(uid);
 
     if (!player) {
-      throw logAndCreateError('permission-denied', `${uid} tried to login. No user with specified uid exists`);
+      throw logAndCreateError('not-found', `${uid} tried to login. No user with specified uid exists`);
     }
     
     if (!player.isInRole(...role)) {
@@ -19,7 +19,7 @@ export const validateAccess = async (uid: string | undefined, ...role: Role[]): 
     }
     return player;
   }
-  throw logAndCreateError('permission-denied', `No user was apparently logged in`);
+  throw logAndCreateError('unauthenticated', `No user was apparently logged in`);
 }
 
 

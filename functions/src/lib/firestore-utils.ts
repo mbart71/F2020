@@ -1,7 +1,14 @@
-import { DateTime } from 'luxon';
-import * as firebase from 'firebase-admin'
-import { FunctionsErrorCode } from 'firebase-functions/lib/providers/https';
+import * as firebase from 'firebase-admin';
 import * as functions from 'firebase-functions';
+import { FunctionsErrorCode, HttpsError } from 'firebase-functions/lib/providers/https';
+import { DateTime } from 'luxon';
+
+export const internalError = (errorMessage: any) => {
+  if (errorMessage instanceof HttpsError === false) {
+    throw logAndCreateError('internal', errorMessage)
+  }
+  throw errorMessage
+}
 
 export const logAndCreateError = (httpError: FunctionsErrorCode, message: string, ...additional: any[]): functions.https.HttpsError => {
   console.error(message, ...additional);

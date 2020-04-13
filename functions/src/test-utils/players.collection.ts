@@ -2,12 +2,12 @@ export const players = {
   bookie: {
     roles: [ 'bookie' ],
     email: 'bookie@bookie.dk',
-    balance: -4,
+    balance: 0,
     uid: 'bookie-uid',
     displayName: 'F1 Bookie'
   },
   admin: {
-    balance: 1699,
+    balance: 100,
     uid: 'admin-uid',
     displayName: 'Flemming',
     roles: [ 'admin', 'player', 'bank-admin' ],
@@ -17,7 +17,7 @@ export const players = {
     roles: [ 'player' ],
     email: 'michael@michael.dk',
     uid: 'player-uid',
-    balance: 1569,
+    balance: 200,
     displayName: 'Michael'
   }
 };

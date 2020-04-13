@@ -1,8 +1,7 @@
 import { transfer } from '../../lib/transactions.service';
-import { logAndCreateError, validateAccess } from "../../lib";
+import { logAndCreateError, validateAccess, internalError } from "../../lib";
 import * as functions from 'firebase-functions';
 import { DateTime } from 'luxon';
-import { HttpsError } from 'firebase-functions/lib/providers/https';
 
 interface DepositData {
   amount: number;
@@ -14,12 +13,7 @@ export const deposit = functions.region('europe-west1').https.onCall(async (data
   return validateAccess(context.auth?.uid, 'bank-admin')
     .then(() => buildDeposit(data))
     .then(() => true)
-    .catch(errorMessage => {
-      if (errorMessage instanceof HttpsError === false) {
-        throw logAndCreateError('internal', errorMessage)
-      }
-      throw errorMessage
-    });
+    .catch(internalError);
 });
 
 const buildDeposit = async ({ uid, amount, message }: DepositData) => {
