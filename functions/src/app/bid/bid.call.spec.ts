@@ -1,6 +1,6 @@
 import { collections } from './../../test-utils/index';
 import { test, cleanUp } from '../../test-utils/firebase-initialize';
-import { shouldaFailed, notFuound, failedPrecondition } from '../../test-utils/firestore-test-utils';
+import { shouldaFailed, notFound, failedPrecondition } from '../../test-utils/firestore-test-utils';
 import { submitBid } from './bid.call';
 import { playersURL, seasonsURL } from './../../lib/collection-names';
 import * as admin from 'firebase-admin';
@@ -58,13 +58,13 @@ describe('Submit bid unittest', () => {
         uid: 'jckS2Q0'
       }
     }).then(() => fail('Should have resulted in an error, when user it not known'))
-      .catch(notFuound);
+      .catch(notFound);
   });
 
 
   it('should deny a submit bid, when the user has no bid', async () => {
     await submitBidFn(null, context).then(() => fail('Should have resulted in an error, when the player does not have a bid'))
-      .catch(notFuound);
+      .catch(notFound);
   });
 
   it('should deny a submit bid, when bid is invalid', async () => {

@@ -3,6 +3,7 @@ import { withdraw } from './withdraw.call';
 import { players } from '../../test-utils/players.collection';
 import { playersURL } from './../../lib/collection-names';
 import * as admin from 'firebase-admin';
+import { notFound, failedPrecondition, permissionDenied } from '../../test-utils/firestore-test-utils';
 
 describe('Withdraw unittest', () => {
 
@@ -41,9 +42,7 @@ describe('Withdraw unittest', () => {
         uid: 'jckS2Q0'
       }
     }).then(() => fail('Should have resulted in an error, when user it not known'))
-      .catch((_: any) => {
-        expect(_.code).toEqual('not-found')
-      });
+      .catch(notFound);
   });
 
 
@@ -57,9 +56,7 @@ describe('Withdraw unittest', () => {
         uid: players.admin.uid
       }
     }).then(() => fail('Should have resulted in an error, when amount is not specified or zero'))
-      .catch((_: any) => {
-        expect(_.code).toEqual('failed-precondition')
-      });
+      .catch(failedPrecondition);
   });
 
   it('should deny a withdraw, when the amount is negative', async () => {
@@ -72,9 +69,7 @@ describe('Withdraw unittest', () => {
         uid: players.admin.uid
       }
     }).then(() => fail('Should have resulted in an error, when amount is negative'))
-      .catch((_: any) => {
-        expect(_.code).toEqual('failed-precondition')
-      });
+      .catch(failedPrecondition);
   });
   
   it('should deny a withdraw, when the user does not have the role of bank-admin', async () => {
@@ -87,9 +82,7 @@ describe('Withdraw unittest', () => {
         uid: players.player.uid
       }
     }).then(() => fail('Should have resulted in an error, when the user does not have the role of bank-admin'))
-      .catch((_: any) => {
-        expect(_.code).toEqual('permission-denied')
-      });
+      .catch(permissionDenied);
   });
 
   it('should deny a withdraw, when the account does not have enough money', async () => {
@@ -102,9 +95,7 @@ describe('Withdraw unittest', () => {
         uid: players.admin.uid
       }
     }).then(() => fail('Should have resulted in an error, when the account does not have enough money'))
-      .catch((_: any) => {
-        expect(_.code).toEqual('failed-precondition')
-      });
+      .catch(failedPrecondition);
   });
 
   it('should accept a withdraw', async () => {

@@ -1,8 +1,9 @@
+import * as admin from 'firebase-admin';
 import { test } from '../../test-utils/firebase-initialize';
-import { deposit } from './deposit.call';
+import { failedPrecondition, permissionDenied, notFound } from '../../test-utils/firestore-test-utils';
 import { players } from '../../test-utils/players.collection';
 import { playersURL } from './../../lib/collection-names';
-import * as admin from 'firebase-admin';
+import { deposit } from './deposit.call';
 
 describe('Deposit unittest', () => {
 
@@ -44,9 +45,7 @@ describe('Deposit unittest', () => {
         uid: 'jckS2Q0'
       }
     }).then(() => fail('Should have resulted in an error, when user it not known'))
-      .catch((_: any) => {
-        expect(_.code).toEqual('not-found')
-      });
+      .catch(notFound);
   });
 
 
@@ -60,9 +59,7 @@ describe('Deposit unittest', () => {
         uid: players.admin.uid
       }
     }).then(() => fail('Should have resulted in an error, when amount is not specified or zero'))
-      .catch((_: any) => {
-        expect(_.code).toEqual('failed-precondition')
-      });
+      .catch(failedPrecondition);
   });
 
   it('should deny a deposit, when the amount is negative', async () => {
@@ -75,9 +72,7 @@ describe('Deposit unittest', () => {
         uid: players.admin.uid
       }
     }).then(() => fail('Should have resulted in an error, when amount is negative'))
-      .catch((_: any) => {
-        expect(_.code).toEqual('failed-precondition')
-      });
+      .catch(failedPrecondition);
   });
   
   it('should deny a deposit, when the user does not have the role of bank-admin', async () => {
@@ -90,9 +85,7 @@ describe('Deposit unittest', () => {
         uid: players.player.uid
       }
     }).then(() => fail('Should have resulted in an error, when the user does not have the role of bank-admin'))
-      .catch((_: any) => {
-        expect(_.code).toEqual('permission-denied')
-      });
+      .catch(permissionDenied);
   });
 
   it('should accept a deposit', async () => {

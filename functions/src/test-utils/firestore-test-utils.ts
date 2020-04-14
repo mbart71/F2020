@@ -30,5 +30,6 @@
 
 export const shouldaFailed = () => fail('Should have resulted in an error, when bid is invalid');
 export const failedPrecondition = (_: any) => expect(_.code).toEqual('failed-precondition');
-export const notFuound = (_: any) => expect(_.code).toEqual('not-found');
+export const notFound = (_: any) => expect(_.code).toEqual('not-found');
+export const permissionDenied = (_: any) => expect(_.code).toEqual('permission-denied');
 
