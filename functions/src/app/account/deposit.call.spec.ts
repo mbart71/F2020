@@ -1,6 +1,5 @@
 import { assertFails, assertSucceeds } from '@firebase/testing';
 import { Player } from '../../lib/model/player.model';
-// import { test } from '../../test-utils/firebase-initialize';
 import { adminApp, authedApp, clearFirestoreData, failedPrecondition, notFound, permissionDenied, unauthenticated } from '../../test-utils/firestore-test-utils';
 import { players } from '../../test-utils/players.collection';
 import { playersURL } from './../../lib/collection-names';
@@ -19,9 +18,6 @@ describe('Deposit unittest', () => {
 
   afterEach(async () => {
     await clearFirestoreData();
-    // await test.cleanup();
-    // await admin.firestore().doc(`${playersURL}/${players.player.uid}`).delete();
-    // await admin.firestore().doc(`${playersURL}/${players.admin.uid}`).delete();
   })
 
   it('should deny a deposit, when user not logged in', async () => {

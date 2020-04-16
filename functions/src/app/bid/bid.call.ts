@@ -18,7 +18,7 @@ const validateBid = (bid: Bid, race: IRace): void => {
     firstCrash: 1,
   } as { [key: string]: number}
   const validArrays: boolean = Object.values(bid).filter(v => Array.isArray(v)).map(validArraysFn).every(Boolean) && Object.keys(lengths).every(key => lengths[key] === (bid as any)[key].length );
-  const validPole: boolean = !!(bid.polePositionTime && bid.polePositionTime < 1000 * 60 * 2 && bid.polePositionTime < 1000 * 60);
+  const validPole: boolean = !!(bid.polePositionTime && (bid.polePositionTime < (1000 * 60 * 2)) && (bid.polePositionTime > (1000 * 60)));
   const validSelected: boolean = !!(bid.selectedDriver && bid.selectedDriver.grid && bid.selectedDriver.grid > 0 && bid.selectedDriver.grid <= race.drivers!.length
     && bid.selectedDriver.finish && bid.selectedDriver.finish > 0 && bid.selectedDriver.finish <= race.drivers!.length)
   if (![validArrays, validPole, validSelected].every(Boolean)) {
@@ -27,7 +27,6 @@ const validateBid = (bid: Bid, race: IRace): void => {
 }
 
 const validateBalance = (player: PlayerImpl): void => {
-
   if ((player.balance || 0) - 20 < -100) {
     throw logAndCreateError('failed-precondition', `${player.displayName} has insufficient funds. Balance: ${(player.balance || 0).toFixed(2)}`)
   }

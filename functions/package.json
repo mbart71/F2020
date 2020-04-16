@@ -8,9 +8,9 @@
     "start": "npm run shell",
     "deploy": "firebase deploy --only functions",
     "logs": "firebase functions:log",
-    "test": "jest ./src -o --verbose=false --watch --runInBand --testTimeout 10000",
+    "test": "jest ./src -o --verbose=false --watch --runInBand",
     "test:livereload": "firebase emulators:exec --only firestore \"jest ./src --watchAll --verbose=false\"",
-    "postinstall": "ln -sf ../../../libs/data/src/lib/model model"
+    "postinstall": "ln -sf ../../../libs/data/src/lib/model/ src/lib/model"
   },
   "engines": {
     "node": "10"
