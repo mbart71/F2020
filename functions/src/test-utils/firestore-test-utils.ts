@@ -10,6 +10,7 @@ export const rules = () => {
   return require('fs').readFileSync('../firestore.rules', "utf8");
 }
 
+
 // const allowAll = `
 // rules_version = '2';
 // service cloud.firestore {
@@ -20,13 +21,13 @@ export const rules = () => {
 // `
 
 export async function authedApp(auth?: object): Promise<AuthedAppData> {
+  // await firebase.loadFirestoreRules({projectId: 'f1-serverless', rules: rules()});
     const app = firebase.initializeTestApp({projectId: 'f1-serverless', auth});
     const firestore: firebase.firestore.Firestore = app.firestore(); 
     const functions: firebase2.functions.Functions = app.functions('europe-west1'); 
-    await firebase.loadFirestoreRules({projectId: 'f1-serverless', rules: rules()});
     // await firebase.loadFirestoreRules({projectId: 'f1-serverless', rules: allowAll});
     functions.useFunctionsEmulator('http://localhost:5001');
-    return {firestore, functions};
+    return Promise.resolve({firestore, functions});
 }
 
 export function adminApp() {

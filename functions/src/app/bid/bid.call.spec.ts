@@ -136,7 +136,7 @@ describe('Submit bid unittest', () => {
     const app = await authedApp({ uid: collections.players.player.uid });
     await writeBid(clone(collections.bids[1]));
     await assertSucceeds(app.functions.httpsCallable('submitBid')())
-      .then(() => new Promise(resolve => setTimeout(() => resolve(), 500)))
+      .then(() => new Promise(resolve => setTimeout(() => resolve(), 1500)))
       .then(() => adminFirestore.doc(`${playersURL}/${collections.players.player.uid}`).get())
       .then((snapshot: firebase.firestore.DocumentSnapshot) => snapshot.data())
       .then((player: Player) => expect(player.balance).toEqual(180))
