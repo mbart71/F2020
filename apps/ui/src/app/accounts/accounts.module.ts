@@ -1,3 +1,4 @@
+import { SharedModule } from './../shared/shared.module';
 import { ScrollingModule } from '@angular/cdk/scrolling';
 import { AccountService } from './service/account.service';
 import { CommonModule } from '@angular/common';
@@ -33,6 +34,7 @@ import { TransactionsComponent } from './component/transactions/transactions.com
     MatSnackBarModule,
     FlexLayoutModule,
     ScrollingModule,
+    SharedModule
   ],
   providers: [
     AccountService

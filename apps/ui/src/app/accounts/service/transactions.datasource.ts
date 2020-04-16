@@ -1,19 +1,20 @@
+import { DateTime } from 'luxon';
 import { first } from 'rxjs/operators';
 import { AccountService } from './account.service';
 import { DataSource } from '@angular/cdk/table';
 import { Transaction } from '@f2020/data';
 import { BehaviorSubject, Subscription, Observable } from 'rxjs';
 import { CollectionViewer, ListRange } from '@angular/cdk/collections';
-import * as firebase from "firebase/app";
+import { firestore } from "firebase";
 
 export class TransactionsDataSource extends DataSource<Transaction | undefined> {
   private cached = Array.from<Transaction>({ length: 0 });
   private dataStream = new BehaviorSubject<(Transaction | undefined)[]>(this.cached);
   private subscription = new Subscription();
 
-  private pageSize = 10;
+  private pageSize = 30;
   private lastPage = 0;
-  private lastDate: firebase.firestore.Timestamp = firebase.firestore.Timestamp.fromMillis(1576694244 * 1000);
+  private lastDate: DateTime = DateTime.local();
 
   constructor(private readonly uid: string, private readonly service: AccountService) {
     super();
@@ -31,7 +32,7 @@ export class TransactionsDataSource extends DataSource<Transaction | undefined> 
 
       if (currentPage > this.lastPage) {
         this.lastPage = currentPage;
-        this.fetchTransaction(currentPage);
+        this.fetchTransaction();
       }
     }));
     return this.dataStream;
@@ -41,13 +42,13 @@ export class TransactionsDataSource extends DataSource<Transaction | undefined> 
     this.subscription.unsubscribe();
   }
 
-  private fetchTransaction(currentPage: number = 0): void {
+  private fetchTransaction(): void {
     this.service.getTransactions(this.uid, this.lastDate, this.pageSize).pipe(
       first()
     ).subscribe(res => {
       this.cached = this.cached.concat(res);
       this.dataStream.next(this.cached);
-      this.lastDate = <any> res[res.length - 1].date;
+      this.lastDate = res[res.length - 1].date;
     });
   }
 

@@ -1,9 +1,10 @@
+import { DateTime } from 'luxon';
 import { Inject, Injectable } from '@angular/core';
 import { AngularFirestore } from '@angular/fire/firestore';
-import { Transaction } from '@f2020/data';
+import { converter, Transaction } from '@f2020/data';
+import { firestore } from "firebase";
 import { Observable } from 'rxjs';
 import { GoogleFunctions } from './../../firebase/firebase.module';
-import * as firebase from "firebase/app";
 
 @Injectable()
 export class AccountService {
@@ -15,24 +16,23 @@ export class AccountService {
 
   async deposit(amount: number, message: string): Promise<true> {
     return this.functions.httpsCallable('deposit')({
-      amount, message
+      amount, message, uid:'tdaLwa33t9gZ2n3rTbmQMW7CgbT2'
     }).then(() => true);
   }
 
   async withdraw(amount: number, message: string): Promise<true> {
     return this.functions.httpsCallable('withdraw')({
-      amount, message
+      amount, message, uid:'tdaLwa33t9gZ2n3rTbmQMW7CgbT2'
     }).then(() => true);
   }
 
-  getTransactions(uid: string, start: firebase.firestore.Timestamp, numberOfTransactions: number): Observable<Transaction[]> {
+  getTransactions(uid: string, start: DateTime, numberOfTransactions: number): Observable<Transaction[]> {
     return this.afs.collection<Transaction>(AccountService.transactionsURL, ref => ref
-      .where('involved', 'array-contains-any', [uid])
+      .where('involved', 'array-contains', uid)
+      .where('date', '<', firestore.Timestamp.fromDate(start.toJSDate()))
       .orderBy('date', 'desc')
-      .startAt(start)
-      .limit(10)
-      // .limit(numberOfTransactions)
-      // .endAt(start + numberOfTransactions)
+      .limit(numberOfTransactions)
+      .withConverter(converter.transaction)
     ).valueChanges();
   }
 }

@@ -23,7 +23,8 @@ export class PlayerImpl implements Player  {
       this.balance = balance || 0;
   }
 
-  isInRole(role: Role): boolean {
-    return this.roles.includes(role);
+  isInRole(...role: Role[]): boolean {
+    const requiredRoles = Array.isArray(role) ? role : [role];
+    return this.roles.some(r => requiredRoles.some(rr => rr === r));
   }
 }
