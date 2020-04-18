@@ -1,6 +1,7 @@
+import { permissionDenied } from './../../test-utils/firestore-test-utils';
 import { assertSucceeds, assertFails } from '@firebase/testing';
 import { adminApp, authedApp, clearFirestoreData } from '../../test-utils/firestore-test-utils';
-import { collections } from '../../test-utils/index';
+import { collections } from '../../test-utils';
 import { playersURL } from './../../lib/collection-names';
 
 describe('Player rules', () => {
@@ -27,8 +28,13 @@ describe('Player rules', () => {
     await assertSucceeds(app.firestore.doc(`${playersURL}/${collections.players.player.uid}`).update({ displayName: 'Mickey Mouse' }))
   });
 
+  it('non-player should not be allowed to read players', async () => {
+    const app = await authedApp({ uid: 'non-player-id' });
+    await assertFails(app.firestore.collection(`${playersURL}`).get()).then(permissionDenied)
+  });
+  
   it('player should not be allowed to update uid', async () => {
     const app = await authedApp({ uid: collections.players.player.uid });
-    await assertFails(app.firestore.doc(`${playersURL}/${collections.players.player.uid}`).update({ uid: 'NO!' }))
+    await assertFails(app.firestore.doc(`${playersURL}/${collections.players.player.uid}`).update({ roles: ['NO!'] }))
   });
 });
