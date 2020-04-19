@@ -1,4 +1,6 @@
-export const bids = [
+import { Bid } from "../lib/model";
+
+export const bids: Bid[] = [
   {
     polePositionTime: 72123,
     podium: [ 'bottas', 'max_verstappen', 'hamilton' ],
@@ -18,7 +20,7 @@ export const bids = [
       'norris',
       'russell'
     ],
-    firstCrash: [ 'vettel' ]
+    firstCrash: [ 'grojean' ]
   },
   {
     firstCrash: [ 'albon' ],
