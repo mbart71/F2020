@@ -35,14 +35,15 @@ service cloud.firestore {
       allow read: if request.auth.uid == Players 
                     || getUserData().roles.hasAny(['editor', 'admin']); 
       allow update, write: if request.auth.uid == Players && notUpdating('roles') && notUpdating('uid') && notUpdating('balance')
-                    || getUserData().roles.hasAny(['editor', 'admin']) && notUpdating('balance'); 
+                    || getUserData().roles.hasAny(['editor', 'admin']) && notUpdating('balance') && notUpdating('uid'); 
       allow create, delete: if getUserData().roles.hasAny(['editor', 'admin']);
     }
     match /transactions/{Transactions} {
       allow read: if getUserData().roles.hasAny(['editor', 'admin'])
-                    || getUserData().roles.hasAny(['player']) && resource.data.to == request.auth.uid
-                    || getUserData().roles.hasAny(['player']) && resource.data.from == request.auth.uid; 
-      allow write: if getUserData().roles.hasAny(['editor', 'admin']);
+                   || getUserData().roles.hasAny(['player']) && resource.data.to == request.auth.uid
+                   || getUserData().roles.hasAny(['player']) && resource.data.from == request.auth.uid; 
+     //            || getUserData().roles.hasAny(['player']) && resource.data.involved.hasAny([request.auth.uid]);
+     // allow write: if getUserData().roles.hasAny(['editor', 'admin']);
     }  
     
     function getUserData() {

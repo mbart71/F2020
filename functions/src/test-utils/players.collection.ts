@@ -13,6 +13,13 @@ export const players = {
     roles: [ 'admin', 'player', 'bank-admin' ],
     email: 'flemming@flemming.dk'
   },
+  bankadmin: {
+    balance: 100,
+    uid: 'bankadmin-uid',
+    displayName: 'Bank Admin',
+    roles: [ 'bank-admin' ],
+    email: 'flemming@flemming.dk'
+  },
   player: {
     roles: [ 'player' ],
     email: 'michael@michael.dk',
