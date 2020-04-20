@@ -23,12 +23,16 @@ export const validateBid = (bid: Bid, race: IRace): void => {
 
 export const validateResult = (result: Bid, race: IRace): void => {
   const lengths = {
-    podium: 3,
-    qualify: 6,
-    fastestDriver: 1,
-    firstCrash: 1,
+    podium: 4,
+    qualify: 7,
+    fastestDriver: 2,
   } as { [key: string]: number }
-  const validArrays: boolean = Object.values(result).filter(v => Array.isArray(v)).map(validArraysFn).every(Boolean) && Object.keys(lengths).every(key => lengths[key] >= (result as any)[key].length);
+
+  if (!result) {
+    throw logAndCreateError('failed-precondition', 'No result specified');
+  }
+
+  const validArrays: boolean = Object.values(result).filter(v => Array.isArray(v)).map(validArraysFn).every(Boolean) && Object.keys(lengths).every(key => lengths[key] === undefined || (lengths[key] === (result as any)[key].length));
   const validPole: boolean = !!(result.polePositionTime && (result.polePositionTime < (1000 * 60 * 2)) && (result.polePositionTime > (1000 * 60)));
   const validSelected: boolean = !!(result.selectedDriver && result.selectedDriver.grid && result.selectedDriver.grid > 0 && result.selectedDriver.grid <= race.drivers!.length
     && result.selectedDriver.finish && result.selectedDriver.finish > 0 && result.selectedDriver.finish <= race.drivers!.length)

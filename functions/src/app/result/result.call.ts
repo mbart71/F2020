@@ -27,7 +27,7 @@ const buildResult = async (result: Bid) => {
     .then(snapshot => snapshot.docs)
     .then(snapshots => snapshots.map(s => s.data()))
     .then(bids => bids.map(bid => calculateResult(bid as Bid, result)))
-    .then(bids => bids.sort((a, b) => a.points! - b.points!));
+    .then(bids => bids.sort((a, b) => b.points! - a.points!));
 
   const winners = calculatedResults.filter(r => r.points! === calculatedResults[0].points!);
   const winningPrice = Math.floor(calculatedResults.length * 20 / winners.length);

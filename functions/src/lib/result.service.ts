@@ -27,7 +27,7 @@ export const calculateResult = (bid: Bid, result: Bid): Bid => {
   calculatedResult.qualifyPoints = offsetPoints(bid.qualify as string[], result.qualify as string[], 1) as [number, number, number, number, number, number];
   calculatedResult.fastestDriverPoints = offsetPoints(bid.fastestDriver as string[], result.fastestDriver as string[], 1) as [number];
   calculatedResult.podiumPoints = offsetPoints(bid.podium as string[], result.podium as string[], 1) as [number, number, number];
-  calculatedResult.firstCrashPoints = offsetPoints(bid.firstCrash as string[], result.firstCrash as string[], 2) as [number];
+  calculatedResult.firstCrashPoints = offsetPoints(bid.firstCrash as string[], (result.firstCrash || []) as string[], 2) as [number];
   calculatedResult.selectedDriver = {...bid.selectedDriver, ...propertyPoints(bid.selectedDriver, result.selectedDriver, 3)} as SelectedDriverValue;
   calculatedResult.polePositionTimeDiff = Math.abs(bid.polePositionTime - result.polePositionTime);
 
