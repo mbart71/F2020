@@ -32,6 +32,9 @@
     },
     "driver": {
       "tags": []
+    },
+    "players": {
+      "tags": []
     }
   },
   "tasksRunnerOptions": {
