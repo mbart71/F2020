@@ -13,17 +13,22 @@ import { MatToolbarModule } from '@angular/material/toolbar';
 import { RouterModule } from '@angular/router';
 import { TransactionsActionsComponent } from './component/transactions-actions/transactions-actions.component';
 import { TransactionsComponent } from './component/transactions/transactions.component';
+import { AccountsComponent } from './component/accounts/accounts.component';
 
 
 
 @NgModule({
-  declarations: [TransactionsComponent, TransactionsActionsComponent],
+  declarations: [TransactionsComponent, TransactionsActionsComponent, AccountsComponent],
   imports: [
     CommonModule,
     RouterModule.forChild([
       {
         path: '',
         component: TransactionsComponent
+      },
+      {
+        path: 'accounts',
+        component: AccountsComponent
       }
     ]),
     MatToolbarModule,

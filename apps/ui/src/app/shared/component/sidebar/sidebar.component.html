@@ -3,6 +3,7 @@
   <f2020-sidenav-button iconSet="fas" icon="fa-home" routerLink="/" (click)="close.emit()">Forside</f2020-sidenav-button>
   <f2020-sidenav-button iconSet="fas" icon="fa-flag-checkered" routerLink="race" (click)="close.emit()">Løb</f2020-sidenav-button>
   <f2020-sidenav-button iconSet="fas" icon="fa-coins" routerLink="account" (click)="close.emit()">Konto - {{(player$ | async)?.balance}} kr.</f2020-sidenav-button>
+  <f2020-sidenav-button iconSet="far" icon="fa-piggy-bank" routerLink="account/accounts" (click)="close.emit()">Bank</f2020-sidenav-button>
   <f2020-sidenav-button iconSet="fas" icon="fa-steering-wheel" routerLink="standings" (click)="close.emit()">Kører</f2020-sidenav-button>
   <button mat-list-item (click)="signOut()"><mat-icon fontSet="fa" fontIcon="fa-sign-out-alt" style="height: auto !important;"></mat-icon> Log ud</button>
 </mat-action-list>
