@@ -26,5 +26,19 @@ export const players = {
     uid: 'player-uid',
     balance: 200,
     displayName: 'Michael'
+  },
+  player1: {
+    roles: [ 'player' ],
+    email: 'michael@michael.dk',
+    uid: 'player1-uid',
+    balance: 200,
+    displayName: 'Michael'
+  },
+  player2: {
+    roles: [ 'player' ],
+    email: 'fie@bregnvig.dk',
+    uid: 'player2-uid',
+    balance: 200,
+    displayName: 'Fie'
   }
 };
