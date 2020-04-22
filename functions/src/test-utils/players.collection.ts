@@ -2,7 +2,7 @@ export const players = {
   bookie: {
     roles: [ 'bookie' ],
     email: 'bookie@bookie.dk',
-    balance: 0,
+    balance: 40,
     uid: 'bookie-uid',
     displayName: 'F1 Bookie'
   },

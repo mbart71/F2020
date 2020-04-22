@@ -3,6 +3,7 @@ import * as admin from 'firebase-admin';
 admin.initializeApp(functions.config().firebase)
 
 export * from './app/bid/bid.call';
+export * from './app/result/result.call';
 export * from './app/account/deposit.call';
 export * from './app/account/withdraw.call';
 

@@ -15,12 +15,20 @@ export const transactionTrigger = functions.region('europe-west1').firestore.doc
 
     return db.runTransaction(async firestoreTransaction => {
       if (from) {
-        const player = (await from.get()).data() as Player;
+        const ref = (await from.get())
+        if (!ref.exists) {
+          throw logAndCreateError('not-found', `From uid: ${transaction.from} was not found`);
+        }
+        const player = ref.data()!;
         console.log(`Withdrawing ${transaction.amount.toFixed(2)} from ${player.displayName}`);
         firestoreTransaction.update(from, {balance: (player.balance || 0) - transaction.amount});
       }
       if (to) {
-        const player = (await to.get()).data() as Player;
+        const ref = (await to.get())
+        if (!ref.exists) {
+          throw logAndCreateError('not-found', `To uid: ${transaction.to} was not found`);
+        }
+        const player = ref.data()!;
         console.log(`Depositing ${transaction.amount.toFixed(2)} to ${player.displayName}`);
         firestoreTransaction.update(to, {balance: (player.balance || 0) + transaction.amount});
       }

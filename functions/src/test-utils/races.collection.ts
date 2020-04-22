@@ -31,7 +31,7 @@ export const races = [
       country: 'Azerbaijan'
     },
     raceStart: new Date(159153180000),
-    season: 2020,
+    season: 9999,
     countryCode: 'AZ',
     open: new Date(159073920000),
     round: 1,
@@ -56,7 +56,7 @@ export const races = [
       country: 'Belgium'
     },
     raceStart: new Date(159879300000),
-    season: 2020,
+    season: 9999,
     countryCode: 'BE',
     open: new Date(159640560000),
     round: 7,
