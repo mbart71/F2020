@@ -9,10 +9,6 @@ export const collections = {
   seasons,
   bids,
   results,
-<<<<<<< HEAD
   players,
   transactions
-=======
-  players
->>>>>>> 68290bd7b0b2ebbf9fc1ac5db08242c91d59eab8
 }

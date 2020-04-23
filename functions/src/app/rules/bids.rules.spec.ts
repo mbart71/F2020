@@ -4,55 +4,55 @@ import { adminApp, authedApp, clearFirestoreData } from '../../test-utils/firest
 import { collections } from '../../test-utils';
 import { playersURL, seasonsURL } from '../../lib/collection-names';
 
+const clone = require('clone');
 
 describe('bids rules', () => {
 
   let adminFirestore: firebase.firestore.Firestore;
 
+  const writeBid = async (bid: any, uid: string) => adminFirestore.doc(`${seasonsURL}/9999/races/${collections.races[1].location.country}/bids/${uid}`).set(bid);
+
   beforeEach(async () => {
     adminFirestore = adminApp();
-    await adminFirestore.doc(`${playersURL}/${collections.players.player1.uid}`).set({ ...collections.players.player1 });
-    await adminFirestore.doc(`${playersURL}/${collections.players.player2.uid}`).set({ ...collections.players.player2 });
+    await adminFirestore.doc(`${playersURL}/${collections.players.player.uid}`).set({ ...collections.players.player });
     await adminFirestore.doc(`${playersURL}/${collections.players.admin.uid}`).set({ ...collections.players.admin });
     await adminFirestore.doc(`${playersURL}/${collections.players.bookie.uid}`).set({ ...collections.players.bookie });
     await adminFirestore.doc(`${playersURL}/${collections.players.bankadmin.uid}`).set({ ...collections.players.bankadmin });
     await adminFirestore.doc(`${seasonsURL}/9999/races/${collections.races[1].location.country}`).set(collections.races[1]);
-  });
+   });
 
   afterEach(async () => {
     await clearFirestoreData();
   });
 
-  it('admin access to transactions checks', async () => {
+  it('Access to transactions checks - submitted bids', async () => {
+
+    await writeBid({ ...clone(collections.bids[0]), submitted: true }, collections.players.admin.uid);
+    await writeBid({ ...clone(collections.bids[1]), submitted: true }, collections.players.player.uid);
+
     const app = await authedApp({ uid: collections.players.admin.uid });
-    await assertSucceeds(app.firestore.doc(`${seasonsURL}/9999/races/${collections.races[1].location.country}/bids/${collections.players.player1.uid}`).get())
-    await assertSucceeds(app.firestore.doc(`${seasonsURL}/9999/races/${collections.races[1].location.country}/bids/${collections.players.player2.uid}`).get())
-    await assertFails(app.firestore.doc(`${seasonsURL}/9999/races/${collections.races[1].location.country}/bids/${collections.players.player1.uid}`).update({submitted: false}))
-    await assertFails(app.firestore.doc(`${seasonsURL}/9999/races/${collections.races[1].location.country}/bids/${collections.players.player1.uid}`).update({firstCrash: [ 'hammilton' ]}))
+    await assertSucceeds(app.firestore.doc(`${seasonsURL}/9999/races/${collections.races[1].location.country}/bids/${collections.players.admin.uid}`).get())
+    await assertSucceeds(app.firestore.doc(`${seasonsURL}/9999/races/${collections.races[1].location.country}/bids/${collections.players.player.uid}`).get())
+    await assertFails(app.firestore.doc(`${seasonsURL}/9999/races/${collections.races[1].location.country}/bids/${collections.players.admin.uid}`).update({submitted: false}))
+    await assertFails(app.firestore.doc(`${seasonsURL}/9999/races/${collections.races[1].location.country}/bids/${collections.players.player.uid}`).update({firstCrash: [ 'hammilton' ]}))
      });
 
-  it('player access to bids checks - user has submitted bid', async () => {
-    const app = await authedApp({ uid: collections.players.player1.uid });
-    await assertSucceeds(app.firestore.doc(`${seasonsURL}/9999/races/${collections.races[1].location.country}/bids/${collections.players.player1.uid}`).get())
-    await assertSucceeds(app.firestore.doc(`${seasonsURL}/9999/races/${collections.races[1].location.country}/bids/${collections.players.player2.uid}`).get())
-    await assertFails(app.firestore.doc(`${seasonsURL}/9999/races/${collections.races[1].location.country}/bids/${collections.players.player1.uid}`).update({submitted: false}))
-    await assertFails(app.firestore.doc(`${seasonsURL}/9999/races/${collections.races[1].location.country}/bids/${collections.players.player2.uid}`).update({submitted: true}))
-    await assertFails(app.firestore.doc(`${seasonsURL}/9999/races/${collections.races[1].location.country}/bids/${collections.players.player1.uid}`).update({firstCrash: [ 'hammilton' ]}))
-   });
+  it('Access to bids checks - user not submitted bid', async () => {
 
-  it('player2 access to bids checks - user has not submitted his bid', async () => {
-    const app = await authedApp({ uid: collections.players.player2.uid });
-    await assertSucceeds(app.firestore.doc(`${seasonsURL}/9999/races/${collections.races[1].location.country}/bids/${collections.players.player2.uid}`).get())
-    await assertFails(app.firestore.doc(`${seasonsURL}/9999/races/${collections.races[1].location.country}/bids/player-uid`).get())
-    // await assertFails(app.firestore.doc(`${seasonsURL}/9999/races/${collections.races[1].location.country}/bids/${collections.players.player.uid}`).get())
-    await assertFails(app.firestore.doc(`${seasonsURL}/9999/races/${collections.races[1].location.country}/bids/${collections.players.player1.uid}`).update({submitted: false}))
-    await assertFails(app.firestore.doc(`${seasonsURL}/9999/races/${collections.races[1].location.country}/bids/${collections.players.player2.uid}`).update({submitted: true}))
-    await assertSucceeds(app.firestore.doc(`${seasonsURL}/9999/races/${collections.races[1].location.country}/bids/${collections.players.player2.uid}`).update({firstCrash: [ 'hammilton' ]}))
-  });
+    await writeBid({ ...clone(collections.bids[0]), submitted: true }, collections.players.admin.uid);
+    await writeBid({ ...clone(collections.bids[1]) }, collections.players.player.uid);
+
+    const app = await authedApp({ uid: collections.players.player.uid });
+    await assertSucceeds(app.firestore.doc(`${seasonsURL}/9999/races/${collections.races[1].location.country}/bids/${collections.players.player.uid}`).get())
+    await assertFails(app.firestore.doc(`${seasonsURL}/9999/races/${collections.races[1].location.country}/bids/${collections.players.admin.uid}`).get())
+    await assertFails(app.firestore.doc(`${seasonsURL}/9999/races/${collections.races[1].location.country}/bids/${collections.players.player.uid}`).update({submitted: false}))
+    await assertFails(app.firestore.doc(`${seasonsURL}/9999/races/${collections.races[1].location.country}/bids/${collections.players.admin.uid}`).update({submitted: true}))
+    await assertSucceeds(app.firestore.doc(`${seasonsURL}/9999/races/${collections.races[1].location.country}/bids/${collections.players.player.uid}`).update({firstCrash: [ 'hammilton' ]}))
+   });
 
   it('non-player should not be allowed to read transaction', async () => {
     const app = await authedApp({ uid: 'non-player-id' });
-    await assertFails(app.firestore.doc(`${seasonsURL}/9999/races/${collections.races[1].location.country}/bids/${collections.players.player1.uid}`).get()).then(permissionDenied)
+    await assertFails(app.firestore.doc(`${seasonsURL}/9999/races/${collections.races[1].location.country}/bids/${collections.players.player.uid}`).get()).then(permissionDenied)
   });
   
 });

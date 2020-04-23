@@ -4,17 +4,17 @@ service cloud.firestore {
 
     match /drivers/{Drivers} {
       allow read: if getUserData().roles.hasAny(['admin', 'player']);
-      allow update, write, delete, create: if getUserData().roles.hasAny(['editor', 'admin']);
+      allow update, write, delete, create: if getUserData().roles.hasAny(['admin']);
     }
 
     match /seasons/{Seasons} {
       allow read: if getUserData().roles.hasAny(['admin', 'player']);
-      allow update, write, delete, create:  if getUserData().roles.hasAny(['editor', 'admin']);
+      allow update, write, delete, create:  if getUserData().roles.hasAny(['admin']);
     }
     
     match /seasons/{Seasons}/races/{Races} {
       allow read: if getUserData().roles.hasAny(['admin', 'player']);
-      allow update, write, delete, create:  if getUserData().roles.hasAny(['editor', 'admin']);
+      allow update, write, delete, create:  if getUserData().roles.hasAny(['admin']);
     }
 
     match /seasons/{Seasons}/races/{Races}/bids/{Bids} {
@@ -24,13 +24,11 @@ service cloud.firestore {
                     && !exists(/databases/$(database)/documents/seasons/$(Seasons)/races/$(Races)/bids/$(request.auth.uid));
      allow update: if getUserData().roles.hasAny(['player']) 
                     && request.auth.uid == Bids
-                    // && resource.data.submitted != true
                     && ('submitted' in resource.data) == false
                     && notUpdating('submitted');                    
      // allow to read bids if races is waiting or closed - or if bid is your own - or read all bids if you have made your bid             
      allow read: if getUserData().roles.hasAny(['player']) 
                     && get(/databases/$(database)/documents/seasons/$(Seasons)/races/$(Races)).data.state != 'open' 
-                    || getUserData().roles.hasAny(['admin'])
                     || getUserData().roles.hasAny(['player']) && request.auth.uid == Bids 
                     || getUserData().roles.hasAny(['player']) 
                     && exists(/databases/$(database)/documents/seasons/$(Seasons)/races/$(Races)/bids/$(request.auth.uid))
