@@ -14,6 +14,7 @@ import { CardPageComponent } from './component/card-page/card-page.component';
 import { SidebarComponent } from './component/sidebar/sidebar.component';
 import { RouterModule } from '@angular/router';
 import { PlayerModule } from '@f2020/player';
+import { HasRoleDirective } from './component/has-role.directive';
 
 const materialModules = [
   MatListModule,
@@ -40,10 +41,12 @@ const pipes = [
     exportComponents,
     pipes,
     SidenavButtonComponent,
+    HasRoleDirective,
   ],
   exports: [
     exportComponents,
     pipes,
+    HasRoleDirective,
   ],
   imports: [
     CommonModule,
