@@ -1,0 +1,15 @@
+<ng-container *ngIf="(race$ | async) as race; else loading">
+  <mat-toolbar color="primary">
+    <span>Result - {{race.name}}</span>
+  </mat-toolbar>
+  <f2020-bid [formControl]="resultControl" [race]="race" [isResult]="true"></f2020-bid>
+  <button mat-fab aria-label="Indsend resultat" [disabled]="resultControl.invalid || (updating$ | async)" *ngIf="resultControl.enabled" (click)="submitResult()">
+    <mat-icon>cloud_upload</mat-icon>
+  </button>
+</ng-container>
+<ng-container *ngIf="updating$ | async">
+  <ng-container *ngTemplateOutlet="loading"></ng-container> 
+</ng-container>
+<ng-template #loading>
+  <sha-loading></sha-loading>
+</ng-template>

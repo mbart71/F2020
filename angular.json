@@ -359,6 +359,230 @@
           "style": "scss"
         }
       }
+    },
+    "bank": {
+      "projectType": "library",
+      "root": "libs/bank",
+      "sourceRoot": "libs/bank/src",
+      "prefix": "f2020",
+      "architect": {
+        "lint": {
+          "builder": "@angular-devkit/build-angular:tslint",
+          "options": {
+            "tsConfig": [
+              "libs/bank/tsconfig.lib.json",
+              "libs/bank/tsconfig.spec.json"
+            ],
+            "exclude": ["**/node_modules/**", "!libs/bank/**"]
+          }
+        },
+        "test": {
+          "builder": "@nrwl/jest:jest",
+          "options": {
+            "jestConfig": "libs/bank/jest.config.js",
+            "tsConfig": "libs/bank/tsconfig.spec.json",
+            "passWithNoTests": true,
+            "setupFile": "libs/bank/src/test-setup.ts"
+          }
+        }
+      },
+      "schematics": {
+        "@nrwl/angular:component": {
+          "style": "scss"
+        }
+      }
+    },
+    "shared": {
+      "projectType": "library",
+      "root": "libs/shared",
+      "sourceRoot": "libs/shared/src",
+      "prefix": "sha",
+      "architect": {
+        "lint": {
+          "builder": "@angular-devkit/build-angular:tslint",
+          "options": {
+            "tsConfig": [
+              "libs/shared/tsconfig.lib.json",
+              "libs/shared/tsconfig.spec.json"
+            ],
+            "exclude": ["**/node_modules/**", "!libs/shared/**"]
+          }
+        },
+        "test": {
+          "builder": "@nrwl/jest:jest",
+          "options": {
+            "jestConfig": "libs/shared/jest.config.js",
+            "tsConfig": "libs/shared/tsconfig.spec.json",
+            "passWithNoTests": true,
+            "setupFile": "libs/shared/src/test-setup.ts"
+          }
+        }
+      },
+      "schematics": {
+        "@nrwl/angular:component": {
+          "style": "scss"
+        }
+      }
+    },
+    "player": {
+      "projectType": "library",
+      "root": "libs/player",
+      "sourceRoot": "libs/player/src",
+      "prefix": "f2020",
+      "architect": {
+        "lint": {
+          "builder": "@angular-devkit/build-angular:tslint",
+          "options": {
+            "tsConfig": [
+              "libs/player/tsconfig.lib.json",
+              "libs/player/tsconfig.spec.json"
+            ],
+            "exclude": ["**/node_modules/**", "!libs/player/**"]
+          }
+        },
+        "test": {
+          "builder": "@nrwl/jest:jest",
+          "options": {
+            "jestConfig": "libs/player/jest.config.js",
+            "tsConfig": "libs/player/tsconfig.spec.json",
+            "passWithNoTests": true,
+            "setupFile": "libs/player/src/test-setup.ts"
+          }
+        }
+      },
+      "schematics": {
+        "@nrwl/angular:component": {
+          "style": "scss"
+        }
+      }
+    },
+    "season": {
+      "projectType": "library",
+      "root": "libs/season",
+      "sourceRoot": "libs/season/src",
+      "prefix": "f2020",
+      "architect": {
+        "lint": {
+          "builder": "@angular-devkit/build-angular:tslint",
+          "options": {
+            "tsConfig": [
+              "libs/season/tsconfig.lib.json",
+              "libs/season/tsconfig.spec.json"
+            ],
+            "exclude": ["**/node_modules/**", "!libs/season/**"]
+          }
+        },
+        "test": {
+          "builder": "@nrwl/jest:jest",
+          "options": {
+            "jestConfig": "libs/season/jest.config.js",
+            "tsConfig": "libs/season/tsconfig.spec.json",
+            "passWithNoTests": true,
+            "setupFile": "libs/season/src/test-setup.ts"
+          }
+        }
+      },
+      "schematics": {
+        "@nrwl/angular:component": {
+          "style": "scss"
+        }
+      }
+    },
+    "api": {
+      "projectType": "library",
+      "root": "libs/api",
+      "sourceRoot": "libs/api/src",
+      "prefix": "api",
+      "architect": {
+        "lint": {
+          "builder": "@angular-devkit/build-angular:tslint",
+          "options": {
+            "tsConfig": [
+              "libs/api/tsconfig.lib.json",
+              "libs/api/tsconfig.spec.json"
+            ],
+            "exclude": ["**/node_modules/**", "!libs/api/**"]
+          }
+        },
+        "test": {
+          "builder": "@nrwl/jest:jest",
+          "options": {
+            "jestConfig": "libs/api/jest.config.js",
+            "tsConfig": "libs/api/tsconfig.spec.json",
+            "passWithNoTests": true,
+            "setupFile": "libs/api/src/test-setup.ts"
+          }
+        }
+      },
+      "schematics": {
+        "@nrwl/angular:component": {
+          "style": "scss"
+        }
+      }
+    },
+    "race": {
+      "projectType": "library",
+      "root": "libs/race",
+      "sourceRoot": "libs/race/src",
+      "prefix": "f2020",
+      "architect": {
+        "lint": {
+          "builder": "@angular-devkit/build-angular:tslint",
+          "options": {
+            "tsConfig": [
+              "libs/race/tsconfig.lib.json",
+              "libs/race/tsconfig.spec.json"
+            ],
+            "exclude": ["**/node_modules/**", "!libs/race/**"]
+          }
+        },
+        "test": {
+          "builder": "@nrwl/jest:jest",
+          "options": {
+            "jestConfig": "libs/race/jest.config.js",
+            "tsConfig": "libs/race/tsconfig.spec.json",
+            "passWithNoTests": true,
+            "setupFile": "libs/race/src/test-setup.ts"
+          }
+        }
+      },
+      "schematics": {
+        "@nrwl/angular:component": {
+          "style": "scss"
+        }
+      }
+    },
+    "standing": {
+      "projectType": "library",
+      "root": "libs/standing",
+      "sourceRoot": "libs/standing/src",
+      "prefix": "f2020",
+      "architect": {
+        "lint": {
+          "builder": "@angular-devkit/build-angular:tslint",
+          "options": {
+            "tsConfig": [
+              "libs/standing/tsconfig.lib.json",
+              "libs/standing/tsconfig.spec.json"
+            ],
+            "exclude": ["**/node_modules/**", "!libs/standing/**"]
+          }
+        },
+        "test": {
+          "builder": "@nrwl/jest:jest",
+          "options": {
+            "jestConfig": "libs/standing/jest.config.js",
+            "tsConfig": "libs/standing/tsconfig.spec.json",
+            "passWithNoTests": true,
+            "setupFile": "libs/standing/src/test-setup.ts"
+          }
+        }
+      },
+      "schematics": {
+        "@nrwl/angular:component": {
+          "style": "scss"
+        }
+      }
     }
   },
   "cli": {
