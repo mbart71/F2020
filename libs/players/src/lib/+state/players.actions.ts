@@ -2,6 +2,7 @@ import { Player } from '@f2020/data';
 import { createAction, props } from "@ngrx/store";
 
 const loadPlayers = createAction("[Players] Load Players");
+const unloadPlayers = createAction("[Players] Unload players");
 
 const loadPlayersSuccess = createAction(
   "[Players] Load Players Success",
@@ -13,8 +14,15 @@ const loadPlayersFailure = createAction(
   props<{ error: any }>()
 );
 
+const selectPlayer = createAction(
+  '[Players] Select players',
+  props<{ uid: string }>(),
+);
+
 export const PlayersActions = {
   loadPlayers,
   loadPlayersSuccess,
-  loadPlayersFailure
+  loadPlayersFailure,
+  unloadPlayers,
+  selectPlayer,
 };

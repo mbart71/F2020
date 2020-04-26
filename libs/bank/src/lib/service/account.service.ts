@@ -14,9 +14,9 @@ export class AccountService {
   constructor(private afs: AngularFirestore,
     @Inject(GoogleFunctions) private functions: firebase.functions.Functions) { }
 
-  async deposit(amount: number, message: string): Promise<true> {
+  async deposit(uid: string, amount: number, message: string): Promise<true> {
     return this.functions.httpsCallable('deposit')({
-      amount, message, uid:'tdaLwa33t9gZ2n3rTbmQMW7CgbT2'
+      amount, message, uid
     }).then(() => true);
   }
 

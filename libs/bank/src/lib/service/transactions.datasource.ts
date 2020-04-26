@@ -1,11 +1,10 @@
-import { DateTime } from 'luxon';
-import { first } from 'rxjs/operators';
-import { AccountService } from './account.service';
+import { CollectionViewer, ListRange } from '@angular/cdk/collections';
 import { DataSource } from '@angular/cdk/table';
 import { Transaction } from '@f2020/data';
-import { BehaviorSubject, Subscription, Observable } from 'rxjs';
-import { CollectionViewer, ListRange } from '@angular/cdk/collections';
-import { firestore } from "firebase";
+import { DateTime } from 'luxon';
+import { BehaviorSubject, Observable, Subscription } from 'rxjs';
+import { first } from 'rxjs/operators';
+import { AccountService } from './account.service';
 
 export class TransactionsDataSource extends DataSource<Transaction | undefined> {
   private cached = Array.from<Transaction>({ length: 0 });
@@ -48,7 +47,7 @@ export class TransactionsDataSource extends DataSource<Transaction | undefined> 
     ).subscribe(res => {
       this.cached = this.cached.concat(res);
       this.dataStream.next(this.cached);
-      this.lastDate = res[res.length - 1].date;
+      this.lastDate = res[res.length - 1]?.date;
     });
   }
 

@@ -25,7 +25,7 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { metaReducers, reducers } from './reducers';
 
-firebase.initializeApp(environment.firebaseConfig, 'f1');
+firebase.initializeApp(environment.firebaseConfig);
 
 const materialModule = [
   MatSidenavModule,

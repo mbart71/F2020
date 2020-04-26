@@ -10,7 +10,7 @@ export class PlayersFacade {
   error$ = this.store.pipe(select(PlayersSelectors.getPlayersError));
   loaded$ = this.store.pipe(select(PlayersSelectors.getPlayersLoaded));
   allPlayers$ = this.store.pipe(select(PlayersSelectors.getAllPlayers));
-  selectedPlayers$ = this.store.pipe(select(PlayersSelectors.getSelected));
+  selectedPlayer$ = this.store.pipe(select(PlayersSelectors.getSelected));
 
   constructor(private store: Store<fromPlayers.PlayersPartialState>) {}
 

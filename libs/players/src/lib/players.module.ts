@@ -15,6 +15,6 @@ import { PlayersFacade } from "./+state/players.facade";
     ),
     EffectsModule.forFeature([PlayersEffects])
   ],
-  providers: [PlayersFacade]
+  providers: [PlayersFacade, PlayersEffects]
 })
 export class PlayersModule {}

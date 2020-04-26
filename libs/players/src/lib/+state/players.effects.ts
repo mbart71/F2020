@@ -15,7 +15,8 @@ export class PlayersEffects {
       fetch({
         run: action => {
           return this.afs.collection<Player>('players').valueChanges().pipe(
-            map(players => PlayersActions.loadPlayersSuccess({ players }))
+            map(players => PlayersActions.loadPlayersSuccess({ players })),
+            takeUntil(this.actions$.pipe(ofType(PlayersActions.loadPlayers, PlayersActions.unloadPlayers)))
           )
         },
         onError: (action, error) => {
@@ -23,9 +24,9 @@ export class PlayersEffects {
           return PlayersActions.loadPlayersFailure({ error });
         }
       }),
-      takeUntil(this.actions$.pipe(ofType(PlayersActions.loadPlayers)))
     )
   );
 
-  constructor(private actions$: Actions, private afs: AngularFirestore) {}
+  constructor(private actions$: Actions, private afs: AngularFirestore) {
+  }
 }

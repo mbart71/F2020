@@ -20,6 +20,6 @@ export class FirebaseModule {
   static functions: firebase.functions.Functions;
 
   constructor() {
-    FirebaseModule.functions = firebase.app('f1').functions('europe-west1');
+    FirebaseModule.functions = firebase.app().functions('europe-west1');
   }
 }

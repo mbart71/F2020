@@ -2,8 +2,8 @@
 <mat-action-list style="padding: 1rem 1.5rem 0 1.5rem">
   <sha-sidenav-button iconSet="fas" icon="fa-home" routerLink="/" (click)="closing.emit()">Forside</sha-sidenav-button>
   <sha-sidenav-button iconSet="fas" icon="fa-flag-checkered" routerLink="race" (click)="closing.emit()">Løb</sha-sidenav-button>
-  <sha-sidenav-button iconSet="fas" icon="fa-coins" [routerLink]="['account', (player$ | async)?.uid]" (click)="closing.emit()">Konto - {{(player$ | async)?.balance}} kr.</sha-sidenav-button>
-  <sha-sidenav-button *shaHasRole="'bank-admin'" iconSet="far" icon="fa-piggy-bank" routerLink="account/accounts" (click)="closing.emit()">Bank</sha-sidenav-button>
+  <sha-sidenav-button iconSet="fas" icon="fa-coins" [routerLink]="['accounts', 'me']" (click)="closing.emit()">Konto - {{(player$ | async)?.balance}} kr.</sha-sidenav-button>
+  <sha-sidenav-button *shaHasRole="'bank-admin'" iconSet="far" icon="fa-piggy-bank" routerLink="accounts" (click)="closing.emit()">Bank</sha-sidenav-button>
   <sha-sidenav-button iconSet="fas" icon="fa-steering-wheel" routerLink="standings" (click)="closing.emit()">Kører</sha-sidenav-button>
   <button mat-list-item (click)="signOut()"><mat-icon fontSet="fa" fontIcon="fa-sign-out-alt" style="height: auto !important;"></mat-icon> Log ud</button>
 </mat-action-list>

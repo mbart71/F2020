@@ -16,6 +16,7 @@ export interface PlayersPartialState {
 }
 
 export const playersAdapter: EntityAdapter<Player> = createEntityAdapter<Player>({
+  sortComparer: (a, b) => a.displayName.localeCompare(b.displayName),
   selectId: a => a.uid
 });
 
@@ -34,10 +35,12 @@ const playersReducer = createReducer(
   on(PlayersActions.loadPlayersSuccess, (state, { players }) =>
     playersAdapter.setAll(players, { ...state, loaded: true })
   ),
+  on(PlayersActions.selectPlayer, (state, {uid}) => ({...state, selectedId: uid})),
   on(PlayersActions.loadPlayersFailure, (state, { error }) => ({
     ...state,
     error
-  }))
+  })),
+  on(PlayersActions.unloadPlayers, state => initialState)
 );
 
 export function reducer(state: State | undefined, action: Action) {
