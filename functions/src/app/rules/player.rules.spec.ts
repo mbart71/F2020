@@ -23,8 +23,8 @@ describe('Player rules', () => {
   it('admin checks', async () => {
     const app = await authedApp({ uid: collections.players.admin.uid });
     await assertSucceeds(app.firestore.doc(`${playersURL}/${collections.players.player.uid}`).update({ displayName: 'Mickey Mouse' }))
-    await assertFails(app.firestore.doc(`${playersURL}/${collections.players.player.uid}`).update({ balance: 9999 }))
-    await assertFails(app.firestore.doc(`${playersURL}/${collections.players.player.uid}`).update({ uid: 'XXXX' }))
+    await assertFails(app.firestore.doc(`${playersURL}/${collections.players.player.uid}`).update({ balance: 9999 })).then(permissionDenied)
+    await assertFails(app.firestore.doc(`${playersURL}/${collections.players.player.uid}`).update({ uid: 'XXXX' })).then(permissionDenied)
     await assertSucceeds(app.firestore.doc(`${playersURL}/${collections.players.player.uid}`).update({ roles: ['NO!'] }))
     await assertSucceeds(app.firestore.doc(`${playersURL}/${collections.players.player.uid}`).update({ NickName: 'Mike' }))
     await assertSucceeds(app.firestore.doc(`${playersURL}/${collections.players.player.uid}`).delete())
@@ -35,36 +35,36 @@ describe('Player rules', () => {
     const app = await authedApp({ uid: collections.players.player.uid });
     await assertSucceeds(app.firestore.doc(`${playersURL}/${collections.players.player.uid}`).update({ displayName: 'Mickey Mouse' }))
     await assertSucceeds(app.firestore.doc(`${playersURL}/${collections.players.player.uid}`).update({ email: 'Flemming@bregnvig.dk' }))
-    await assertFails(app.firestore.doc(`${playersURL}/${collections.players.player.uid}`).update({ balance: 9999 }))
-    await assertFails(app.firestore.doc(`${playersURL}/${collections.players.player.uid}`).update({ uid: 'XXXXX' }))
-    await assertFails(app.firestore.doc(`${playersURL}/${collections.players.player.uid}`).update({ roles: ['NO!']}))
+    await assertFails(app.firestore.doc(`${playersURL}/${collections.players.player.uid}`).update({ balance: 9999 })).then(permissionDenied)
+    await assertFails(app.firestore.doc(`${playersURL}/${collections.players.player.uid}`).update({ uid: 'XXXXX' })).then(permissionDenied)
+    await assertFails(app.firestore.doc(`${playersURL}/${collections.players.player.uid}`).update({ roles: ['NO!']})).then(permissionDenied)
     await assertSucceeds(app.firestore.doc(`${playersURL}/${collections.players.player.uid}`).update({ NickName: 'Mike'}))
-    await assertFails(app.firestore.doc(`${playersURL}/${collections.players.player.uid}`).delete())
-    await assertFails(app.firestore.doc(`${playersURL}/player200`).set({roles: ['player'], uid:'player200-uid', displayName: 'TestID'}))
+    await assertFails(app.firestore.doc(`${playersURL}/${collections.players.player.uid}`).delete()).then(permissionDenied)
+    await assertFails(app.firestore.doc(`${playersURL}/player200`).set({roles: ['player'], uid:'player200-uid', displayName: 'TestID'})).then(permissionDenied)
   });
 
   it('bookie checks', async () => {
     const app = await authedApp({ uid: collections.players.bookie.uid });
-    await assertFails(app.firestore.doc(`${playersURL}/${collections.players.player.uid}`).update({ displayName: 'Mickey Mouse' }))
-    await assertFails(app.firestore.doc(`${playersURL}/${collections.players.player.uid}`).update({ balance: 9999 }))
-    await assertFails(app.firestore.doc(`${playersURL}/${collections.players.player.uid}`).update({ uid: 'XXXXX' }))
-    await assertFails(app.firestore.doc(`${playersURL}/${collections.players.player.uid}`).update({ roles: ['NO!']}))
-    await assertFails(app.firestore.doc(`${playersURL}/${collections.players.player.uid}`).update({ NickName: 'Mike'}))
-    await assertFails(app.firestore.doc(`${playersURL}/${collections.players.player.uid}`).update({ email: 'Flemming@bregnvig.dk'}))
-    await assertFails(app.firestore.doc(`${playersURL}/${collections.players.player.uid}`).delete())
-    await assertFails(app.firestore.doc(`${playersURL}/player200`).set({roles: ['player'], uid:'player200-uid', displayName: 'TestID'}))
+    await assertFails(app.firestore.doc(`${playersURL}/${collections.players.player.uid}`).update({ displayName: 'Mickey Mouse' })).then(permissionDenied)
+    await assertFails(app.firestore.doc(`${playersURL}/${collections.players.player.uid}`).update({ balance: 9999 })).then(permissionDenied)
+    await assertFails(app.firestore.doc(`${playersURL}/${collections.players.player.uid}`).update({ uid: 'XXXXX' })).then(permissionDenied)
+    await assertFails(app.firestore.doc(`${playersURL}/${collections.players.player.uid}`).update({ roles: ['NO!']})).then(permissionDenied)
+    await assertFails(app.firestore.doc(`${playersURL}/${collections.players.player.uid}`).update({ NickName: 'Mike'})).then(permissionDenied)
+    await assertFails(app.firestore.doc(`${playersURL}/${collections.players.player.uid}`).update({ email: 'Flemming@bregnvig.dk'})).then(permissionDenied)
+    await assertFails(app.firestore.doc(`${playersURL}/${collections.players.player.uid}`).delete()).then(permissionDenied)
+    await assertFails(app.firestore.doc(`${playersURL}/player200`).set({roles: ['player'], uid:'player200-uid', displayName: 'TestID'})).then(permissionDenied)
   });
 
   it('bank admin checks', async () => {
     const app = await authedApp({ uid: collections.players.bankadmin.uid });
-    await assertFails(app.firestore.doc(`${playersURL}/${collections.players.player.uid}`).update({ displayName: 'Mickey Mouse' }))
-    await assertFails(app.firestore.doc(`${playersURL}/${collections.players.player.uid}`).update({ balance: 9999 }))
-    await assertFails(app.firestore.doc(`${playersURL}/${collections.players.player.uid}`).update({ uid: 'XXXXX' }))
-    await assertFails(app.firestore.doc(`${playersURL}/${collections.players.player.uid}`).update({ roles: ['NO!']}))
-    await assertFails(app.firestore.doc(`${playersURL}/${collections.players.player.uid}`).update({ NickName: 'Mike'}))
-    await assertFails(app.firestore.doc(`${playersURL}/${collections.players.player.uid}`).update({ email: 'Flemming@bregnvig.dk'}))
-    await assertFails(app.firestore.doc(`${playersURL}/${collections.players.player.uid}`).delete())
-    await assertFails(app.firestore.doc(`${playersURL}/player200`).set({roles: ['player'], uid:'player200-uid', displayName: 'TestID'}))
+    await assertFails(app.firestore.doc(`${playersURL}/${collections.players.player.uid}`).update({ displayName: 'Mickey Mouse' })).then(permissionDenied)
+    await assertFails(app.firestore.doc(`${playersURL}/${collections.players.player.uid}`).update({ balance: 9999 })).then(permissionDenied)
+    await assertFails(app.firestore.doc(`${playersURL}/${collections.players.player.uid}`).update({ uid: 'XXXXX' })).then(permissionDenied)
+    await assertFails(app.firestore.doc(`${playersURL}/${collections.players.player.uid}`).update({ roles: ['NO!']})).then(permissionDenied)
+    await assertFails(app.firestore.doc(`${playersURL}/${collections.players.player.uid}`).update({ NickName: 'Mike'})).then(permissionDenied)
+    await assertFails(app.firestore.doc(`${playersURL}/${collections.players.player.uid}`).update({ email: 'Flemming@bregnvig.dk'})).then(permissionDenied)
+    await assertFails(app.firestore.doc(`${playersURL}/${collections.players.player.uid}`).delete()).then(permissionDenied)
+    await assertFails(app.firestore.doc(`${playersURL}/player200`).set({roles: ['player'], uid:'player200-uid', displayName: 'TestID'})).then(permissionDenied)
   });
 
   it('non-player should not be allowed to read players', async () => {

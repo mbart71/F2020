@@ -28,36 +28,36 @@ describe('transactions rules', () => {
 
   it('admin access to transactions checks', async () => {
     const app = await authedApp({ uid: collections.players.admin.uid });
-    await assertSucceeds(app.firestore.doc(`${transactionsURL}/${collections.transactions.ts1}`).get());
-    await assertFails(app.firestore.doc(`${transactionsURL}/${collections.transactions.ts1}`).update({ amount: 9999 }));
-    await assertFails(app.firestore.doc(`${transactionsURL}/ts200`).set({amount: '100', date: '21 March 2019 at 16:46:11 UTC+1', from: 'bookie-uid', to: 'player',   involved: [ 'bankadmin-uid', 'bookie-uid' ], message: 'test'}))
+    await assertSucceeds(app.firestore.doc(`${transactionsURL}/${collections.transactions.ts1}`).get())
+    await assertFails(app.firestore.doc(`${transactionsURL}/${collections.transactions.ts1}`).update({ amount: 9999 })).then(permissionDenied)
+    await assertFails(app.firestore.doc(`${transactionsURL}/ts200`).set({amount: '100', date: '21 March 2019 at 16:46:11 UTC+1', from: 'bookie-uid', to: 'player',   involved: [ 'bankadmin-uid', 'bookie-uid' ], message: 'test'})).then(permissionDenied)
   });
 
   it('player access to transactions checks', async () => {
     const app = await authedApp({ uid: collections.players.player.uid });
-    await assertSucceeds(app.firestore.collection(`${transactionsURL}`).where('to', '==', 'player-uid').get());
-    await assertSucceeds(app.firestore.collection(`${transactionsURL}`).where('from', '==', 'player-uid').get());
-    await assertFails(app.firestore.collection(`${transactionsURL}`).where('to', '==', 'bankadmin-uid').get());
-    await assertFails(app.firestore.doc(`${transactionsURL}/${collections.transactions.ts1}`).update({ amount: 9999 }));
-    await assertFails(app.firestore.doc(`${transactionsURL}/ts200`).set({amount: '100', date: '21 March 2019 at 16:46:11 UTC+1', from: 'bookie-uid', to: 'player',   involved: [ 'bankadmin-uid', 'bookie-uid' ], message: 'test'}))
+    await assertSucceeds(app.firestore.collection(`${transactionsURL}`).where('to', '==', 'player-uid').get())
+    await assertSucceeds(app.firestore.collection(`${transactionsURL}`).where('from', '==', 'player-uid').get())
+    await assertFails(app.firestore.collection(`${transactionsURL}`).where('to', '==', 'bankadmin-uid').get()).then(permissionDenied)
+    await assertFails(app.firestore.doc(`${transactionsURL}/${collections.transactions.ts1}`).update({ amount: 9999 })).then(permissionDenied)
+    await assertFails(app.firestore.doc(`${transactionsURL}/ts200`).set({amount: '100', date: '21 March 2019 at 16:46:11 UTC+1', from: 'bookie-uid', to: 'player',   involved: [ 'bankadmin-uid', 'bookie-uid' ], message: 'test'})).then(permissionDenied)
    });
 
   it('bookie access to transactions checks', async () => {
     const app = await authedApp({ uid: collections.players.bookie.uid });
-    await assertSucceeds(app.firestore.collection(`${transactionsURL}`).where('to', '==', 'bookie-uid').get());
-    await assertSucceeds(app.firestore.collection(`${transactionsURL}`).where('from', '==', 'bookie-uid').get());
-    await assertFails(app.firestore.collection(`${transactionsURL}`).where('to', '==', 'bankadmin-uid').get());
-    await assertFails(app.firestore.doc(`${transactionsURL}/${collections.transactions.ts1}`).update({ amount: 9999 }));
-    await assertFails(app.firestore.doc(`${transactionsURL}/ts200`).set({amount: '100', date: '21 March 2019 at 16:46:11 UTC+1', from: 'bookie-uid', to: 'player',   involved: [ 'bankadmin-uid', 'bookie-uid' ], message: 'test'}))
+    await assertSucceeds(app.firestore.collection(`${transactionsURL}`).where('to', '==', 'bookie-uid').get())
+    await assertSucceeds(app.firestore.collection(`${transactionsURL}`).where('from', '==', 'bookie-uid').get())
+    await assertFails(app.firestore.collection(`${transactionsURL}`).where('to', '==', 'bankadmin-uid').get()).then(permissionDenied)
+    await assertFails(app.firestore.doc(`${transactionsURL}/${collections.transactions.ts1}`).update({ amount: 9999 })).then(permissionDenied)
+    await assertFails(app.firestore.doc(`${transactionsURL}/ts200`).set({amount: '100', date: '21 March 2019 at 16:46:11 UTC+1', from: 'bookie-uid', to: 'player',   involved: [ 'bankadmin-uid', 'bookie-uid' ], message: 'test'})).then(permissionDenied)
   });
 
   it('bank admin access to transactions checks', async () => {
     const app = await authedApp({ uid: collections.players.bankadmin.uid });
-    await assertSucceeds(app.firestore.collection(`${transactionsURL}`).where('to', '==', 'bankadmin-uid').get());
-    await assertSucceeds(app.firestore.collection(`${transactionsURL}`).where('from', '==', 'bankadmin-uid').get());
-    await assertFails(app.firestore.collection(`${transactionsURL}`).where('to', '==', 'bookie-uid').get());
-    await assertFails(app.firestore.doc(`${transactionsURL}/${collections.transactions.ts1}`).update({ amount: 9999 }));
-    await assertFails(app.firestore.doc(`${transactionsURL}/ts200`).set({amount: '100', date: '21 March 2019 at 16:46:11 UTC+1', from: 'bookie-uid', to: 'player',   involved: [ 'bankadmin-uid', 'bookie-uid' ], message: 'test'}))
+    await assertSucceeds(app.firestore.collection(`${transactionsURL}`).where('to', '==', 'bankadmin-uid').get())
+    await assertSucceeds(app.firestore.collection(`${transactionsURL}`).where('from', '==', 'bankadmin-uid').get())
+    await assertFails(app.firestore.collection(`${transactionsURL}`).where('to', '==', 'bookie-uid').get()).then(permissionDenied)
+    await assertFails(app.firestore.doc(`${transactionsURL}/${collections.transactions.ts1}`).update({ amount: 9999 })).then(permissionDenied)
+    await assertFails(app.firestore.doc(`${transactionsURL}/ts200`).set({amount: '100', date: '21 March 2019 at 16:46:11 UTC+1', from: 'bookie-uid', to: 'player',   involved: [ 'bankadmin-uid', 'bookie-uid' ], message: 'test'})).then(permissionDenied)
   });
 
   it('non-player should not be allowed to read transaction', async () => {

@@ -33,8 +33,8 @@ describe('bids rules', () => {
     const app = await authedApp({ uid: collections.players.admin.uid });
     await assertSucceeds(app.firestore.doc(`${seasonsURL}/9999/races/${collections.races[1].location.country}/bids/${collections.players.admin.uid}`).get())
     await assertSucceeds(app.firestore.doc(`${seasonsURL}/9999/races/${collections.races[1].location.country}/bids/${collections.players.player.uid}`).get())
-    await assertFails(app.firestore.doc(`${seasonsURL}/9999/races/${collections.races[1].location.country}/bids/${collections.players.admin.uid}`).update({submitted: false}))
-    await assertFails(app.firestore.doc(`${seasonsURL}/9999/races/${collections.races[1].location.country}/bids/${collections.players.player.uid}`).update({firstCrash: [ 'hammilton' ]}))
+    await assertFails(app.firestore.doc(`${seasonsURL}/9999/races/${collections.races[1].location.country}/bids/${collections.players.admin.uid}`).update({submitted: false})).then(permissionDenied)
+    await assertFails(app.firestore.doc(`${seasonsURL}/9999/races/${collections.races[1].location.country}/bids/${collections.players.player.uid}`).update({firstCrash: [ 'hammilton' ]})).then(permissionDenied)
      });
 
   it('Access to bids checks - user not submitted bid', async () => {
@@ -44,9 +44,9 @@ describe('bids rules', () => {
 
     const app = await authedApp({ uid: collections.players.player.uid });
     await assertSucceeds(app.firestore.doc(`${seasonsURL}/9999/races/${collections.races[1].location.country}/bids/${collections.players.player.uid}`).get())
-    await assertFails(app.firestore.doc(`${seasonsURL}/9999/races/${collections.races[1].location.country}/bids/${collections.players.admin.uid}`).get())
-    await assertFails(app.firestore.doc(`${seasonsURL}/9999/races/${collections.races[1].location.country}/bids/${collections.players.player.uid}`).update({submitted: false}))
-    await assertFails(app.firestore.doc(`${seasonsURL}/9999/races/${collections.races[1].location.country}/bids/${collections.players.admin.uid}`).update({submitted: true}))
+    await assertFails(app.firestore.doc(`${seasonsURL}/9999/races/${collections.races[1].location.country}/bids/${collections.players.admin.uid}`).get()).then(permissionDenied)
+    await assertFails(app.firestore.doc(`${seasonsURL}/9999/races/${collections.races[1].location.country}/bids/${collections.players.player.uid}`).update({submitted: false})).then(permissionDenied)
+    await assertFails(app.firestore.doc(`${seasonsURL}/9999/races/${collections.races[1].location.country}/bids/${collections.players.admin.uid}`).update({submitted: true})).then(permissionDenied)
     await assertSucceeds(app.firestore.doc(`${seasonsURL}/9999/races/${collections.races[1].location.country}/bids/${collections.players.player.uid}`).update({firstCrash: [ 'hammilton' ]}))
    });
 

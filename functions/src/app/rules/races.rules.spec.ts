@@ -24,26 +24,26 @@ describe('transactions rules', () => {
 
   it('admin access to races checks', async () => {
     const app = await authedApp({ uid: collections.players.admin.uid });
-    await assertSucceeds(app.firestore.doc(`${seasonsURL}/9999/races/${collections.races[1].location.country}`).get());
-    await assertSucceeds(app.firestore.doc(`${seasonsURL}/9999/races/${collections.races[1].location.country}`).update({ state: 'open' }));
+    await assertSucceeds(app.firestore.doc(`${seasonsURL}/9999/races/${collections.races[1].location.country}`).get())
+    await assertSucceeds(app.firestore.doc(`${seasonsURL}/9999/races/${collections.races[1].location.country}`).update({ state: 'open' }))
   });
 
   it('player access to races checks', async () => {
     const app = await authedApp({ uid: collections.players.player.uid });
-    await assertSucceeds(app.firestore.doc(`${seasonsURL}/9999/races/${collections.races[1].location.country}`).get());
-    await assertFails(app.firestore.doc(`${seasonsURL}/9999/races/${collections.races[1].location.country}`).update({ state: 'open' }));
+    await assertSucceeds(app.firestore.doc(`${seasonsURL}/9999/races/${collections.races[1].location.country}`).get())
+    await assertFails(app.firestore.doc(`${seasonsURL}/9999/races/${collections.races[1].location.country}`).update({ state: 'open' })).then(permissionDenied)
    });
 
   it('bookie access to races checks', async () => {
-    const app = await authedApp({ uid: collections.players.bookie.uid });
-    await assertFails(app.firestore.doc(`${seasonsURL}/9999/races/${collections.races[1].location.country}`).get());
-    await assertFails(app.firestore.doc(`${seasonsURL}/9999/races/${collections.races[1].location.country}`).update({ state: 'open' }));
+    const app = await authedApp({ uid: collections.players.bookie.uid })
+    await assertFails(app.firestore.doc(`${seasonsURL}/9999/races/${collections.races[1].location.country}`).get()).then(permissionDenied)
+    await assertFails(app.firestore.doc(`${seasonsURL}/9999/races/${collections.races[1].location.country}`).update({ state: 'open' })).then(permissionDenied)
   });
 
   it('bank admin access to races checks', async () => {
     const app = await authedApp({ uid: collections.players.bankadmin.uid });
-    await assertFails(app.firestore.doc(`${seasonsURL}/9999/races/${collections.races[1].location.country}`).get());
-    await assertFails(app.firestore.doc(`${seasonsURL}/9999/races/${collections.races[1].location.country}`).update({ state: 'open' }));
+    await assertFails(app.firestore.doc(`${seasonsURL}/9999/races/${collections.races[1].location.country}`).get()).then(permissionDenied)
+    await assertFails(app.firestore.doc(`${seasonsURL}/9999/races/${collections.races[1].location.country}`).update({ state: 'open' })).then(permissionDenied)
   });
 
   it('non-player should not be allowed to read races', async () => {
