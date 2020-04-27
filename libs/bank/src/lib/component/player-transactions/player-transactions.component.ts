@@ -1,13 +1,15 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
+import { MatDialog } from '@angular/material/dialog';
 import { ActivatedRoute, Params } from '@angular/router';
 import { Player } from '@f2020/data';
 import { PlayersActions, PlayersFacade } from '@f2020/players';
-import { Observable, pipe, fromEvent } from 'rxjs';
-import { filter, pluck, tap, withLatestFrom } from 'rxjs/operators';
-import { MatDialog } from '@angular/material/dialog';
+import { Observable, pipe } from 'rxjs';
+import { filter, pluck, switchMap, first } from 'rxjs/operators';
 import { DepositDialogComponent } from '../deposit-dialog/deposit-dialog.component';
+import { WithdrawDialogComponent } from './../withdraw-dialog/withdraw-dialog.component';
+import { MatSnackBar } from '@angular/material/snack-bar';
 
-const isTruthy = <T> () => pipe(filter((a: T) => !!a));
+const isTruthy = <T>() => pipe(filter((a: T) => !!a));
 
 @Component({
   selector: 'f2020-player-transactions',
@@ -18,7 +20,7 @@ const isTruthy = <T> () => pipe(filter((a: T) => !!a));
   <f2020-transactions fxFlex [player]="player$ | async"></f2020-transactions>
   <mat-toolbar fxLayoutAlign="space-between" *ngIf="player$ | async as player">
     <button mat-button fxFlex (click)="openDeposit(player)">Indsæt</button>
-    <button mat-button fxFlex>Hæv</button>
+    <button mat-button fxFlex (click)="openWithdraw(player)">Hæv</button>
     <button mat-button fxFlex>Overfør</button>
   </mat-toolbar>
   `
@@ -30,6 +32,7 @@ export class PlayerTransactionsComponent implements OnInit {
   constructor(
     private facade: PlayersFacade,
     private dialog: MatDialog,
+    private snackBar: MatSnackBar,
     private route: ActivatedRoute) { }
 
   ngOnInit(): void {
@@ -42,14 +45,22 @@ export class PlayerTransactionsComponent implements OnInit {
   }
 
   openDeposit(player: Player) {
-    // [mat-dialog-close]="data.animal"
-    const dialogRef = this.dialog.open(DepositDialogComponent, {
+    this.dialog.open(DepositDialogComponent, {
       width: '250px',
       data: { player }
-    });
-    // dialogRef.afterClosed().subscribe(result => {
-    //   console.log('The dialog was closed');
-    //   this.animal = result;
-    // });
+    }).afterClosed().pipe(
+      switchMap(result => result),
+      first()
+    ).subscribe(amount => this.snackBar.open(`${player.displayName} har fået indsat ${amount}`, null, { duration: 3000 }));
+  }
+
+  openWithdraw(player: Player) {
+    this.dialog.open(WithdrawDialogComponent, {
+      width: '250px',
+      data: { player }
+    }).afterClosed().pipe(
+      switchMap(result => result),
+      first()
+    ).subscribe(amount => this.snackBar.open(`${player.displayName} har fået udbetalt ${amount}`, null, { duration: 3000 }));
   }
 }

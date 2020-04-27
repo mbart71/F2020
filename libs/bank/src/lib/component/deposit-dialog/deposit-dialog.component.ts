@@ -15,17 +15,13 @@ export class DepositDialogComponent implements OnInit {
 
   constructor(
     private dialogRef: MatDialogRef<DepositDialogComponent>,
-    private snackbar: MatSnackBar,
     private service: AccountService,
     private fb: FormBuilder,
     @Inject(MAT_DIALOG_DATA) public data: { player: Player }) { }
 
   onDeposit() {
     const { amount, message } = this.fg.value
-    this.service.deposit(this.data.player.uid, amount, message || 'Via MobilePay').then(() => {
-      this.dialogRef.close();
-      this.snackbar.open(`${this.data.player.displayName} har fået indsat ${amount}`, null, {duration: 3000});
-    })
+    this.dialogRef.close(this.service.deposit(this.data.player.uid, amount, message || 'Via MobilePay').then(() => amount));
   }
 
   onNoClick(): void {
