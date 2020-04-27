@@ -31,6 +31,11 @@ const buildWithdraw = async ({ fromUid, toUid, amount, message }: TransferData) 
   if (!toUid) {
     throw logAndCreateError('not-found', `No to uid specified for request `);
   }
+
+  if (fromUid === toUid) {
+    throw logAndCreateError('failed-precondition', `From and to uid are identical`);
+  }
+
   const from = await getUser(fromUid);
   if (!from) {
     throw logAndCreateError('not-found', `The from player with uid: ${fromUid} not found`)
