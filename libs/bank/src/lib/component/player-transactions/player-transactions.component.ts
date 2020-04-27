@@ -1,3 +1,4 @@
+import { TransferDialogComponent } from './../transfer-dialog/transfer-dialog.component';
 import { Component, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { ActivatedRoute, Params } from '@angular/router';
@@ -21,7 +22,7 @@ const isTruthy = <T>() => pipe(filter((a: T) => !!a));
   <mat-toolbar fxLayoutAlign="space-between" *ngIf="player$ | async as player">
     <button mat-button fxFlex (click)="openDeposit(player)">Indsæt</button>
     <button mat-button fxFlex (click)="openWithdraw(player)">Hæv</button>
-    <button mat-button fxFlex>Overfør</button>
+    <button mat-button fxFlex (click)="openTransfer(player)">Overfør</button>
   </mat-toolbar>
   `
 })
@@ -62,5 +63,14 @@ export class PlayerTransactionsComponent implements OnInit {
       switchMap(result => result),
       first()
     ).subscribe(amount => this.snackBar.open(`${player.displayName} har fået udbetalt ${amount}`, null, { duration: 3000 }));
+  }
+
+  openTransfer(player: Player) {
+    this.dialog.open(TransferDialogComponent, {
+      data: { player }
+    }).afterClosed().pipe(
+      switchMap(result => result),
+      first()
+    ).subscribe(({amount, to}: {amount: number, to: Player}) => this.snackBar.open(`${player.displayName} har overført ${amount} til ${to.displayName}`, null, { duration: 3000 }));
   }
 }

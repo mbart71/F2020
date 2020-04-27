@@ -22,6 +22,10 @@ export class AccountService {
     return this.functions.httpsCallable('withdraw')({ amount, message, uid }).then(() => true);
   }
 
+  async transfer(fromUid: string, toUid: string, amount: number, message: string): Promise<true> {
+    return this.functions.httpsCallable('transfer')({ fromUid, toUid, message, amount }).then(() => true);
+  }
+
   getTransactions(uid: string, start: DateTime, numberOfTransactions: number): Observable<Transaction[]> {
     return this.afs.collection<Transaction>(AccountService.transactionsURL, ref => ref
       .where('involved', 'array-contains', uid)

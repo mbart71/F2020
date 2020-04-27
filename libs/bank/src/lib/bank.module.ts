@@ -1,3 +1,4 @@
+import { MatSelectModule } from '@angular/material/select';
 import { FirebaseModule } from '@f2020/api';
 import { MatInputModule } from '@angular/material/input';
 import { ReactiveFormsModule } from '@angular/forms';
@@ -69,6 +70,7 @@ import { DepositInfoDialogComponent } from './component/my-transactions/deposit-
     MatDialogModule,
     MatFormFieldModule,
     MatInputModule,
+    MatSelectModule,
     FlexLayoutModule,
     ScrollingModule,
     SharedModule,
