@@ -1,0 +1,15 @@
+<div fxLayout="column" fxFlex>
+  <mat-toolbar color="primary">
+    Spillere
+  </mat-toolbar>
+  <mat-action-list *ngIf="players$ | async as players; else loading">
+    <mat-list-item *ngFor="let player of players" [routerLink]="[player.uid]">
+      <img matListAvatar [src]="player.photoURL" [alt]="player.displayName">
+      <p mat-line>{{player.displayName}}</p>
+      {{player.balance | currency: 'DKK'}}
+    </mat-list-item>
+  </mat-action-list>
+</div>
+<ng-template #loading>
+  <sha-loading></sha-loading>
+</ng-template>

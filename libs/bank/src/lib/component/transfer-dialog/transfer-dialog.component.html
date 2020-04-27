@@ -1,0 +1,25 @@
+<h1 mat-dialog-title>{{data.player.displayName}}</h1>
+<div mat-dialog-content [formGroup]="fg" fxLayout="column">
+  <p>Hvor mange penge skal der overføres og til hvem?</p>
+  <p>Dog maksimalt {{data.player.balance | currency: 'DKK'}}</p>
+  <mat-form-field>
+    <mat-label>Modtager</mat-label>
+    <mat-select formControlName="to" cdkFocusInitial> 
+      <mat-option *ngFor="let player of players$ | async" [value]=player>
+        {{player.displayName}}
+      </mat-option>
+    </mat-select>
+  </mat-form-field>
+  <mat-form-field>
+    <mat-label>Beløb</mat-label>
+    <input formControlName="amount" matInput type="number">
+  </mat-form-field>
+  <mat-form-field>
+    <mat-label>Besked</mat-label>
+    <input formControlName="message" matInput>
+  </mat-form-field>
+</div>
+<div mat-dialog-actions>
+  <button mat-button mat-dialog-close>Luk</button>
+  <button mat-button (click)="onWithdraw()" [disabled]="fg.invalid">OK</button>
+</div>
