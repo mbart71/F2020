@@ -1,7 +1,7 @@
 import { Bid, SelectedDriverValue } from "./model";
 
 // tslint:disable:next-line
-const sumPoints = (acc: number, points: number): number => acc += points;
+const sumPoints = (acc: number, points: number): number => acc + points;
 
 /**
  * This rules award you point base on offset in the array.

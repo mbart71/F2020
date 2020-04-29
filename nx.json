@@ -32,6 +32,30 @@
     },
     "driver": {
       "tags": []
+    },
+    "players": {
+      "tags": []
+    },
+    "bank": {
+      "tags": []
+    },
+    "shared": {
+      "tags": []
+    },
+    "player": {
+      "tags": []
+    },
+    "season": {
+      "tags": []
+    },
+    "api": {
+      "tags": []
+    },
+    "race": {
+      "tags": []
+    },
+    "standing": {
+      "tags": []
     }
   },
   "tasksRunnerOptions": {

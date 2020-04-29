@@ -1,27 +1,38 @@
-import { GoogleMapsModule } from '@angular/google-maps';
 import { registerLocaleData } from '@angular/common';
 import localeDa from '@angular/common/locales/da';
 import { LOCALE_ID, NgModule } from '@angular/core';
 import { AngularFireModule } from '@angular/fire';
 import { FlexLayoutModule } from '@angular/flex-layout';
+import { GoogleMapsModule } from '@angular/google-maps';
+import { MatButtonModule } from '@angular/material/button';
+import { MatIconModule } from '@angular/material/icon';
+import { MatSidenavModule } from '@angular/material/sidenav';
+import { MatToolbarModule } from '@angular/material/toolbar';
 import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { ServiceWorkerModule } from '@angular/service-worker';
+import { FirebaseModule, RaceApiModule, SeasonApiModule } from '@f2020/api';
+import { DriverModule } from '@f2020/driver';
+import { PlayerModule } from '@f2020/player';
+import { SharedModule } from '@f2020/shared';
 import { EffectsModule } from '@ngrx/effects';
 import { StoreModule } from '@ngrx/store';
 import { StoreDevtoolsModule } from '@ngrx/store-devtools';
+import * as firebase from "firebase/app";
 import { DateTime } from 'luxon';
 import { environment } from '../environments/environment';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
-import { FirebaseModule } from './firebase';
-import { MaterialModule } from './material.module';
-import { PlayerModule } from './player/player.module';
-import { RaceModule } from './race/race.module';
 import { metaReducers, reducers } from './reducers';
-import { SeasonModule } from './season/season.module';
-import { SharedModule } from './shared/shared.module';
-import { DriverModule } from '@f2020/driver';
+
+firebase.initializeApp(environment.firebaseConfig);
+
+const materialModule = [
+  MatSidenavModule,
+  MatIconModule,
+  MatButtonModule,
+  MatToolbarModule,
+]
 
 @NgModule({
   declarations: [AppComponent],
@@ -29,13 +40,12 @@ import { DriverModule } from '@f2020/driver';
     BrowserModule,
     BrowserAnimationsModule,
     GoogleMapsModule,
+    materialModule,
     FlexLayoutModule,
     ServiceWorkerModule.register('ngsw-worker.js', { enabled: environment.production }),
-    MaterialModule,
-    FirebaseModule.forRoot(),
     PlayerModule,
     DriverModule,
-    SeasonModule,
+    SeasonApiModule,
     AngularFireModule.initializeApp(environment.firebaseConfig),
     StoreModule.forRoot(reducers, {
       metaReducers,
@@ -47,14 +57,15 @@ import { DriverModule } from '@f2020/driver';
     EffectsModule.forRoot([]),
     AppRoutingModule,
     SharedModule,
-    RaceModule,
+    RaceApiModule,
     StoreDevtoolsModule.instrument({ maxAge: 25, logOnly: environment.production }),
+    FirebaseModule,
   ],
   providers: [
     {
       provide: LOCALE_ID,
       useValue: 'da',
-    },
+    }
   ],
   bootstrap: [AppComponent],
 })

@@ -1,12 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { PlayerActions, PlayerFacade } from './player';
 import { filter, first } from 'rxjs/operators';
-import { SeasonFacade } from './season/+state/season.facade';
-import { SeasonActions } from './season/+state/season.actions';
-import { RacesFacade } from './race/+state/races.facade';
-import { RacesActions } from './race/+state/races.actions';
 import { DriversActions, DriversFacade } from '@f2020/driver';
+import { PlayerFacade, PlayerActions } from '@f2020/player';
+import { RacesFacade, RacesActions, SeasonFacade, SeasonActions } from '@f2020/api';
 
 @Component({
   selector: 'f2020-root',

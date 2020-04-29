@@ -1,5 +1,5 @@
 import { RouterModule, Routes } from '@angular/router';
-import { LandingComponent, LoginComponent } from './shared';
+import { LandingComponent, LoginComponent } from '@f2020/shared';
 
 const routes: Routes = [
   {
@@ -11,12 +11,16 @@ const routes: Routes = [
     component: LandingComponent,
   },
   {
-    path: 'standings',
-    loadChildren: () => import('../app/standing/standing.module').then(m => m.StandingModule),
+    path: 'race',
+    loadChildren: () => import('@f2020/race').then(m => m.RaceModule),
   },
   {
-    path: 'account',
-    loadChildren: () => import('../app/accounts/accounts.module').then(m => m.AccountsModule),
+    path: 'standings',
+    loadChildren: () => import('@f2020/standing').then(m => m.StandingModule),
+  },
+  {
+    path: 'accounts',
+    loadChildren: () => import('@f2020/bank').then(m => m.BankModule),
   },
 ];
 

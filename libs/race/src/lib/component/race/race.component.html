@@ -1,0 +1,36 @@
+<ng-container *ngIf="race$ | async as race; else loading">
+  <sha-card-page >
+    <mat-card>
+      <mat-card-header>
+        <img mat-card-avatar [src]="flagURL(race)">
+        <mat-card-title>{{race.name}}</mat-card-title>
+        <mat-card-subtitle>{{race.raceStart | date: 'medium'}}</mat-card-subtitle>
+      </mat-card-header>
+      <mat-card-content style="height: 33vh">
+        <google-map
+            width="100%"
+            height="100%"
+            [center]="center$ | async"
+            [options]="options">
+        </google-map>
+      </mat-card-content>
+      <mat-card-actions>
+        <a mat-button [href]="race.url" target="_blank">WIKI</a>
+      </mat-card-actions>
+    </mat-card>
+    <ng-container *ngIf="bids$ | async as bids">
+      <mat-card *ngIf="bids.length">
+        <mat-card-header>
+          <mat-card-title>Bud</mat-card-title>
+        </mat-card-header>
+        <mat-card-content>
+          <f2020-bids [bids]="bids"></f2020-bids>
+        </mat-card-content>
+      </mat-card>
+    </ng-container>
+  </sha-card-page>
+  <button mat-fab aria-label="Deltag i løbet" routerLink="bid" *ngIf="race.state === 'open' && !(bid$ | async)?.submitted">
+    <mat-icon>add</mat-icon>
+  </button>
+</ng-container>  
+<ng-template #loading><sha-loading></sha-loading></ng-template>
