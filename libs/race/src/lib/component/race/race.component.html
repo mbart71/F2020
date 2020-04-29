@@ -32,5 +32,10 @@
   <button mat-fab aria-label="Deltag i løbet" routerLink="bid" *ngIf="race.state === 'open' && !(bid$ | async)?.submitted">
     <mat-icon>add</mat-icon>
   </button>
+  <ng-container *shaHasRole="'admin'">
+    <button mat-fab aria-label="Upload resultat" routerLink="result" *ngIf="race.state === 'waiting'">
+      <mat-icon>cloud_download</mat-icon>
+    </button>
+  </ng-container>
 </ng-container>  
 <ng-template #loading><sha-loading></sha-loading></ng-template>
