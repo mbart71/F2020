@@ -6,5 +6,6 @@
   <sha-sidenav-button *shaHasRole="'bank-admin'" iconSet="far" icon="fa-piggy-bank" routerLink="accounts" (click)="closing.emit()">Bank</sha-sidenav-button>
   <sha-sidenav-button iconSet="fas" icon="fa-steering-wheel" routerLink="standings" (click)="closing.emit()">Kører</sha-sidenav-button>
   <sha-sidenav-button iconSet="fas" icon="fa-info" [routerLink]="['info', 'rules']" (click)="closing.emit()">Regler</sha-sidenav-button>
+  <sha-sidenav-button iconSet="far" icon="fa-user-friends" [routerLink]="['info', 'about']" (click)="closing.emit()">Om spillet</sha-sidenav-button>
   <button mat-list-item (click)="signOut()"><mat-icon fontSet="fa" fontIcon="fa-sign-out-alt" style="height: auto !important;"></mat-icon> Log ud</button>
 </mat-action-list>
