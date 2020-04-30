@@ -1,8 +1,9 @@
 // import { getUser } from "../../lib";
-import * as admin from 'firebase-admin';
+// import * as admin from 'firebase-admin';
 import * as functions from 'firebase-functions';
 import * as nodemailer  from 'nodemailer';
 
+// const db = admin.firestore();
 const transporter = nodemailer.createTransport( 
     `smtps://michael.bartrup@gmail.com:hoasdcaxmoyexqf@smtp.gmail.com` 
   ); 
@@ -14,11 +15,9 @@ const transporter = nodemailer.createTransport(
         pass: 'ohoasdcaxmoyexqf',
     },
 }); */ 
-    exports.mailNoFunds = functions.firestore.document('player/{userId}').onUpdate((change, context) => {  
-      const db = admin.firestore();
-      return db.collection('player').doc(context.params.userId).get().then(doc => {
-        const player = doc.data();
-        
+    export const mailNoFunds = functions.region('europe-west1').firestore.document('player/{userId}')
+    .onUpdate(async (change, context) => {  
+      const player = change.after.data();  
         if ( player?.balance < -80) {  
           console.log('player', player?.displayName ,'has insufficient founds for next race');
            const msg = {
@@ -45,4 +44,3 @@ const transporter = nodemailer.createTransport(
       }  
         return null; 
     });   
-});
