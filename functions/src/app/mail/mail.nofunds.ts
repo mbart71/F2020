@@ -2,16 +2,6 @@ import * as functions from 'firebase-functions';
 import * as nodemailer  from 'nodemailer';
 import { Player } from '../../lib';
 
-/* const transporter = nodemailer.createTransport( {
-  host: 'smtp.gmail.com',
-    port: 465,
-    secure: true,
-    auth: {
-        user: 'michael.bartrup@gmail.com',
-        pass: 'cdiadwmngkdsvrgd'
-    }
-  });
-*/
   const transporter = nodemailer.createTransport({
     service: "gmail",
     auth: {
@@ -23,11 +13,10 @@ import { Player } from '../../lib';
       accessToken: functions.config().ci.token
     }
   });
-  
 
 export const mailNoFunds = functions.region('europe-west1').firestore.document('players/{userId}')
     .onUpdate(async (change, context) => {  
-      const player: Player | undefined = change.after.data() as Player;
+      const player: Player  = change.after.data() as Player;
         if ((player.balance || 0) - 20 < -100) {  
           console.log('player', player.displayName ,'has insufficient founds for next race');
           const output = `<h3>Hej ${player.displayName}</h3>
