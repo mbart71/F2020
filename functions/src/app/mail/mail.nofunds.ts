@@ -2,7 +2,7 @@ import * as functions from 'firebase-functions';
 import * as nodemailer  from 'nodemailer';
 import { Player } from '../../lib';
 
-const transporter = nodemailer.createTransport( {
+/* const transporter = nodemailer.createTransport( {
   host: 'smtp.gmail.com',
     port: 465,
     secure: true,
@@ -11,6 +11,19 @@ const transporter = nodemailer.createTransport( {
         pass: 'cdiadwmngkdsvrgd'
     }
   });
+*/
+  const transporter = nodemailer.createTransport({
+    service: "gmail",
+    auth: {
+      type: "OAuth2",
+      user: "flemming@bregnvig.dk",
+      clientId: functions.config().oauth.client,
+      clientSecret: functions.config().oauth.secret,
+      refreshToken: functions.config().oauth.refresh,
+      accessToken: functions.config().ci.token
+    }
+  });
+  
 
 export const mailNoFunds = functions.region('europe-west1').firestore.document('players/{userId}')
     .onUpdate(async (change, context) => {  
