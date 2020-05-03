@@ -17,7 +17,7 @@ const buildResult = async (result: Bid) => {
   const bookie = await getBookie();
 
   if (!season || !race) {
-    throw logAndCreateError('failed-precondition', 'Missing season or race', season, race);
+    throw logAndCreateError('not-found', 'Season or race', season?.name, race?.name);
   }
 
   validateResult(result, race);
@@ -47,7 +47,7 @@ const buildResult = async (result: Bid) => {
     calculatedResults.forEach(cr => {
       transaction.set(db.doc(`${seasonsURL}/${race.season}/${racesURL}/${race.location.country}/bids/${cr.player!.uid}`), cr);
     });
-    transaction.update(db.doc(`${seasonsURL}/${race.season}/${racesURL}/${race.location.country}`), { result })
+    transaction.update(db.doc(`${seasonsURL}/${race.season}/${racesURL}/${race.location.country}`), { state: 'completed', result })
     return Promise.resolve(`Result submitted`);
   });
 

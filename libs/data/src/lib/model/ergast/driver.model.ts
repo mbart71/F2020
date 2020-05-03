@@ -51,9 +51,9 @@ export interface ErgastDriversQualifying extends ErgastRace {
 
 export const qualifyToMillis = (time: string): number => {
   const groups = /^(\d):(\d{2})\.(\d*)$/.exec(time);
-  const minuttes = parseInt(groups[1], 10) * 1000 * 60;
-  const seconds = parseInt(groups[2], 10) * 1000;
-  const millis = parseInt(groups[3], 10);
+  const minuttes = parseInt(groups![1], 10) * 1000 * 60;
+  const seconds = parseInt(groups![2], 10) * 1000;
+  const millis = parseInt(groups![3], 10);
   return minuttes + seconds + millis;
 }
 

@@ -7,7 +7,7 @@ const currentRaceURL = (seasonId: string) => `${seasonsURL}/${seasonId}/${racesU
 export const getCurrentRace = async (): Promise<IRace | undefined> => {
   return currentSeason().then(season => admin.firestore()
     .collection(currentRaceURL(season.id!))
-    .where('state', '==', 'open')
+    .where('state', '==', 'closed')
     .withConverter<IRace>(converter.timestamp)
     .get()
     .then(snapshot => {

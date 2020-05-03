@@ -1,5 +1,3 @@
-import { IRaceBasis } from './race.model';
-
 export interface IDriver {
   readonly name: string;
   readonly driverId: string;
