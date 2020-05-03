@@ -1,6 +1,6 @@
 export interface ErgastLocation {
-  readonly lat: number;
-  readonly long: number;
+  readonly lat: string;
+  readonly long: string;
   readonly locality: string;
   readonly country: string;
 }

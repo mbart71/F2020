@@ -47,8 +47,9 @@ export interface IDriverResult {
   results: IDriverRaceResult[];
 }
 
+export const finished = (status: string): boolean =>  /(\+[0-9] Lap)|(Finished)/.test(status);
+
 export interface IDriverRaceResult {
-  race: IRaceBasis;
   driver: IDriver;
   points: number
   position: number;
@@ -58,10 +59,9 @@ export interface IDriverRaceResult {
 }
 
 export interface IDriverQualifying {
-  race: IRaceBasis;
   driver: IDriver;
   position: number;
-  q1: string;
-  q2: string;
-  q3: string;
+  q1: number;
+  q2?: number;
+  q3?: number;
 }

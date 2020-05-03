@@ -24,32 +24,44 @@ export interface ErgastFastestLap {
   rank: string;
   lap: string;
   Time: {
-      time: string;
+    time: string;
   },
   AverageSpeed: {
-      speed: string;
-  }  
+    speed: string;
+  }
 }
 
-export interface ErgastDriverResult extends ErgastRace {
-  Results: [{
-    Driver: ErgastDriver;
-    Constructor: ErgastConstructor,
-    points: string;
-    position: string;
-    grid: string;
-    status: string;
-    FastestLap: ErgastFastestLap;
-  }]
+export interface ErgastDriverResults extends ErgastRace {
+  Results: ErgastDriverResult[]
 }
 
-export interface ErgastDriverQualifying extends ErgastRace {
-  QualifyingResults: [{
-    Driver: ErgastDriver;
-    Constructor: ErgastConstructor,
-    position: string;
-    Q1: string;
-    Q2: string;
-    Q3: string;
-  }]
+export interface ErgastDriverResult {
+  Driver: ErgastDriver;
+  Constructor: ErgastConstructor,
+  points: string;
+  position: string;
+  grid: string;
+  status: string;
+  FastestLap: ErgastFastestLap;
+}
+
+export interface ErgastDriversQualifying extends ErgastRace {
+  QualifyingResults: ErgastDriverQualifying[];
+}
+
+export const qualifyToMillis = (time: string): number => {
+  const groups = /^(\d):(\d{2})\.(\d*)$/.exec(time);
+  const minuttes = parseInt(groups[1], 10) * 1000 * 60;
+  const seconds = parseInt(groups[2], 10) * 1000;
+  const millis = parseInt(groups[3], 10);
+  return minuttes + seconds + millis;
+}
+
+export interface ErgastDriverQualifying {
+  Driver: ErgastDriver;
+  Constructor: ErgastConstructor,
+  position: string;
+  Q1: string;
+  Q2: string;
+  Q3: string;
 }

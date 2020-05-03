@@ -1,6 +1,5 @@
-import { ErgastDriverResult, IDriverRaceResult } from '../model';
+import { ErgastDriverResult, IDriverRaceResult, ErgastDriverResults } from '../model';
 import { driver } from './driver.mapper';
-import { basisMap } from './race.mapper';
 
 // "1:25.580"
 const toMillis = (time: string) => {
@@ -12,21 +11,19 @@ const toMillis = (time: string) => {
 }
 
 export const driverResult = (result: ErgastDriverResult): IDriverRaceResult => {
-  const d = result.Results[0];
   return {
-    race: basisMap(result),
-    driver: driver(d.Driver),
-    points: parseInt(d.points, 10),
-    position: parseInt(d.position, 10),
-    grid: parseInt(d.grid, 10),
-    status: d.status,
+    driver: driver(result.Driver),
+    points: parseInt(result.points, 10),
+    position: parseInt(result.position, 10),
+    grid: parseInt(result.grid, 10),
+    status: result.status,
     fastestLap: {
-      rank: parseInt(d.FastestLap.rank, 10),
-      lap: parseInt(d.FastestLap.lap, 10),
-      averageSpeed: parseFloat(d?.FastestLap.AverageSpeed.speed),
-      time: toMillis(d.FastestLap.Time.time)
+      rank: parseInt(result.FastestLap.rank, 10),
+      lap: parseInt(result.FastestLap.lap, 10),
+      averageSpeed: parseFloat(result?.FastestLap.AverageSpeed.speed),
+      time: toMillis(result.FastestLap.Time.time)
     }
   };
 };
 
-export const driverResults = (_drivers: ErgastDriverResult[]) => _drivers.map(driverResult);
+export const driverResults = (_drivers: ErgastDriverResults) => _drivers.Results.map(driverResult);

@@ -1,16 +1,15 @@
-import { TransferDialogComponent } from './../transfer-dialog/transfer-dialog.component';
 import { Component, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
+import { MatSnackBar } from '@angular/material/snack-bar';
 import { ActivatedRoute, Params } from '@angular/router';
 import { Player } from '@f2020/data';
 import { PlayersActions, PlayersFacade } from '@f2020/players';
-import { Observable, pipe } from 'rxjs';
-import { filter, pluck, switchMap, first } from 'rxjs/operators';
+import { truthy } from '@f2020/tools';
+import { Observable } from 'rxjs';
+import { first, pluck, switchMap } from 'rxjs/operators';
 import { DepositDialogComponent } from '../deposit-dialog/deposit-dialog.component';
+import { TransferDialogComponent } from './../transfer-dialog/transfer-dialog.component';
 import { WithdrawDialogComponent } from './../withdraw-dialog/withdraw-dialog.component';
-import { MatSnackBar } from '@angular/material/snack-bar';
-
-const isTruthy = <T>() => pipe(filter((a: T) => !!a));
 
 @Component({
   selector: 'f2020-player-transactions',
@@ -41,7 +40,7 @@ export class PlayerTransactionsComponent implements OnInit {
       pluck<Params, string>('uid')
     ).subscribe(uid => this.facade.dispatch(PlayersActions.selectPlayer({ uid })));
     this.player$ = this.facade.selectedPlayer$.pipe(
-      isTruthy(),
+      truthy(),
     );
   }
 
