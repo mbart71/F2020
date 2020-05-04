@@ -216,4 +216,17 @@ describe('Submit result unittest', () => {
         expect(race.state).toBe('completed');
       })
   });
+
+  it('should only include bids that have been submitted', async () => {
+    await writeBid({ ...clone(collections.bids[0])}, collections.players.admin.uid);
+    await writeBid({ ...clone(collections.bids[1]), submitted: true }, collections.players.player.uid);
+
+    const app = await authedApp({ uid: collections.players.admin.uid });
+    await assertSucceeds(app.functions.httpsCallable('submitResult')(collections.results[1]))
+      .then(() => readBid(collections.players.player.uid))
+      .then((bid: Bid) => expect(bid.points).toBeDefined())
+      .then(() => readBid(collections.players.admin.uid))
+      .then((bid: Bid) => expect(bid.points).toBeUndefined());
+
+  })
 });
