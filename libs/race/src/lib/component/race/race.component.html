@@ -33,7 +33,7 @@
     <mat-icon>add</mat-icon>
   </button>
   <ng-container *shaHasRole="'admin'">
-    <button mat-fab aria-label="Upload resultat" routerLink="result" *ngIf="race.state === 'waiting'">
+    <button mat-fab aria-label="Upload resultat" routerLink="result" *ngIf="race.state === 'closed'">
       <mat-icon>cloud_download</mat-icon>
     </button>
   </ng-container>
