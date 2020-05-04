@@ -4,10 +4,10 @@ import { racesURL, seasonsURL } from './collection-names';
 import { IRace } from "./model";
 const currentRaceURL = (seasonId: string) => `${seasonsURL}/${seasonId}/${racesURL}`
 
-export const getCurrentRace = async (): Promise<IRace | undefined> => {
+export const getCurrentRace = async (state: 'open' | 'closed'): Promise<IRace | undefined> => {
   return currentSeason().then(season => admin.firestore()
     .collection(currentRaceURL(season.id!))
-    .where('state', '==', 'closed')
+    .where('state', '==', state)
     .withConverter<IRace>(converter.timestamp)
     .get()
     .then(snapshot => {

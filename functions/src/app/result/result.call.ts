@@ -13,7 +13,7 @@ export const submitResult = functions.region('europe-west1').https.onCall(async 
 
 const buildResult = async (result: Bid) => {
   const season = await currentSeason();
-  const race = await getCurrentRace();
+  const race = await getCurrentRace('closed');
   const bookie = await getBookie();
 
   if (!season || !race) {
