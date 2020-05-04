@@ -56,8 +56,8 @@ export class RacesService {
   }
 
 
-  async submitBid(): Promise<true> {
-    return this.functions().httpsCallable('submitBid')().then(() => true);
+  async submitBid(bid: Bid): Promise<true> {
+    return this.functions().httpsCallable('submitBid')(bid).then(() => true);
   }
 
   async submitResult(result: Bid): Promise<true> {

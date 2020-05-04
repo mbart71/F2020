@@ -93,6 +93,7 @@ export const RacesActions = {
 
   submitBid: createAction(
     '[Bid page] submit bid',
+    props<{bid: Bid}>(),
   ),
 
   submitBidSuccess: createAction(

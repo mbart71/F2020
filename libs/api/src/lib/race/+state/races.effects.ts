@@ -102,7 +102,7 @@ export class RacesEffects {
 
   submitBid$ = createEffect(() => this.actions$.pipe(
     ofType(RacesActions.submitBid),
-    concatMap(() => this.service.submitBid()
+    concatMap(({ bid }) => this.service.submitBid(bid)
       .then(() => RacesActions.submitBidSuccess())
       .catch(error => RacesActions.submitBidFailure({ error }))
     )

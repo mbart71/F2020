@@ -5,8 +5,9 @@ import { IRace } from '@f2020/data';
 import { UntilDestroy, untilDestroyed } from '@ngneat/until-destroy';
 import { DateTime } from 'luxon';
 import { Observable } from 'rxjs';
-import { debounceTime, filter, pairwise, share, switchMapTo, tap } from 'rxjs/operators';
+import { debounceTime, filter, pairwise, share, switchMap, tap, switchMapTo } from 'rxjs/operators';
 import { RacesFacade, RacesActions } from '@f2020/api';
+import { shareLatest } from '@f2020/tools';
 
 @UntilDestroy()
 @Component({
@@ -31,7 +32,7 @@ export class EnterBidComponent implements OnInit {
     this.race$ = this.facade.selectedRace$.pipe(
       filter(race => !!race),
       tap(_ => console.log(_)),
-      share(),
+      shareLatest(),
     );
     this.updating$ = this.facade.updating$;
     this.facade.yourBid$.pipe(
@@ -45,6 +46,7 @@ export class EnterBidComponent implements OnInit {
     this.bidControl.valueChanges.pipe(
       debounceTime(3000),
       untilDestroyed(this),
+      filter(bid => !bid?.submitted)
     ).subscribe(value => this.facade.dispatch(RacesActions.updateYourBid({bid: value})));
     this.updating$.pipe(
       pairwise(),
@@ -59,7 +61,7 @@ export class EnterBidComponent implements OnInit {
   }
 
   submitBid() {
-    this.facade.dispatch(RacesActions.submitBid());
+    this.facade.dispatch(RacesActions.submitBid(this.bidControl.value));
     this.bidControl.disable({emitEvent: false});
   }
 
