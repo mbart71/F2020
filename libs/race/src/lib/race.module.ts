@@ -1,3 +1,4 @@
+import { MatExpansionModule } from '@angular/material/expansion';
 import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
 import { MatCardModule } from '@angular/material/card';
@@ -23,6 +24,7 @@ import { RacesComponent } from './component/races/races.component';
 import { SubmitResultComponent } from './component/submit-result/submit-result.component';
 import { RaceRoutingModule } from './race-routing.module';
 import { RaceApiModule } from '@f2020/api';
+import { DisplayDriversComponent } from './component/display-bid/display-drivers/display-drivers.component';
 
 const materialModules = [
   MatToolbarModule,
@@ -31,6 +33,7 @@ const materialModules = [
   MatCardModule,
   MatIconModule,
   MatButtonModule,
+  MatExpansionModule
 ]
 
 @NgModule({
@@ -56,6 +59,7 @@ const materialModules = [
     DisplayBidComponent,
     PartialBidWarningComponent,
     RaceOutletComponent,
+    DisplayDriversComponent,
   ],
 })
 export class RaceModule {
