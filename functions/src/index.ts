@@ -9,4 +9,5 @@ export * from './app/account/withdraw.call';
 export * from './app/account/transfer.call';
 
 export * from './app/transaction/transaction.trigger';
+export * from './app/wbc/wbc-points.trigger';
 

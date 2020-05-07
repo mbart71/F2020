@@ -10,12 +10,23 @@ export const races = [
       lng: '14.7647',
       nationality: 'Spielburg'
     },
+    drivers: [
+      'hamilton', 'bottas',
+      'leclerc', 'vettel',
+      'max_verstappen', 'albon',
+      'sainz', 'norris',
+      'ricciardo', 'hulkenberg',
+      'gasly', 'kvyat',
+      'perez', 'stroll',
+      'raikkonen', 'giovinazzi',
+      'kevin_magnussen', 'grosjean',
+      'kubica', 'russell'
+    ],
     raceStart: new Date(159395460000),
-    season: 2020,
+    season: 9999,
     countryCode: 'AT',
     open: new Date(159338160000),
     round: 4,
-    drivers: [],
     close: new Date(159376680000)
   },
   {
