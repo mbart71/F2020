@@ -42,5 +42,26 @@ export const bids: Bid[] = [
       'albon',
       'hamilton'
     ]
+  },
+  {
+    firstCrash: [ 'max_verstappen' ],
+    polePositionTime: 71111,
+    podium: [ 'hamilton', 'bottas', 'grosjean' ],
+    selectedDriver: { finish: 12, grid: 12 },
+    fastestDriver: [ 'hamilton' ],
+    player: {
+      email: 'michael.bartrup@gmail.com',
+      displayName: 'Michael Bartrup',
+      uid: 'player1-uid',
+      photoURL: 'https://lh3.googleusercontent.com/a-/AAuE7mBvw300XDtDrnheUmG5TjELjs4ldQKADf15MCQtLg'
+    },
+    qualify: [
+      'hamilton',
+      'grosjean',
+      'kevin_magnussen',
+      'leclerc',
+      'bottas',
+      'vettel'
+    ]
   }
 ]
