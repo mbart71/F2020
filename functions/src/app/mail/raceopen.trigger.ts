@@ -1,6 +1,7 @@
 import * as functions from 'firebase-functions';
 import * as nodemailer  from 'nodemailer';
-import { Player } from '../../lib';
+import { IRace } from '../../lib/model/race.model';
+import { Player, seasonsURL, racesURL } from '../../lib';
 
   const transporter = nodemailer.createTransport({
     service: "gmail",
@@ -14,11 +15,13 @@ import { Player } from '../../lib';
     }
   });
 
-export const mailNoFunds = functions.region('europe-west1').firestore.document('players/{userId}')
+export const mailNoFunds = functions.region('europe-west1').firestore.document('${seasonsURL}/${race.season}/${racesURL}/${race.location.country}/')
     .onUpdate(async (change, context) => {  
-      const player: Player  = change.after.data() as Player;
-        if ((player.balance || 0) - 20 < -100) {  
-          console.log('player', player.displayName ,'has insufficient founds for next race');
+      const race_after: IRace = change.after.data() as IRace;
+      const race_before: IRace  = change.before.data() as IRace;
+        if ((race_after.state === 'open' && race_before.state === 'waiting') {  
+          console.log('race', race_before.name ,'is now open - lets send info to players');
+
           const output = `<h3>Hej ${player.displayName}</h3>
               <div> 
               <p> Din balance i f2020 spillet er nu nede på ${player.balance}, du kan derfor ikke lægge et bud ind på næste race </br></p>
