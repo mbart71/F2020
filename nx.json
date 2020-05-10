@@ -62,6 +62,9 @@
     },
     "tools": {
       "tags": []
+    },
+    "wbc": {
+      "tags": []
     }
   },
   "tasksRunnerOptions": {

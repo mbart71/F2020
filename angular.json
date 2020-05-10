@@ -641,6 +641,38 @@
           }
         }
       }
+    },
+    "wbc": {
+      "projectType": "library",
+      "root": "libs/wbc",
+      "sourceRoot": "libs/wbc/src",
+      "prefix": "f2020",
+      "architect": {
+        "lint": {
+          "builder": "@angular-devkit/build-angular:tslint",
+          "options": {
+            "tsConfig": [
+              "libs/wbc/tsconfig.lib.json",
+              "libs/wbc/tsconfig.spec.json"
+            ],
+            "exclude": ["**/node_modules/**", "!libs/wbc/**"]
+          }
+        },
+        "test": {
+          "builder": "@nrwl/jest:jest",
+          "options": {
+            "jestConfig": "libs/wbc/jest.config.js",
+            "tsConfig": "libs/wbc/tsconfig.spec.json",
+            "passWithNoTests": true,
+            "setupFile": "libs/wbc/src/test-setup.ts"
+          }
+        }
+      },
+      "schematics": {
+        "@nrwl/angular:component": {
+          "style": "scss"
+        }
+      }
     }
   },
   "cli": {
