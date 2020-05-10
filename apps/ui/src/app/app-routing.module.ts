@@ -15,6 +15,10 @@ const routes: Routes = [
     loadChildren: () => import('@f2020/race').then(m => m.RaceModule),
   },
   {
+    path: 'wbc',
+    loadChildren: () => import('@f2020/wbc').then(m => m.WbcModule),
+  },
+  {
     path: 'standings',
     loadChildren: () => import('@f2020/standing').then(m => m.StandingModule),
   },
