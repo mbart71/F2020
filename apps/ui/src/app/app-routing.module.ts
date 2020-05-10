@@ -22,6 +22,10 @@ const routes: Routes = [
     path: 'accounts',
     loadChildren: () => import('@f2020/bank').then(m => m.BankModule),
   },
+  {
+    path: 'info',
+    loadChildren: () => import('@f2020/info').then(m => m.InfoModule),
+  },
 ];
 
 export const AppRoutingModule = RouterModule.forRoot(routes);

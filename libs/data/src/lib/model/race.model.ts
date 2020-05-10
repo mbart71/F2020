@@ -1,7 +1,7 @@
 import { Bid } from './bid.model';
 import { DateTime } from 'luxon';
 import { CoordinateModel } from './coordinate.model';
-import { IDriverRaceResult } from './driver.model';
+import { IDriverRaceResult, IDriverQualifying } from './driver.model';
 
 export type State = 'waiting' | 'open' | 'closed' | 'completed';
 
@@ -26,4 +26,8 @@ export interface IRace extends IRaceBasis {
 
 export interface IRaceResult extends IRaceBasis {
   results: IDriverRaceResult[];
+}
+
+export interface IQualifyResult extends IRaceBasis {
+  results: IDriverQualifying[];
 }

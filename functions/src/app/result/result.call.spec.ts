@@ -22,7 +22,7 @@ describe('Submit result unittest', () => {
     await adminFirestore.doc(`${playersURL}/${collections.players.bookie.uid}`).set({ ...collections.players.bookie });
 
     await adminFirestore.doc(`${seasonsURL}/9999`).set(collections.seasons[0]);
-    await adminFirestore.doc(`${seasonsURL}/9999/races/${collections.races[1].location.country}`).set(collections.races[1]);
+    await adminFirestore.doc(`${seasonsURL}/9999/races/${collections.races[1].location.country}`).set({ ...collections.races[1], state: 'closed' });
   });
 
   afterEach(async () => {
@@ -105,6 +105,22 @@ describe('Submit result unittest', () => {
     await assertFails(app.functions.httpsCallable('submitResult')(result)).then(failedPrecondition)
   });
 
+  it('should reject bid, when it cannot find a closed race', async () => {
+    await adminFirestore.doc(`${seasonsURL}/9999/races/${collections.races[1].location.country}`).set({ ...collections.races[1], state: 'open' });
+    const app = await authedApp({ uid: collections.players.admin.uid });
+    await assertFails(app.functions.httpsCallable('submitResult')(collections.results[0]))
+      .then(notFound)
+
+    await adminFirestore.doc(`${seasonsURL}/9999/races/${collections.races[1].location.country}`).set({ ...collections.races[1], state: 'completed' });
+    await assertFails(app.functions.httpsCallable('submitResult')(collections.results[0]))
+      .then(notFound)
+
+    await adminFirestore.doc(`${seasonsURL}/9999/races/${collections.races[1].location.country}`).set({ ...collections.races[1], state: 'waiting' });
+    await assertFails(app.functions.httpsCallable('submitResult')(collections.results[0]))
+      .then(notFound)
+
+  })
+
   it('should accept submitting of result, when result is valid but there are no bids', async () => {
     // Non completed bids
     await writeBid(collections.bids[0], collections.players.admin.uid);
@@ -112,7 +128,7 @@ describe('Submit result unittest', () => {
 
     const app = await authedApp({ uid: collections.players.admin.uid });
     await assertSucceeds(app.functions.httpsCallable('submitResult')(collections.results[0]))
-      .then(() => new Promise(resolve => setTimeout(() => resolve(), 500)))
+      .then(() => new Promise(resolve => setTimeout(() => resolve(), 2000)))
       .then(() => adminFirestore.doc(`${playersURL}/${collections.players.bookie.uid}`).get())
       .then((snapshot: firebase.firestore.DocumentSnapshot) => snapshot.data())
       .then((player: Player) => expect(player.balance).toEqual(40));
@@ -124,7 +140,7 @@ describe('Submit result unittest', () => {
 
     const app = await authedApp({ uid: collections.players.admin.uid });
     await assertSucceeds(app.functions.httpsCallable('submitResult')(collections.results[0]))
-      .then(() => new Promise(resolve => setTimeout(() => resolve(), 500)))
+      .then(() => new Promise(resolve => setTimeout(() => resolve(), 2000)))
       .then(() => adminFirestore.doc(`${playersURL}/${collections.players.admin.uid}`).get())
       .then((snapshot: firebase.firestore.DocumentSnapshot) => snapshot.data())
       .then((player: Player) => expect(player.balance).toEqual(140))
@@ -146,7 +162,7 @@ describe('Submit result unittest', () => {
 
     const app = await authedApp({ uid: collections.players.admin.uid });
     await assertSucceeds(app.functions.httpsCallable('submitResult')(collections.results[1]))
-      .then(() => new Promise(resolve => setTimeout(() => resolve(), 500)))
+      .then(() => new Promise(resolve => setTimeout(() => resolve(), 2000)))
       .then(() => adminFirestore.doc(`${playersURL}/${collections.players.admin.uid}`).get())
       .then((snapshot: firebase.firestore.DocumentSnapshot) => snapshot.data())
       .then((player: Player) => expect(player.balance).toEqual(100))
@@ -169,7 +185,7 @@ describe('Submit result unittest', () => {
     const app = await authedApp({ uid: collections.players.admin.uid });
     const result = { ...clone(collections.results[0]), firstCrash: undefined };
     await assertSucceeds(app.functions.httpsCallable('submitResult')(result))
-      .then(() => new Promise(resolve => setTimeout(() => resolve(), 500)))
+      .then(() => new Promise(resolve => setTimeout(() => resolve(), 2000)))
       .then(() => readBid(collections.players.admin.uid))
       .then((bid: Bid) => expect(bid.points).toEqual(12 + 2 + 6 + 3 + 3 + 0))
   });
@@ -181,22 +197,36 @@ describe('Submit result unittest', () => {
     const app = await authedApp({ uid: collections.players.admin.uid });
     const result = { ...clone(collections.results[0]), firstCrash: ['grojean'] };
     await assertSucceeds(app.functions.httpsCallable('submitResult')(result))
-      .then(() => new Promise(resolve => setTimeout(() => resolve(), 500)))
+      .then(() => new Promise(resolve => setTimeout(() => resolve(), 2000)))
       .then(() => readBid(collections.players.admin.uid))
       .then((bid: Bid) => expect(bid.points).toEqual(12 + 2 + 6 + 3 + 3 + 3))
   });
 
-  it('should create a result property on the race document, when result is submitted', async () => {
+  it('should create a result property and state completed on the race document, when result is submitted', async () => {
     await writeBid({ ...clone(collections.bids[0]), submitted: true }, collections.players.admin.uid);
     await writeBid({ ...clone(collections.bids[1]), submitted: true }, collections.players.player.uid);
 
     const app = await authedApp({ uid: collections.players.admin.uid });
     await assertSucceeds(app.functions.httpsCallable('submitResult')(collections.results[1]))
-      .then(() => new Promise(resolve => setTimeout(() => resolve(), 500)))
+      .then(() => new Promise(resolve => setTimeout(() => resolve(), 2000)))
       .then(() => adminFirestore.doc(`${seasonsURL}/9999/races/${collections.races[1].location.country}`).get().then(ref => ref.data()))
       .then((race: IRace) => {
         expect(race.result).toBeTruthy();
         expect(race.result).toStrictEqual(collections.results[1]);
+        expect(race.state).toBe('completed');
       })
   });
+
+  it('should only include bids that have been submitted', async () => {
+    await writeBid({ ...clone(collections.bids[0])}, collections.players.admin.uid);
+    await writeBid({ ...clone(collections.bids[1]), submitted: true }, collections.players.player.uid);
+
+    const app = await authedApp({ uid: collections.players.admin.uid });
+    await assertSucceeds(app.functions.httpsCallable('submitResult')(collections.results[1]))
+      .then(() => readBid(collections.players.player.uid))
+      .then((bid: Bid) => expect(bid.points).toBeDefined())
+      .then(() => readBid(collections.players.admin.uid))
+      .then((bid: Bid) => expect(bid.points).toBeUndefined());
+
+  })
 });

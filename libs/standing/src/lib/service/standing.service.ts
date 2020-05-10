@@ -1,10 +1,8 @@
 import { ErgastService } from '@f2020/api';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
-import { ErgastDriverQualifying, ErgastDriverResult, IDriverQualifying, IDriverResult, IDriverStanding, mapper } from '@f2020/data';
+import { finished, ErgastDriverResult, IDriverQualifying, IDriverResult, IDriverStanding, mapper, ErgastDriversQualifying } from '@f2020/data';
 import { map } from 'rxjs/operators';
-
-const finished: RegExp = /(\+[0-9] Lap)|(Finished)/;
 
 @Injectable()
 export class StandingService {
@@ -22,7 +20,7 @@ export class StandingService {
         const results = raceResults.map(mapper.driverResult);
         return <IDriverResult>{
           results,
-          retired: results.reduce((acc, result) => acc += (finished.test(result.status) ? 0 : 1), 0),
+          retired: results.reduce((acc, result) => acc += (finished(result.status) ? 0 : 1), 0),
           averageFinishPosition: results.reduce((acc, result) => acc + result.position, 0) / results.length,
           averageGridPosition: results.reduce((acc, result) => acc + result.grid, 0) / results.length,
         };
@@ -31,9 +29,8 @@ export class StandingService {
   }
 
   getDriverQualify(seasonId: string | number, driverId: string): Observable<IDriverQualifying[]> {
-    return this.service.get<ErgastDriverQualifying[]>(`${seasonId}/drivers/${driverId}/qualifying.json`, result => result.MRData.RaceTable.Races).pipe(
-      map(qualifings => qualifings.map(mapper.driverQualifying)),
+    return this.service.get<ErgastDriversQualifying[]>(`${seasonId}/drivers/${driverId}/qualifying.json`, result => result.MRData.RaceTable.Races).pipe(
+      map(qualifings => qualifings.map(q => mapper.driverQualifying(q.QualifyingResults[0]))),
     );
   }
-
 }

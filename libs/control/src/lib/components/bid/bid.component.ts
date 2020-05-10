@@ -41,12 +41,12 @@ export class BidComponent extends AbstractControlComponent implements OnInit {
 
   ngOnInit(): void {
     this.fg = this.fb.group({
-      qualify: [null, Validators.required],
-      fastestDriver: [null, Validators.required],
-      podium: [null, Validators.required],
-      selectedDriver: [null],
-      firstCrash: [null, Validators.required],
-      polePositionTime: [null, Validators.required],
+      qualify: [{value: null, disabled: this.isResult}, Validators.required],
+      fastestDriver: [{value: null, disabled: this.isResult}, Validators.required],
+      podium: [{value: null, disabled: this.isResult}, Validators.required],
+      selectedDriver: [{value: null, disabled: this.isResult}],
+      firstCrash: [{value: null, disabled: this.isResult}, Validators.required],
+      polePositionTime: [{value: null, disabled: this.isResult}, Validators.required],
     });
     this.fg.valueChanges.pipe(
       debounceTime(300),

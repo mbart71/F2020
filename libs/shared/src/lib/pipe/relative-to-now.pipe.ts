@@ -7,7 +7,7 @@ import { DateTime } from 'luxon';
 export class RelativeToNowPipe implements PipeTransform {
 
   transform(value: DateTime | null | undefined): string | null | undefined {
-    return value instanceof DateTime ? value.toRelative() : value;
+    return value instanceof DateTime ? value.toRelative({locale: 'da'}) : value;
   }
 }
 

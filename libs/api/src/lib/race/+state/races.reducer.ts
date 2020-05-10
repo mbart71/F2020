@@ -13,7 +13,7 @@ export interface State extends EntityState<IRace> {
   yourBid?: Partial<Bid>;
   bids?: Bid[];
   bid?: Partial<Bid>;
-  result?: IRaceResult;
+  result?: Bid;
   updating: boolean; // Is something updating
   loaded: boolean; // has the Races list been loaded
   error?: string | null; // last none error (if any)

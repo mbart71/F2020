@@ -27,7 +27,9 @@
       "@f2020/season": ["libs/season/src/index.ts"],
       "@f2020/api": ["libs/api/src/index.ts"],
       "@f2020/race": ["libs/race/src/index.ts"],
-      "@f2020/standing": ["libs/standing/src/index.ts"]
+      "@f2020/standing": ["libs/standing/src/index.ts"],
+      "@f2020/info": ["libs/info/src/index.ts"],
+      "@f2020/tools": ["libs/tools/src/index.ts"]
     }
   },
   "exclude": ["node_modules", "tmp"]

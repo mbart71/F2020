@@ -6,13 +6,13 @@ import * as firebase from "firebase/app";
 import "firebase/auth";
 import "firebase/firestore";
 
-export const GoogleFunctions = new InjectionToken<firebase.functions.Functions>('GOOGLE_FUNCTIONS')
+export const GoogleFunctions = new InjectionToken<() => firebase.functions.Functions>('GOOGLE_FUNCTIONS')
 
 @NgModule({
   imports: [CommonModule],
   providers: [{
     provide: GoogleFunctions,
-    useFactory: () => FirebaseModule.functions
+    useFactory: () => () => FirebaseModule.functions
   }]
 })
 export class FirebaseModule {

@@ -14,35 +14,37 @@ const validateBalance = (player: PlayerImpl): void => {
 
 }
 
-export const submitBid = functions.region('europe-west1').https.onCall(async(data, context) => {
+export const submitBid = functions.region('europe-west1').https.onCall(async (data: Bid, context) => {
   return validateAccess(context.auth?.uid, 'player')
-    .then(player => buildBid(player))
+    .then(player => buildBid(player, data))
     .then(() => true)
     .catch(internalError);
 });
 
-const buildBid = async (player: PlayerImpl) => {
+const buildBid = async (player: PlayerImpl, bid: Bid) => {
   const season = await currentSeason();
-  const race = await getCurrentRace();
+  const race = await getCurrentRace('open');
   const bookie = await getBookie();
 
   if (!season || !race) {
-    throw logAndCreateError('failed-precondition', 'Missing season or race', season, race);
+    throw logAndCreateError('failed-precondition', 'Missing season or race', season?.name, race?.name);
   }
 
   const db = admin.firestore();
   const doc = db.doc(`${seasonsURL}/${season.id}/${racesURL}/${race.location.country}/bids/${player.uid}`) as admin.firestore.DocumentReference<Bid>;
-  const bid = (await doc.get()).data();
-  
+
   if (!bid) {
     throw logAndCreateError('not-found', `No bid exists for uid: ${player.uid} for race ${race.location.country}`);
   }
+  if (player.uid !== bid.player?.uid) {
+    throw logAndCreateError('permission-denied', `${player.uid} tried to submit bid for ${bid.player?.displayName}, ${bid.player?.uid}`);
+  }
 
-  validateBid(bid,race);
+  validateBid(bid, race);
   validateBalance(player);
 
   return db.runTransaction(transaction => {
-    transaction.update(doc, {submitted: true});
+    transaction.set(doc, { ...bid, submitted: true }, { merge: true });
     transferInTransaction({
       date: DateTime.local(),
       amount: 20,

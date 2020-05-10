@@ -22,11 +22,12 @@ const exported = [
   SelectDriversComponent,
   SelectedDriverComponent,
   PolePositionTimeComponent,
-  BidComponent
+  BidComponent,
+  DriverCodesComponent,
 ];
 
 const components = [
-  DriverCodesComponent
+  
 ];
 
 const pipes = [
@@ -47,7 +48,7 @@ const pipes = [
     FlexModule,
   ],
   declarations: [exported, components, pipes],
-  exports: [exported],
+  exports: [exported, pipes],
 })
 export class ControlModule {
 }
