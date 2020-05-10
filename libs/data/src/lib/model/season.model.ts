@@ -1,9 +1,11 @@
 import { DateTime } from 'luxon';
+import { WBC } from './wbc.model';
 
 export interface ISeason {
   readonly id?: string;
   name: string;
   latestWBCJoinDate: DateTime;
+  wbc?: WBC;
 }
 
 export class Season implements ISeason {

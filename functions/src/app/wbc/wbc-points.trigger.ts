@@ -1,6 +1,6 @@
 import * as admin from 'firebase-admin';
 import * as functions from 'firebase-functions';
-import { Bid, IRace, racesURL, seasonsURL } from '../../lib';
+import { Bid, IRace, racesURL, seasonsURL, Player } from '../../lib';
 
 const db = admin.firestore();
 const wbcPoints = [25, 18, 15, 12, 10, 8, 6, 4, 2, 1];
@@ -27,15 +27,18 @@ export const wbcPointsTrigger = functions.region('europe-west1').firestore.docum
 
 const createWBCRace = async (race: IRace, bids: Bid[], ref: admin.firestore.DocumentReference) => {
   const entry = {
-    race,
+    raceName: race.name,
     players: bids.map((b, index) => ({
-      player: b.player,
+      player: {
+        displayName: b.player?.displayName,
+        photoURL: b.player?.photoURL ?? null,
+        uid: b.player?.uid
+      } as Player,
       points: wbcPoints[index]
     }))
   }
   bids.forEach((b, index) => {
     console.log(b.player?.displayName, 'Points', b.points, 'WBC', wbcPoints[index]);
-    
   })
   return ref.set({
     wbc: admin.firestore.FieldValue.arrayUnion(entry)

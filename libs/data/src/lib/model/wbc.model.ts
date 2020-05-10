@@ -1,10 +1,9 @@
 import { Player } from './player.model';
-import { IRace } from './race.model';
 
 export type WBC = WBCResult[];
 
 export interface WBCResult {
-  race: IRace;
+  raceName: string;
   players: WBCPlayer[]
 }
 
