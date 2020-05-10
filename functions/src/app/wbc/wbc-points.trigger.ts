@@ -1,3 +1,4 @@
+import { WBCResult } from './../../lib/model/wbc.model';
 import * as admin from 'firebase-admin';
 import * as functions from 'firebase-functions';
 import { Bid, IRace, racesURL, seasonsURL, Player } from '../../lib';
@@ -26,9 +27,10 @@ export const wbcPointsTrigger = functions.region('europe-west1').firestore.docum
   });
 
 const createWBCRace = async (race: IRace, bids: Bid[], ref: admin.firestore.DocumentReference) => {
-  const entry = {
+  const entry: WBCResult = {
     raceName: race.name,
     raceId: race.location.country,
+    countryCode: race.countryCode,
     players: bids.map((b, index) => ({
       player: {
         displayName: b.player?.displayName,
