@@ -28,6 +28,7 @@ export const wbcPointsTrigger = functions.region('europe-west1').firestore.docum
 const createWBCRace = async (race: IRace, bids: Bid[], ref: admin.firestore.DocumentReference) => {
   const entry = {
     raceName: race.name,
+    raceId: race.location.country,
     players: bids.map((b, index) => ({
       player: {
         displayName: b.player?.displayName,

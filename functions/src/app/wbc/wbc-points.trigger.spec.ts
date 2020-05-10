@@ -97,6 +97,7 @@ describe('WBC points', () => {
         expect(wbc.length).toEqual(1);
         expect(wbc[0]).toBeTruthy();
         expect(wbc[0].raceName).toEqual('Azerbaijan Grand Prix');
+        expect(wbc[0].raceId).toEqual('Azerbaijan');
         const admin = wbc[0].players[1];
         expect(admin).toBeTruthy();
         expect(admin.points).toBeTruthy();
