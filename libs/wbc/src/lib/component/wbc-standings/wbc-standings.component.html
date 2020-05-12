@@ -2,7 +2,7 @@
   <span>WBC</span>
 </mat-toolbar>
 <mat-action-list>
-  <mat-list-item *ngFor="let standing of standings$ | async" [routerLink]="[standing.player.uid]">
+  <mat-list-item *ngFor="let standing of standings$ | async" [routerLink]="['player', standing.player.uid]">
     <img matListAvatar [src]="standing.player.photoURL">
     <h3 matLine>{{standing.player.displayName}}</h3>
     <p matLine>{{standing.points}} points</p>

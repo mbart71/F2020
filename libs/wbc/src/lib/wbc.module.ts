@@ -6,6 +6,7 @@ import { NgModule } from "@angular/core";
 import { CommonModule } from "@angular/common";
 import { RouterModule } from "@angular/router";
 import { WbcStandingsComponent } from './component/wbc-standings/wbc-standings.component';
+import { WbcPlayerComponent } from './component/wbc-player/wbc-player.component';
 
 const MaterialModulde = [
   MatListModule,
@@ -22,10 +23,14 @@ const MaterialModulde = [
       {
         path: '',
         component: WbcStandingsComponent
+      },
+      {
+        path: 'player/:uid',
+        component: WbcPlayerComponent
       }
       /* {path: '', pathMatch: 'full', component: InsertYourComponentHere} */
     ])
   ],
-  declarations: [WbcStandingsComponent]
+  declarations: [WbcStandingsComponent, WbcPlayerComponent]
 })
 export class WbcModule {}

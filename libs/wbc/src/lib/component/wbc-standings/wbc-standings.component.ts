@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ChangeDetectionStrategy } from '@angular/core';
 import { SeasonFacade } from '@f2020/api';
 import { WBCPlayer } from '@f2020/data';
 import { Observable } from 'rxjs';
@@ -12,9 +12,9 @@ const sum = (acc: Map<string, WBCPlayer>, wbcPlayer: WBCPlayer): Map<string, WBC
 }
 
 @Component({
-  selector: 'f2020-wbc-standings',
   templateUrl: './wbc-standings.component.html',
-  styleUrls: ['./wbc-standings.component.scss']
+  styleUrls: ['./wbc-standings.component.scss'],
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class WbcStandingsComponent implements OnInit {
 
