@@ -5,8 +5,8 @@
   </ng-container>
 </mat-toolbar>
 <mat-action-list>
-  <mat-list-item *ngFor="let race of races$ | async" [routerLink]="['..', 'race', race.raceId]">
-    <img matListAvatar [src]="flagURL(race.countryCode)">
+  <mat-list-item *ngFor="let race of races$ | async" [routerLink]="['../..', 'race', race.raceId]">
+    <img matListAvatar [src]="race.countryCode | flagURL">
     <h3 matLine>{{race.raceName}}</h3>
     <p matLine>{{race.points}} points</p>
   </mat-list-item>

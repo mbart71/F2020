@@ -1,12 +1,14 @@
-import { MatToolbarModule } from '@angular/material/toolbar';
+import { CommonModule } from "@angular/common";
+import { NgModule } from "@angular/core";
 import { MatButtonModule } from '@angular/material/button';
 import { MatListModule } from '@angular/material/list';
-import { SeasonApiModule } from '@f2020/api';
-import { NgModule } from "@angular/core";
-import { CommonModule } from "@angular/common";
+import { MatToolbarModule } from '@angular/material/toolbar';
 import { RouterModule } from "@angular/router";
-import { WbcStandingsComponent } from './component/wbc-standings/wbc-standings.component';
+import { SeasonApiModule } from '@f2020/api';
+import { SharedModule } from '@f2020/shared';
 import { WbcPlayerComponent } from './component/wbc-player/wbc-player.component';
+import { WbcRaceComponent } from './component/wbc-race/wbc-race.component';
+import { WbcStandingsComponent } from './component/wbc-standings/wbc-standings.component';
 
 const MaterialModulde = [
   MatListModule,
@@ -19,6 +21,7 @@ const MaterialModulde = [
     CommonModule,
     SeasonApiModule,
     MaterialModulde,
+    SharedModule,
     RouterModule.forChild([
       {
         path: '',
@@ -27,10 +30,18 @@ const MaterialModulde = [
       {
         path: 'player/:uid',
         component: WbcPlayerComponent
+      },
+      {
+        path: 'race/:raceId',
+        component: WbcRaceComponent
       }
       /* {path: '', pathMatch: 'full', component: InsertYourComponentHere} */
     ])
   ],
-  declarations: [WbcStandingsComponent, WbcPlayerComponent]
+  declarations: [
+    WbcStandingsComponent, 
+    WbcPlayerComponent, 
+    WbcRaceComponent
+  ]
 })
 export class WbcModule {}
