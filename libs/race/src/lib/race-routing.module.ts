@@ -1,3 +1,4 @@
+import { RaceDriversComponent } from './component/race-drivers/race-drivers.component';
 import { RouterModule, Routes } from '@angular/router';
 import { DisplayBidComponent } from './component/display-bid/display-bid.component';
 import { EnterBidComponent } from './component/enter-bid/enter-bid.component';
@@ -30,6 +31,10 @@ const routes: Routes = [
       {
         path: 'result',
         component: SubmitResultComponent,
+      },
+      {
+        path: 'drivers',
+        component: RaceDriversComponent,
       },
     ]
   }

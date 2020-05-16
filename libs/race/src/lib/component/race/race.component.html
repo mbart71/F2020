@@ -38,6 +38,9 @@
     <button mat-fab aria-label="Upload resultat" routerLink="result" *ngIf="race.state === 'closed'">
       <mat-icon>cloud_download</mat-icon>
     </button>
+    <button mat-fab aria-label="Kører" routerLink="drivers" *ngIf="race.state === 'waiting' || race.state === 'open'">
+      <i class="fas fa-2x fa-steering-wheel"></i>
+    </button>
   </ng-container>
 </ng-container>  
 <ng-template #loading><sha-loading></sha-loading></ng-template>
