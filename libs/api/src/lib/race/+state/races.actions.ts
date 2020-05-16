@@ -16,7 +16,7 @@ export const RacesActions = {
   ),
 
   selectRace: createAction(
-    '[Races] Race page',
+    '[Races] Select race',
     props<{ country: string }>(),
   ),
 
