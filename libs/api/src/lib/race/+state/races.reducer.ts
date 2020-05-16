@@ -56,6 +56,7 @@ const racesReducer = createReducer(
     RacesActions.updateYourBidFailure,
     RacesActions.submitBidFailure,
     RacesActions.submitResultFailure,
+    RacesActions.updateRaceDriversFailure,
     (state, { type, error }) => {
       console.error(type, error);
       return { ...state, error: error['message'] ?? error, updating: false, loaded: false }
@@ -78,6 +79,8 @@ const racesReducer = createReducer(
   on(RacesActions.submitBidSuccess, (state) => ({ ...state, updating: false })),
   on(RacesActions.submitResult, (state) => ({ ...state, updating: true })),
   on(RacesActions.submitResultSuccess, (state) => ({ ...state, updating: false })),
+  on(RacesActions.updateRaceDrivers, (state) => ({ ...state, updating: true })),
+  on(RacesActions.updateRaceDriversSuccess, (state) => ({ ...state, updating: false })),
 );
 
 export function reducer(state: State | undefined, action: Action) {

@@ -38,6 +38,10 @@ export class RacesService {
     );
   }
 
+  updateRace(seasonId: string, raceId: string, race: Partial<IRace>): Promise<void> {
+    return this.afs.doc<IRace>(`${SeasonService.seasonsURL}/${seasonId}/races/${raceId}`).update(race);
+  }
+
   updateBid(seasonId: string, raceId: string, player: Player, bid: Bid): Promise<void> {
     return this.afs.doc<Bid>(`${SeasonService.seasonsURL}/${seasonId}/races/${raceId}/bids/${player.uid}`).set({...bid, player: {
       uid: player.uid,

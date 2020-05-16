@@ -131,6 +131,19 @@ export class RacesEffects {
       catchError(error => of(RacesActions.updateYourBidFailure({ error }))),
     ))
   ));
+  
+  updateRaceDrivers$ = createEffect(() => this.actions$.pipe(
+    ofType(RacesActions.updateRaceDrivers),
+    concatMap(({ drivers }) => combineLatest([
+      this.seasonFacade.season$,
+      this.facade.selectedRace$,
+    ]).pipe(
+      first(),
+      switchMap(([season, race]) => this.service.updateRace(season.id, race.location.country, {drivers})),
+      map(() => RacesActions.updateRaceDriversSuccess()),
+      catchError(error => of(RacesActions.updateRaceDriversFailure({ error }))),
+    ))
+  ));
 
   constructor(
     private actions$: Actions,
