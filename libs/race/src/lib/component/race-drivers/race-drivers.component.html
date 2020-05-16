@@ -6,7 +6,7 @@
     <mat-list-item *ngFor="let driverId of drivers; index as i" cdkDrag>
         <p matLine>{{driverId | driverName}}</p>
         <button mat-icon-button (click)="removeDriver(i)">
-            <mat-icon>delete</mat-icon>
+            <i class="far fa-trash fa-lg"></i>
         </button>
     </mat-list-item>
 </mat-list>
