@@ -8,7 +8,7 @@ const db = admin.firestore();
 /**
  * This trigger copies the drivers from the previous race to the new race.
  */
-export const raceDrives = functions.region('europe-west1').firestore.document('seasons/{seasonId}/races/{raceId}')
+export const raceDrivers = functions.region('europe-west1').firestore.document('seasons/{seasonId}/races/{raceId}')
     .onUpdate(async (change: functions.Change<functions.firestore.DocumentSnapshot>, context: functions.EventContext) => {
         const before: IRace = change.before.data() as IRace;
         const after: IRace = change.after.data() as IRace;
