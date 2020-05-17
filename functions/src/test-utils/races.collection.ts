@@ -114,7 +114,6 @@ export const races = [
     countryCode: 'CA',
     open: new Date(159156720000),
     round: 2,
-    drivers: []
   },
   {
     state: 'waiting',
