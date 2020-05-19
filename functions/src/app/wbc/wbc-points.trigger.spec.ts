@@ -41,7 +41,7 @@ describe('WBC points', () => {
       .then(() => readWBC())
       .then((wbc: WBC) => {
         expect(wbc.length).toEqual(1);
-        expect(wbc[0].race.name).toEqual('Azerbaijan Grand Prix');
+        expect(wbc[0].raceName).toEqual('Azerbaijan Grand Prix');
         const admin: WBCPlayer = wbc[0].players[1];
         expect(admin).toBeTruthy();
         expect(admin.points).toBeTruthy();
@@ -64,7 +64,7 @@ describe('WBC points', () => {
       .then((wbc: WBC) => {
         expect(wbc.length).toEqual(2);
         expect(wbc[1]).toBeTruthy();
-        expect(wbc[1].race.name).toEqual('Austrian Grand Prix');
+        expect(wbc[1].raceName).toEqual('Austrian Grand Prix');
         const admin = wbc[1].players[0];
         expect(admin).toBeTruthy();
         expect(admin.points).toBeTruthy();
@@ -96,7 +96,9 @@ describe('WBC points', () => {
       .then((wbc: WBC) => {
         expect(wbc.length).toEqual(1);
         expect(wbc[0]).toBeTruthy();
-        expect(wbc[0].race.name).toEqual('Azerbaijan Grand Prix');
+        expect(wbc[0].raceName).toEqual('Azerbaijan Grand Prix');
+        expect(wbc[0].raceId).toEqual('Azerbaijan');
+        expect(wbc[0].countryCode).toEqual('AZ');
         const admin = wbc[0].players[1];
         expect(admin).toBeTruthy();
         expect(admin.points).toBeTruthy();

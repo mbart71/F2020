@@ -16,7 +16,7 @@ export const RacesActions = {
   ),
 
   selectRace: createAction(
-    '[Races] Race page',
+    '[Races] Select race',
     props<{ country: string }>(),
   ),
 
@@ -115,6 +115,20 @@ export const RacesActions = {
 
   submitResultFailure: createAction(
     '[Result API] Submit result Failure',
+    props<{ error: any }>(),
+  ),
+
+  updateRaceDrivers: createAction(
+    '[Edit race drivers page] Update race drivers',
+    props<{drivers: string[]}>()
+  ),
+
+  updateRaceDriversSuccess: createAction(
+    '[Edit race drivers API] Update race drivers Success',
+  ),
+
+  updateRaceDriversFailure: createAction(
+    '[Edit race drivers API] Update race drivers Failure',
     props<{ error: any }>(),
   ),
 };

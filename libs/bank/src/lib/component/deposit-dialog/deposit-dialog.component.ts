@@ -1,9 +1,8 @@
-import { FormGroup, FormBuilder, Validators } from '@angular/forms';
-import { Player } from '@f2020/data';
-import { Component, OnInit, Inject } from '@angular/core';
+import { Component, Inject, OnInit } from '@angular/core';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
+import { Player } from '@f2020/data';
 import { AccountService } from '../../service';
-import { MatSnackBar } from '@angular/material/snack-bar';
 
 @Component({
   templateUrl: './deposit-dialog.component.html',
