@@ -9,9 +9,10 @@ export * from './app/account/withdraw.call';
 export * from './app/account/transfer.call';
 
 export * from './app/transaction/transaction.trigger';
-<<<<<<< HEAD
-export * from './app/mail/mail.nofunds';
-=======
+
+export * from './app/mail/noFunds.trigger';
+
 export * from './app/wbc/wbc-points.trigger';
->>>>>>> 6832b4ab916bdc4875db9efa90ccaab22159b719
+
+export * from './app/race/drivers.trigger';
 
