@@ -57,6 +57,7 @@
     "firebase-admin": "^8.10.0",
     "luxon": "^1.23.0",
     "mysql": "^2.18.1",
+    "nodemailer": "^6.4.6",
     "rxjs": "^6.5.5",
     "zone.js": "^0.10.3"
   },
