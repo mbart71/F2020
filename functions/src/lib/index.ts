@@ -9,7 +9,7 @@ export * from './user.service';
 export * from './collection-names';
 export * from './transactions.service';
 export * from './result.service';
-
+export * from './mail.service';
 
 import { converter as playerConverter } from './auth.converter';
 import { converter as timestampConverter } from './timestamp.converter';
