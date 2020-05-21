@@ -82,13 +82,13 @@ describe('Submit result unittest', () => {
     result.selectedDriver.grid = 0;
     await assertFails(app.functions.httpsCallable('submitResult')(result)).then(failedPrecondition)
     result = clone(collections.results[0]);
-    result.selectedDriver.grid = collections.races[1].drivers.length + 1;
+    result.selectedDriver.grid = collections.races[1].drivers!.length + 1;
     await assertFails(app.functions.httpsCallable('submitResult')(result)).then(failedPrecondition)
     result = clone(collections.results[0]);
     result.selectedDriver.finish = 0;
     await assertFails(app.functions.httpsCallable('submitResult')(result)).then(failedPrecondition)
     result = clone(collections.results[0]);
-    result.selectedDriver.finish = collections.races[1].drivers.length + 1;
+    result.selectedDriver.finish = collections.races[1].drivers!.length + 1;
     await assertFails(app.functions.httpsCallable('submitResult')(result)).then(failedPrecondition)
     result = clone(collections.results[0]);
     result.selectedDriver.finish = -1;

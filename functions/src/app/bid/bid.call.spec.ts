@@ -83,13 +83,13 @@ describe('Submit bid unittest', () => {
     bid.selectedDriver.grid = 0;
     await assertFails(app.functions.httpsCallable('submitBid')(bid)).then(failedPrecondition)
     bid = clone(collections.bids[0]);
-    bid.selectedDriver.grid = collections.races[1].drivers.length + 1;
+    bid.selectedDriver.grid = collections.races[1].drivers!.length + 1;
     await assertFails(app.functions.httpsCallable('submitBid')(bid)).then(failedPrecondition)
     bid = clone(collections.bids[0]);
     bid.selectedDriver.finish = 0;
     await assertFails(app.functions.httpsCallable('submitBid')(bid)).then(failedPrecondition)
     bid = clone(collections.bids[0]);
-    bid.selectedDriver.finish = collections.races[1].drivers.length + 1;
+    bid.selectedDriver.finish = collections.races[1].drivers!.length + 1;
     await assertFails(app.functions.httpsCallable('submitBid')(bid)).then(failedPrecondition)
     bid = clone(collections.bids[0]);
     bid.selectedDriver.finish = -1;
