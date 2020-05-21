@@ -1,18 +1,5 @@
 import * as functions from 'firebase-functions';
-import * as nodemailer  from 'nodemailer';
-import { Player, logAndCreateError } from '../../lib';
-
-  const transporter = nodemailer.createTransport({
-    service: "gmail",
-    auth: {
-      type: "OAuth2",
-      user: "flemming@bregnvig.dk",
-      clientId: functions.config().oauth.client,
-      clientSecret: functions.config().oauth.secret,
-      refreshToken: functions.config().oauth.refresh,
-      accessToken: functions.config().ci.token
-    }
-  });
+import { Player, emailservice } from '../../lib';
 
   const mailbody = (player: Player) =>
     `<h3>Hej ${player.displayName}</h3>
@@ -29,19 +16,7 @@ export const mailNoFunds = functions.region('europe-west1').firestore.document('
       const player: Player  = change.after.data() as Player;
         if ((player.balance || 0) - 20 < -100) {  
           console.log('player', player.displayName ,'has insufficient founds for next race');
-           const msg = {
-             from: 'f1-2020@bregnvig.dk',
-             to: player.email,
-             subject: 'Du kan ikke spille mere',  
-             html: mailbody(player)
-          };
-
-          transporter.sendMail( msg, (error,info) => { 
-            if (error) { 
-             throw logAndCreateError('failed-precondition', 'mail not sendt', player.email); 
-            } 
-             console.log(`Message Sent ${info.response}`); 
-          }); 
-      }  
-        return null; 
-    });   
+          emailservice(player.email, 'du kan ikke spille mere', mailbody(player))
+        } 
+      return null; 
+});    
