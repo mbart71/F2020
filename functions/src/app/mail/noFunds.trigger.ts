@@ -1,5 +1,5 @@
 import * as functions from 'firebase-functions';
-import { Player, emailservice } from '../../lib';
+import { Player, sendMail } from '../../lib';
 
   const mailbody = (player: Player) =>
     `<h3>Hej ${player.displayName}</h3>
@@ -16,7 +16,7 @@ export const mailNoFunds = functions.region('europe-west1').firestore.document('
       const player: Player  = change.after.data() as Player;
         if ((player.balance || 0) - 20 < -100) {  
           console.log('player', player.displayName ,'has insufficient founds for next race');
-          return emailservice(player.email, 'Du kan ikke spille mere', mailbody(player)).then( (msg) => { 
+          return sendMail(player.email, 'Du kan ikke spille mere', mailbody(player)).then( (msg) => { 
             console.log(`sendMail result :(${msg})`); 
         });
       }
