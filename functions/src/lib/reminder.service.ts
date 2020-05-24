@@ -21,5 +21,5 @@ export const playerWithoutBid = async (): Promise<Player[]> => {
     .where('roles', 'array-contains', 'player')
     .get()
     .then(snapshot => snapshot.docs.map(d => d.data() as Player));
-  return players.filter(player => !played.has(player.uid))
+  return players.filter(player => !played.has(player.uid) && player.receiveReminders !== false)
 }
