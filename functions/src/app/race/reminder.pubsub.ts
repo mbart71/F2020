@@ -10,7 +10,9 @@ const timespan = (days: number, date: DateTime): boolean => {
 const mailbody = (player: Player, race: IRace) =>
     `<h3>Hej ${player.displayName}</h3>
      <div> 
-     <p> ${race.name} - skal snart afvikles, og du mangler stadig af indsende dit bud. Du kan heldigvis stadig nå det, da deadline for bud er ${race.close}</p>
+     <p> ${race.name} - skal snart afvikles, og du mangler stadig af indsende dit bud. Du kan heldigvis stadig nå det, da
+     Spillet lukke  ${race.close}</p>
+     <p> Du kan spill <a href="https://f2020.bregnvig.dk/">her</a>
      </div>     
                   
      Wroouumm,<br/>
@@ -25,7 +27,7 @@ export const mailReminderCrontab = functions.pubsub.schedule('11 9 * * *')
         const players = await playerWithoutBid();
         players.forEach(player => {
           console.log(`Should mail to ${player.displayName}`)
-          return sendMail(player.email, race!.name, mailbody(player, race!)).then( (msg) => { 
+          return sendMail(player.email, `Formel 1 vædemål ${race!.name}`, mailbody(player, race!)).then( (msg) => { 
             console.log(`sendMail result :(${msg})`) 
           })
         })
