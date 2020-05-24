@@ -70,7 +70,7 @@ import { DepositInfoDialogComponent } from './component/my-transactions/deposit-
     MatDialogModule,
     MatFormFieldModule,
     MatInputModule,
-    MatSelectModule,
+    MatSelectModule,  
     FlexLayoutModule,
     ScrollingModule,
     SharedModule,

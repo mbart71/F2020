@@ -10,7 +10,16 @@ import { Bid } from '@f2020/data';
 })
 export class BidsComponent {
 
-  @Input() bids: Bid[];
+  private _bids: Bid[];
+
+
+  @Input() set bids(value: Bid[]) {
+    this._bids = [...value || []].sort((a, b) => b.points - a.points)
+  }
+
+  get bids(): Bid[] {
+    return this._bids;
+  }
 
   constructor(private router: Router, private route: ActivatedRoute) {
   }

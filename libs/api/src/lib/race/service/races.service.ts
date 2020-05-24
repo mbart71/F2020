@@ -1,3 +1,4 @@
+import { IQualifyResult } from './../../../../../../functions/src/lib/model/race.model';
 import { Inject, Injectable } from '@angular/core';
 import { AngularFirestore } from '@angular/fire/firestore';
 import { Bid, firestoreUtils, IRace, IRaceResult, mapper, Player } from '@f2020/data';
@@ -15,7 +16,7 @@ export class RacesService {
   constructor(
     private afs: AngularFirestore, 
     private ergastService: ErgastService,
-    @Inject(GoogleFunctions) private functions: firebase.functions.Functions) {
+    @Inject(GoogleFunctions) private functions: () => firebase.functions.Functions) {
 
   }
 
@@ -37,6 +38,10 @@ export class RacesService {
     );
   }
 
+  updateRace(seasonId: string, raceId: string, race: Partial<IRace>): Promise<void> {
+    return this.afs.doc<IRace>(`${SeasonService.seasonsURL}/${seasonId}/races/${raceId}`).update(race);
+  }
+
   updateBid(seasonId: string, raceId: string, player: Player, bid: Bid): Promise<void> {
     return this.afs.doc<Bid>(`${SeasonService.seasonsURL}/${seasonId}/races/${raceId}/bids/${player.uid}`).set({...bid, player: {
       uid: player.uid,
@@ -50,12 +55,16 @@ export class RacesService {
     return this.ergastService.get<IRaceResult>(`${seasonId}/${round}/results.json`, ergastData => mapper.raceResult(ergastData.MRData.RaceTable.Races[0]));
   }
 
-
-  async submitBid(): Promise<true> {
-    return this.functions.httpsCallable('submitBid')().then(() => true);
+  getQualify(seasonId: string | number, round: number): Observable<IQualifyResult> {
+    return this.ergastService.get<IQualifyResult>(`${seasonId}/${round}/qualifying.json`, ergastData => mapper.qualifyResult(ergastData.MRData.RaceTable.Races[0]));
   }
 
-  async submitResult(): Promise<true> {
-    return this.functions.httpsCallable('submitResult')().then(() => true);
+
+  async submitBid(bid: Bid): Promise<true> {
+    return this.functions().httpsCallable('submitBid')(bid).then(() => true);
+  }
+
+  async submitResult(result: Bid): Promise<true> {
+    return this.functions().httpsCallable('submitResult')(result).then(() => true);
   }
 }

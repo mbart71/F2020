@@ -45,9 +45,8 @@ service cloud.firestore {
 
     match /transactions/{Transactions} {
       allow read: if getUserData().roles.hasAny(['admin'])
-                   || getUserData().roles.hasAny(['player','bookie','bank-admin']) && resource.data.to == request.auth.uid
-                   || getUserData().roles.hasAny(['player','bookie','bank-admin']) && resource.data.from == request.auth.uid; 
-    }  
+                   || resource.data.involved.hasAny([request.auth.uid])
+                   }  
     
     function getUserData() {
       return get(/databases/$(database)/documents/players/$(request.auth.uid)).data

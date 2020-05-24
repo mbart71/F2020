@@ -9,4 +9,13 @@ export * from './app/account/withdraw.call';
 export * from './app/account/transfer.call';
 
 export * from './app/transaction/transaction.trigger';
-export * from './app/mail/mail.nofunds';
+
+export * from './app/mail/noFunds.trigger';
+
+export * from './app/wbc/wbc-points.trigger';
+
+export * from './app/race/without-bid.call';
+export * from './app/race/drivers.trigger';
+
+export * from './app/race/reminder.pubsub';
+

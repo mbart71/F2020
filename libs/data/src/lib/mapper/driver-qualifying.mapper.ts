@@ -1,16 +1,13 @@
-import { ErgastDriverQualifying, ErgastDriverResult, IDriverQualifying, IDriverRaceResult } from '../model';
+import { ErgastDriverQualifying, IDriverQualifying, qualifyToMillis } from '../model';
 import { driver } from './driver.mapper';
-import { basisMap } from './race.mapper';
 
 export const driverQualifying = (result: ErgastDriverQualifying): IDriverQualifying => {
-  const d = result.QualifyingResults[0];
   return {
-    race: basisMap(result),
-    driver: driver(d.Driver),
-    position: parseInt(d.position, 10),
-    q1: d.Q1,
-    q2: d.Q2,
-    q3: d.Q3,
+    driver: driver(result.Driver),
+    position: parseInt(result.position, 10),
+    q1: qualifyToMillis(result.Q1),
+    q2: result.Q2 ? qualifyToMillis(result.Q2) : undefined,
+    q3: result.Q3 ? qualifyToMillis(result.Q3) : undefined,
   };
 };
 
