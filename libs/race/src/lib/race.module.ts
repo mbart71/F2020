@@ -1,3 +1,4 @@
+import { MatExpansionModule } from '@angular/material/expansion';
 import { DragDropModule } from '@angular/cdk/drag-drop';
 import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
@@ -42,6 +43,7 @@ const MaterialModules = [
   MatListModule,
   MatSnackBarModule,
   MatToolbarModule,
+  MatExpansionModule,
 ]
 
 @NgModule({
