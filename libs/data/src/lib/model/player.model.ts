@@ -6,5 +6,6 @@ export interface Player {
   photoURL: string;
   email: string;
   roles?: Role[];
+  receiveReminders?: boolean;
   balance?: number;
 }

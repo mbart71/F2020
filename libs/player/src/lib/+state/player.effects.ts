@@ -24,6 +24,15 @@ export class PlayerEffects {
         catchError(error => of(PlayerActions.loadPlayerFailure({ error }))),
       )),
     ),
+  );  
+  updatePlayer$ = createEffect(() =>
+    this.actions$.pipe(
+      ofType(PlayerActions.updatePlayer),
+      concatMap(({receiveReminders}) => this.service.updatePlayer({receiveReminders}).pipe(
+        map(partialPlayer => PlayerActions.updatePlayerSuccess({partialPlayer})),
+        catchError(error => of(PlayerActions.updatePlayerFailure({ error }))),
+      )),
+    ),
   );
   logoutPlayer$ = createEffect(() =>
     this.actions$.pipe(

@@ -3,7 +3,7 @@ import { AngularFirestore } from '@angular/fire/firestore';
 import { Player } from '@f2020/data';
 import * as firebase from 'firebase/app';
 import { merge, Observable, ReplaySubject } from 'rxjs';
-import { filter, first, switchMap } from 'rxjs/operators';
+import { filter, first, mapTo, switchMap } from 'rxjs/operators';
 
 @Injectable({
   providedIn: 'root',
@@ -50,6 +50,14 @@ export class PlayerService {
 
   signOut(): Promise<void> {
     return firebase.auth().signOut();
+  }
+
+  updatePlayer(partialPlayer: Partial<Player>): Observable<Partial<Player>> {
+    return this.player$.pipe(
+      switchMap(player => this.afs.doc(`${PlayerService.playersURL}/${player.uid}`).update(partialPlayer)),
+      mapTo(partialPlayer),
+      first()
+    )
   }
 
   private updateBaseInformation(player: Player): Observable<void> {

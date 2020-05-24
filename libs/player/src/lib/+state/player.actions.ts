@@ -1,39 +1,48 @@
 import { createAction, props } from '@ngrx/store';
 import { Player } from '@f2020/data';
 
-const loadPlayer = createAction('[Player] Load Player from player');
-
-const loadPlayerSuccess = createAction(
-  '[Player] Load Player Success',
-  props<{ player: Player }>(),
-);
-
-const loadPlayerUnauthorized = createAction(
-  '[Player] Load Player unauthorized',
-);
-
-const loadPlayerFailure = createAction(
-  '[Player] Load Player Failure',
-  props<{ error: any }>(),
-);
-
-const logoutPlayer = createAction('[Sidebar Menu] Logout player from application');
-
-const logoutPlayerSuccess = createAction(
-  '[Player] Logout player Success',
-);
-
-const logoutPlayerFailure = createAction(
-  '[Player] Logout player Failure',
-  props<{ error: any }>(),
-);
-
 export const PlayerActions = {
-  loadPlayer,
-  loadPlayerSuccess,
-  loadPlayerFailure,
-  loadPlayerUnauthorized,
-  logoutPlayer,
-  logoutPlayerSuccess,
-  logoutPlayerFailure,
-};
+
+  loadPlayer: createAction('[Player] Load Player from player'),
+
+  loadPlayerSuccess: createAction(
+    '[Player] Load Player Success',
+    props<{ player: Player }>(),
+  ),
+
+  loadPlayerUnauthorized: createAction(
+    '[Player] Load Player unauthorized',
+  ),
+
+  loadPlayerFailure: createAction(
+    '[Player] Load Player Failure',
+    props<{ error: any }>(),
+  ),
+
+  updatePlayer: createAction(
+    '[Player] Update player from sidebar',
+    props<{receiveReminders: boolean}>()
+  ),
+
+  updatePlayerSuccess: createAction(
+    '[Player] Update Player Success',
+    props<{ partialPlayer: Partial<Player> }>(),
+  ),
+
+  updatePlayerFailure: createAction(
+    '[Player] Update Player failure',
+    props<{ error: any }>(),
+  ),
+
+  logoutPlayer: createAction('[Sidebar Menu] Logout player from application'),
+
+  logoutPlayerSuccess: createAction(
+    '[Player] Logout player Success',
+  ),
+
+  logoutPlayerFailure: createAction(
+    '[Player] Logout player Failure',
+    props<{ error: any }>(),
+  ),
+
+}

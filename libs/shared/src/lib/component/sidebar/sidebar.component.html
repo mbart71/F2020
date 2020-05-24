@@ -8,5 +8,12 @@
   <sha-sidenav-button iconSet="fas" icon="fa-steering-wheel" routerLink="standings" (click)="closing.emit()">Kører</sha-sidenav-button>
   <sha-sidenav-button iconSet="fas" icon="fa-info" [routerLink]="['info', 'rules']" (click)="closing.emit()">Regler</sha-sidenav-button>
   <sha-sidenav-button iconSet="far" icon="fa-user-friends" [routerLink]="['info', 'about']" (click)="closing.emit()">Om spillet</sha-sidenav-button>
+  <mat-list-item>
+    <div mat-line>
+      <mat-slide-toggle color="secondary" [checked]="receiveReminders$ | async" (change)="updateReceiveReminders($event.checked)">Modtag påmindelser</mat-slide-toggle>
+
+    </div>
+  </mat-list-item>
+
   <button mat-list-item (click)="signOut()"><mat-icon fontSet="fa" fontIcon="fa-sign-out-alt" style="height: auto !important;"></mat-icon> Log ud</button>
 </mat-action-list>
