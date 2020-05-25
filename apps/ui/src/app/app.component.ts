@@ -1,6 +1,7 @@
+import { truthy } from '@f2020/tools';
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { filter, first } from 'rxjs/operators';
+import { filter, first, switchMap } from 'rxjs/operators';
 import { DriversActions, DriversFacade } from '@f2020/driver';
 import { PlayerFacade, PlayerActions } from '@f2020/player';
 import { RacesFacade, RacesActions, SeasonFacade, SeasonActions } from '@f2020/api';
@@ -22,16 +23,21 @@ export class AppComponent implements OnInit {
 
   ngOnInit() {
     this.playerFacade.dispatch(PlayerActions.loadPlayer());
-    this.racesFacade.dispatch(RacesActions.loadRaces());
     this.playerFacade.unauthorized$.pipe(
-      filter(unauthorized => unauthorized),
+      truthy(),
     ).subscribe(() => this.router.navigate(['login']));
     this.playerFacade.authorized$.pipe(
       filter(authorized => authorized),
+      switchMap(() => this.playerFacade.player$),
       first(),
-    ).subscribe(() => {
-      this.seasonFacade.dispatch(SeasonActions.loadSeason());
-      this.driverFacade.dispatch(DriversActions.loadDrivers());
+    ).subscribe(player => {
+      if (player.roles && player.roles.includes('player')) {
+        this.seasonFacade.dispatch(SeasonActions.loadSeason());
+        this.racesFacade.dispatch(RacesActions.loadRaces());
+        this.driverFacade.dispatch(DriversActions.loadDrivers());
+      } else {
+        this.router.navigate(['info', 'roles'])
+      }
     });
   }
 }

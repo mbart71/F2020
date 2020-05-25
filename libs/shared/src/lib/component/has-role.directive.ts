@@ -23,7 +23,7 @@ export class HasRoleDirective {
         service.player$.pipe(filter(p => !!p)),
         this.role$
       ]).subscribe(([player, roles]) => {
-        this.condition = player.roles.some(r => roles.some(role => role === r));
+        this.condition = (player.roles || []).some(r => roles.some(role => role === r));
         this.updateView();
       });
   }
