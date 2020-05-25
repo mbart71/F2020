@@ -1,3 +1,4 @@
+import { MatIconModule } from '@angular/material/icon';
 import { MatCardModule } from '@angular/material/card';
 import { SharedModule } from '@f2020/shared';
 import { MatToolbarModule } from '@angular/material/toolbar';
@@ -8,6 +9,7 @@ import { CommonModule } from "@angular/common";
 import { RouterModule } from "@angular/router";
 import { RulesComponent } from './component/rules/rules.component';
 import { AboutComponent } from './component/about/about.component';
+import { MissingRoleComponent } from './component/missing-role/missing-role.component';
 
 @NgModule({
   imports: [
@@ -15,6 +17,7 @@ import { AboutComponent } from './component/about/about.component';
     FlexLayoutModule,
     MatDividerModule,
     MatToolbarModule,
+    MatIconModule,
     MatCardModule,
     SharedModule,
     RouterModule.forChild([
@@ -25,10 +28,14 @@ import { AboutComponent } from './component/about/about.component';
       {
         path: 'about',
         component: AboutComponent
+      },
+      {
+        path: 'roles',
+        component: MissingRoleComponent
       }
       /* {path: '', pathMatch: 'full', component: InsertYourComponentHere} */
     ])
   ],
-  declarations: [RulesComponent, AboutComponent]
+  declarations: [RulesComponent, AboutComponent, MissingRoleComponent]
 })
 export class InfoModule {}

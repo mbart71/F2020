@@ -1,17 +1,16 @@
 <mat-toolbar color="primary"><img class="avatar" [src]="(player$ | async)?.photoURL" alt="Profil billede">{{(player$ | async)?.displayName}}</mat-toolbar>
 <mat-action-list style="padding: 1rem 1.5rem 0 1.5rem">
-  <sha-sidenav-button iconSet="fas" icon="fa-home" routerLink="/" (click)="closing.emit()">Forside</sha-sidenav-button>
-  <sha-sidenav-button iconSet="fas" icon="fa-flag-checkered" routerLink="race" (click)="closing.emit()">Løb</sha-sidenav-button>
-  <sha-sidenav-button iconSet="far" icon="fa-trophy-alt" routerLink="wbc" (click)="closing.emit()">WBC</sha-sidenav-button>
-  <sha-sidenav-button iconSet="fas" icon="fa-coins" [routerLink]="['accounts', 'me']" (click)="closing.emit()">Konto - {{(player$ | async)?.balance}} kr.</sha-sidenav-button>
+  <sha-sidenav-button *shaHasRole="'player'" iconSet="fas" icon="fa-home" routerLink="/" (click)="closing.emit()">Forside</sha-sidenav-button>
+  <sha-sidenav-button *shaHasRole="'player'" iconSet="fas" icon="fa-flag-checkered" routerLink="race" (click)="closing.emit()">Løb</sha-sidenav-button>
+  <sha-sidenav-button *shaHasRole="'player'" iconSet="far" icon="fa-trophy-alt" routerLink="wbc" (click)="closing.emit()">WBC</sha-sidenav-button>
+  <sha-sidenav-button *shaHasRole="'player'" iconSet="fas" icon="fa-coins" [routerLink]="['accounts', 'me']" (click)="closing.emit()">Konto - {{(player$ | async)?.balance}} kr.</sha-sidenav-button>
   <sha-sidenav-button *shaHasRole="'bank-admin'" iconSet="far" icon="fa-piggy-bank" routerLink="accounts" (click)="closing.emit()">Bank</sha-sidenav-button>
-  <sha-sidenav-button iconSet="fas" icon="fa-steering-wheel" routerLink="standings" (click)="closing.emit()">Kører</sha-sidenav-button>
+  <sha-sidenav-button *shaHasRole="'player'" iconSet="fas" icon="fa-steering-wheel" routerLink="standings" (click)="closing.emit()">Kører</sha-sidenav-button>
   <sha-sidenav-button iconSet="fas" icon="fa-info" [routerLink]="['info', 'rules']" (click)="closing.emit()">Regler</sha-sidenav-button>
   <sha-sidenav-button iconSet="far" icon="fa-user-friends" [routerLink]="['info', 'about']" (click)="closing.emit()">Om spillet</sha-sidenav-button>
-  <mat-list-item>
+  <mat-list-item *shaHasRole="'player'">
     <div mat-line>
       <mat-slide-toggle color="secondary" [checked]="receiveReminders$ | async" (change)="updateReceiveReminders($event.checked)">Modtag påmindelser</mat-slide-toggle>
-
     </div>
   </mat-list-item>
 
