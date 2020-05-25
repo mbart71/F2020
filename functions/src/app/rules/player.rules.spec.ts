@@ -70,6 +70,8 @@ describe('Player rules', () => {
   it('non-player should not be allowed to read players', async () => {
     const app = await authedApp({ uid: 'non-player-id' });
     await assertFails(app.firestore.collection(`${playersURL}`).get()).then(permissionDenied)
+    await assertSucceeds(app.firestore.doc(`${playersURL}/player200`).set({uid:'player200-uid', displayName: 'TestID'}))
+    await assertFails(app.firestore.doc(`${playersURL}/player200`).set({roles: ['player'], uid:'player200-uid', displayName: 'TestID'})).then(permissionDenied)    
   });
   
 });
