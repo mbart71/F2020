@@ -40,19 +40,23 @@ service cloud.firestore {
                     || getUserData().roles.hasAny(['admin']); 
       allow update, write: if request.auth.uid == Players && notUpdating('roles') && notUpdating('uid') && notUpdating('balance')
                     || getUserData().roles.hasAny(['admin']) && notUpdating('balance') && notUpdating('uid'); 
-      allow create, delete: if getUserData().roles.hasAny(['admin']);
+      allow delete: if getUserData().roles.hasAny(['admin']);
+      allow create: if getUserData().roles.hasAny(['admin']) || request.auth.uid != null &&  valid_create();
     }
 
     match /transactions/{Transactions} {
       allow read: if getUserData().roles.hasAny(['admin'])
-                   || getUserData().roles.hasAny(['player','bookie','bank-admin']) && resource.data.to == request.auth.uid
-                   || getUserData().roles.hasAny(['player','bookie','bank-admin']) && resource.data.from == request.auth.uid; 
-    }  
+                   || resource.data.involved.hasAny([request.auth.uid])
+                   }  
     
     function getUserData() {
       return get(/databases/$(database)/documents/players/$(request.auth.uid)).data
     }
-
+    
+    function valid_create() {
+        return !(request.resource.data.keys().hasAny(['roles','balance']));
+    }
+    
     function notUpdating(field) {
       // prevent update of specific document data object - like roles 
       return !(field in request.resource.data) || resource.data[field] == request.resource.data[field]
