@@ -1,4 +1,4 @@
-export type Role = 'player' | 'admin' | 'bookie' | 'bank-admin';
+export type Role = 'player' | 'admin' | 'bookie' | 'bank-admin' | 'anonymous';
 
 export interface Player {
   uid: string;
