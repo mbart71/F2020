@@ -1,8 +1,11 @@
+import { GithubService } from './service/github.service';
+import { HttpClientModule } from '@angular/common/http';
 import { MatIconModule } from '@angular/material/icon';
 import { MatCardModule } from '@angular/material/card';
 import { SharedModule } from '@f2020/shared';
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatDividerModule } from '@angular/material/divider';
+import { MatGridListModule } from '@angular/material/grid-list';
 import { FlexLayoutModule } from '@angular/flex-layout';
 import { NgModule } from "@angular/core";
 import { CommonModule } from "@angular/common";
@@ -19,6 +22,8 @@ import { MissingRoleComponent } from './component/missing-role/missing-role.comp
     MatToolbarModule,
     MatIconModule,
     MatCardModule,
+    MatGridListModule,
+    HttpClientModule,
     SharedModule,
     RouterModule.forChild([
       {
@@ -36,6 +41,13 @@ import { MissingRoleComponent } from './component/missing-role/missing-role.comp
       /* {path: '', pathMatch: 'full', component: InsertYourComponentHere} */
     ])
   ],
-  declarations: [RulesComponent, AboutComponent, MissingRoleComponent]
+  declarations: [
+    RulesComponent, 
+    AboutComponent, 
+    MissingRoleComponent
+  ],
+  providers: [
+    GithubService
+  ]
 })
 export class InfoModule {}

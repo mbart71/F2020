@@ -1,9 +1,36 @@
 <mat-toolbar color="primary">
   Om spillet
 </mat-toolbar>
-<div fxFlex fxLayout="row wrap" fx fxLayoutAlign="center start" fxLayoutGap="16px">
-  <img height="150" [src]="angular">
-  <img height="150" [src]="firebase">
-  <img height="150" [src]="firestore">
-  <img height="150" [src]="functions">
-</div>
+<mat-grid-list cols="2">
+  <mat-grid-tile *ngFor="let contributor of service.contributors$ | async">
+    <a [href]="contributor.url">
+      <img class="circle" [title]="contributor.login" height="150" [src]="contributor.avatarURL">
+    </a>
+  </mat-grid-tile>
+  <mat-grid-tile><a href="https://github.com/bregnvig/F2020"><img height="150" [src]="github"></a></mat-grid-tile>
+  <mat-grid-tile>
+    <a href="https://angular.io">
+      <img height="150" [src]="angular">
+    </a>
+  </mat-grid-tile>
+  <mat-grid-tile>
+    <a href="https://ngrx.io/">
+      <img height="150" [src]="ngrx">
+    </a>
+  </mat-grid-tile>
+  <mat-grid-tile>
+    <a href="https://firebase.google.com/">
+      <img height="150" [src]="firebase">
+    </a>
+  </mat-grid-tile>
+  <mat-grid-tile>
+    <a href="https://firebase.google.com/products/firestore">
+      <img height="150" [src]="firestore">
+    </a>
+  </mat-grid-tile>
+  <mat-grid-tile>
+    <a href="https://firebase.google.com/products/functions">
+      <img height="150" [src]="functions">
+    </a>
+  </mat-grid-tile>
+</mat-grid-list>
