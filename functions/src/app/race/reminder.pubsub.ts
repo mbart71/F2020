@@ -7,12 +7,12 @@ const timespan = (days: number, date: DateTime): boolean => {
   return Math.floor(reminderDate.diff(DateTime.local(), 'day').days) === 0;
 }
 
-const mailbody = (player: Player, race: IRace, closeday: any, closetime: any) =>
+const mailBody = (player: Player, race: IRace, closeDay: any, closeTime: any) =>
     `<h3>Hej ${player.displayName}</h3>
      <div> 
-     <p> ${race.name} - skal snart afvikles, og du mangler stadig af indsende dit bud. Du kan heldigvis stadig nå det, men skynd dig for
-     Spillet lukke på ${closeday} klokken ${closetime}</p>
-     <p> Du kan spill <a href="https://f2020.bregnvig.dk/">her</a>
+     <p> ${race.name} - lukker snart og du har ikke spillet endnu!. Du kan heldigvis stadig nå det, men skynd dig for
+     Spillet lukke på ${closeDay} klokken ${closeTime}</p>
+     <p> Du kan spille <a href="https://f2020.bregnvig.dk/">her</a>
      </div>     
                   
      Wroouumm,<br/>
@@ -25,11 +25,11 @@ export const mailReminderCrontab = functions.pubsub.schedule('11 9 * * *')
     .then(async race => {
       if (timespan(3, race!.close) || timespan(1, race!.close)) {
         const players = await playerWithoutBid();
-        const closeday =  race!.close.setLocale('da-DK').toFormat('cccc')
-        const closetime =  race!.close.toFormat('T')
+        const closeDay =  race!.close.setLocale('da-DK').toFormat('cccc')
+        const closeTime =  race!.close.toFormat('T')
         players.forEach(player => {
           console.log(`Should mail to ${player.displayName}`)
-          return sendMail(player.email, `Formel 1 vædemål ${race!.name}`, mailbody(player, race!, closeday, closetime)).then( (msg) => { 
+          return sendMail(player.email, `Formel 1 vædemål ${race!.name}`, mailBody(player, race!, closeDay, closeTime)).then( (msg) => { 
             console.log(`sendMail result :(${msg})`) 
           })
         })
