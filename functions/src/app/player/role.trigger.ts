@@ -6,6 +6,6 @@ export const setAnonymousRole = functions.region('europe-west1').firestore.docum
      const newUser:any = snap.data();
      console.log(newUser?.displayName,' with uid ', newUser?.uid, 'has signed up, assigning a defaultrole');   
      return snap.ref.update({
-        role: ['anonymous']
+        roles: ['anonymous']
      })
  });    
