@@ -11,7 +11,7 @@ import { Player, sendMail } from '../../lib';
     Wroouumm,<br/>
     F1emming`;
   
-export const mailNoFunds = functions.region('europe-west1').firestore.document('players/{userId}')
+export const nofundsTrigger = functions.region('europe-west1').firestore.document('players/{userId}')
     .onUpdate(async (change, context) => {  
       const player: Player  = change.after.data() as Player;
         if ((player.balance || 0) - 20 < -100) {  

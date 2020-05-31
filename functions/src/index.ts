@@ -19,3 +19,7 @@ export * from './app/race/drivers.trigger';
 
 export * from './app/race/reminder.pubsub';
 
+export * from './app/player/role.trigger';
+
+export * from './app/player/welcome.trigger';
+
