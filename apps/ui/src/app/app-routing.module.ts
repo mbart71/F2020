@@ -23,6 +23,10 @@ const routes: Routes = [
     loadChildren: () => import('@f2020/standing').then(m => m.StandingModule),
   },
   {
+    path: 'players',
+    loadChildren: () => import('@f2020/players').then(m => m.PlayersModule),
+  },
+  {
     path: 'accounts',
     loadChildren: () => import('@f2020/bank').then(m => m.BankModule),
   },

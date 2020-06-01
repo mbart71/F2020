@@ -1,6 +1,6 @@
 import { Observable } from 'rxjs';
 import { Component, OnInit } from '@angular/core';
-import { PlayersFacade } from '@f2020/players';
+import { PlayersFacade } from '@f2020/api';
 import { Player } from '@f2020/data';
 
 @Component({

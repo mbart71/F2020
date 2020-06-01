@@ -15,7 +15,7 @@ import { MatListModule } from '@angular/material/list';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { RouterModule } from "@angular/router";
-import { PlayersModule } from '@f2020/players';
+import { PlayersApiModule } from '@f2020/api';
 import { SharedModule } from '@f2020/shared';
 import { AccountsListComponent } from './component/accounts-list/accounts-list.component';
 import { AccountsComponent } from './component/accounts/accounts.component';
@@ -74,7 +74,7 @@ import { DepositInfoDialogComponent } from './component/my-transactions/deposit-
     FlexLayoutModule,
     ScrollingModule,
     SharedModule,
-    PlayersModule,
+    PlayersApiModule,
     ReactiveFormsModule,
     FirebaseModule,
   ],

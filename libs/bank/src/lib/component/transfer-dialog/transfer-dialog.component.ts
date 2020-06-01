@@ -2,7 +2,7 @@ import { Component, Inject, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { Player } from '@f2020/data';
-import { PlayersFacade } from '@f2020/players';
+import { PlayersFacade } from '@f2020/api';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { AccountService } from '../../service';

@@ -3,7 +3,7 @@ import { MatDialog } from '@angular/material/dialog';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { ActivatedRoute, Params } from '@angular/router';
 import { Player } from '@f2020/data';
-import { PlayersActions, PlayersFacade } from '@f2020/players';
+import { PlayersActions, PlayersFacade } from '@f2020/api';
 import { truthy } from '@f2020/tools';
 import { Observable } from 'rxjs';
 import { first, pluck, switchMap } from 'rxjs/operators';

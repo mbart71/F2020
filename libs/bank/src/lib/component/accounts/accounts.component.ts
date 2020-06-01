@@ -1,5 +1,5 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
-import { PlayersFacade, PlayersActions } from '@f2020/players';
+import { PlayersFacade, PlayersActions } from '@f2020/api';
 
 @Component({
   selector: 'f2020-accounts',

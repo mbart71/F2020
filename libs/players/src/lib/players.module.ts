@@ -1,20 +1,55 @@
-import { CommonModule } from "@angular/common";
-import { NgModule } from "@angular/core";
-import { StoreModule } from "@ngrx/store";
-import { EffectsModule } from "@ngrx/effects";
-import * as fromPlayers from "./+state/players.reducer";
-import { PlayersEffects } from "./+state/players.effects";
-import { PlayersFacade } from "./+state/players.facade";
+import { CommonModule } from '@angular/common';
+import { NgModule } from '@angular/core';
+import { FlexLayoutModule } from '@angular/flex-layout';
+import { ReactiveFormsModule } from '@angular/forms';
+import { MatButtonModule } from '@angular/material/button';
+import { MatCardModule } from '@angular/material/card';
+import { MatCheckboxModule } from '@angular/material/checkbox';
+import { MatListModule } from '@angular/material/list';
+import { MatSnackBarModule } from '@angular/material/snack-bar';
+import { MatToolbarModule } from '@angular/material/toolbar';
+import { RouterModule } from '@angular/router';
+import { PlayersApiModule } from '@f2020/api';
+import { SharedModule } from '@f2020/shared';
+import { PlayersListComponent } from './component/players-list/players-list.component';
+import { PlayersComponent } from './component/players/players.component';
+import { EditPlayerComponent } from './edit-player/edit-player.component';
 
+const MatModules = [
+  MatListModule,
+  MatCardModule,
+  MatCheckboxModule,
+  MatButtonModule,
+  MatToolbarModule,
+  MatSnackBarModule,
+];
 @NgModule({
   imports: [
+    RouterModule.forChild([
+      {
+        path: '',
+        component: PlayersComponent,
+        children: [
+          {
+            path: '',
+            component: PlayersListComponent
+          },
+          {
+            path: ':id',
+            component: EditPlayerComponent
+          }
+        ]
+      }
+    ]),
     CommonModule,
-    StoreModule.forFeature(
-      fromPlayers.PLAYERS_FEATURE_KEY,
-      fromPlayers.reducer
-    ),
-    EffectsModule.forFeature([PlayersEffects])
+    SharedModule,
+    PlayersApiModule,
+    FlexLayoutModule,
+    ReactiveFormsModule,
+    MatModules,
   ],
-  providers: [PlayersFacade, PlayersEffects]
+  declarations: [PlayersListComponent, PlayersComponent, EditPlayerComponent]
 })
-export class PlayersModule {}
+export class PlayersModule {
+
+}

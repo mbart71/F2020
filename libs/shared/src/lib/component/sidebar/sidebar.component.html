@@ -6,7 +6,7 @@
   <sha-sidenav-button *shaHasRole="'player'" iconSet="fas" icon="fa-coins" [routerLink]="['accounts', 'me']" (click)="closing.emit()">Konto - {{(player$ | async)?.balance}} kr.</sha-sidenav-button>
   <sha-sidenav-button *shaHasRole="'bank-admin'" iconSet="far" icon="fa-piggy-bank" routerLink="accounts" (click)="closing.emit()">Bank</sha-sidenav-button>
   <sha-sidenav-button *shaHasRole="'player'" iconSet="fas" icon="fa-steering-wheel" routerLink="standings" (click)="closing.emit()">Kører</sha-sidenav-button>
-  <sha-sidenav-button iconSet="fas" icon="fa-info" [routerLink]="['info', 'rules']" (click)="closing.emit()">Regler</sha-sidenav-button>
+  <sha-sidenav-button *shaHasRole="'admin'" iconSet="fas" icon="fa-user-astronaut" [routerLink]="['players']" (click)="closing.emit()">Spillere</sha-sidenav-button>
   <sha-sidenav-button iconSet="far" icon="fa-user-friends" [routerLink]="['info', 'about']" (click)="closing.emit()">Om spillet</sha-sidenav-button>
   <mat-list-item *shaHasRole="'player'">
     <div mat-line>
