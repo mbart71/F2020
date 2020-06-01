@@ -34,6 +34,7 @@ const createWBCRace = async (race: IRace, bids: Bid[], ref: admin.firestore.Docu
     players: bids.map((b, index) => ({
       player: {
         displayName: b.player?.displayName,
+        email: b.player?.email,
         photoURL: b.player?.photoURL ?? null,
         uid: b.player?.uid
       } as Player,
