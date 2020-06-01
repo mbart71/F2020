@@ -4,7 +4,7 @@ import * as functions from 'firebase-functions';
 import { Bid, IRace, racesURL, seasonsURL, Player } from '../../lib';
 
 const db = admin.firestore();
-const wbcPoints = [25, 18, 15, 12, 10, 8, 6, 4, 2, 1];
+const wbcPoints = [25, 18, 15, 12, 10, 8, 6, 4, 2, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0];
 /**
  * The struture fo the WBC is:
  * seasons/{seasonId} wbc[] - {raceId}: {race, players[]}
@@ -18,7 +18,7 @@ export const wbcPointsTrigger = functions.region('europe-west1').firestore.docum
         .where('points', '>', 0)
         .orderBy('points', 'desc')
         .orderBy('polePositionTimeDiff', 'asc')
-        .limit(10)
+        .limit(20)
         .get()
         .then(snapshot => snapshot.docs.map(s => s.data() as Bid));
       await createWBCRace(after, bids, db.doc(`${seasonsURL}/${context.params.seasonId}`));
