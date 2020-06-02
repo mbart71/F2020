@@ -5,12 +5,13 @@ import { adminApp, authedApp, clearFirestoreData, unauthenticated } from '../../
 import { players } from '../../test-utils/players.collection';
 import { playersURL, transactionsURL } from './../../lib/collection-names';
 import { permissionDenied } from './../../test-utils/firestore-test-utils';
+import { Transaction } from '../../lib/model';
 
 describe('Migrate unittest', () => {
 
   let adminFirestore: firebase.firestore.Firestore;
 
-  const readTransaction = async (id: string) => adminFirestore.doc(`${transactionsURL}/${id}`).get().then(snapshot => snapshot.data());
+  const readTransaction = async (id: string): Promise<Transaction> => adminFirestore.doc(`${transactionsURL}/${id}`).get().then(snapshot => snapshot.data() as Transaction);
 
   beforeEach(async () => {
     // depositFn = test.wrap(deposit);
@@ -49,26 +50,37 @@ describe('Migrate unittest', () => {
 
   it('should migration the tranaction, when user is bank-admin', async () => {
     const app = await authedApp({ uid: collections.players.bankadmin.uid });
+    const transaction = await readTransaction('1');
+    expect(transaction.involved.includes(collections.players.bankadmin.uid)).toBeFalsy();
+    expect(transaction.involved.includes('1')).toBeTruthy();
     await assertSucceeds(app.functions.httpsCallable('migrateAccount')({ uid: players.player.uid, accountId: 1 }))
       .then(async () => {
         const t = await readTransaction('1');
         expect(t!.from).toBe(players.player.uid);
         expect(t!.to).toBeNull();
+        expect(t.involved.includes(collections.players.player.uid)).toBeTruthy();
+        expect(t.involved.includes('1')).toBeFalsy();
       })
       .then(async () => {
         const t = await readTransaction('2');
         expect(t!.from).toBe(players.player.uid);
         expect(t!.to).toBe('2');
+        expect(t.involved.includes(collections.players.player.uid)).toBeTruthy();
+        expect(t.involved.includes('1')).toBeFalsy();
       })
       .then(async () => {
         const t = await readTransaction('3');
         expect(t!.to).toBe(players.player.uid);
         expect(t!.from).toBeNull();
+        expect(t.involved.includes(collections.players.player.uid)).toBeTruthy();
+        expect(t.involved.includes('1')).toBeFalsy();
       })
       .then(async () => {
         const t = await readTransaction('4');
         expect(t!.to).toBe(players.player.uid);
         expect(t!.from).toBe('2');
+        expect(t.involved.includes(collections.players.player.uid)).toBeTruthy();
+        expect(t.involved.includes('1')).toBeFalsy();
       })
     });
 });
