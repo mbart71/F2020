@@ -5,7 +5,7 @@ import { Transaction } from "../../lib/model";
 
 interface MigrationData {
   uid: string;
-  accountId: number;
+  playerName: string;
 }
 
 export const migrateAccount = functions.region('europe-west1').https.onCall(async (data: MigrationData, context) => {
@@ -16,10 +16,10 @@ export const migrateAccount = functions.region('europe-west1').https.onCall(asyn
   .catch(internalError);
 });
 
-const migrate = async ({ uid, accountId }: MigrationData) => {
+const migrate = async ({ uid, playerName }: MigrationData) => {
   const db = admin.firestore();
   
-  const transactions = await db.collection('transactions').where('involved', 'array-contains', accountId.toString()).get();
+  const transactions = await db.collection('transactions').where('involved', 'array-contains', playerName).get();
   
   console.log(`Found ${transactions.size} to be migrated`);
   
@@ -29,16 +29,16 @@ const migrate = async ({ uid, accountId }: MigrationData) => {
   
   return Promise.all(chuncks.map(chunck => {
     return db.runTransaction(transaction => {
-      chunck.forEach(docKey => transaction.update(docKey.ref, migratedTransaction(docKey.data() as Transaction, uid, accountId.toString(10))));
+      chunck.forEach(docKey => transaction.update(docKey.ref, migratedTransaction(docKey.data() as Transaction, uid, playerName)));
       return Promise.resolve(chunck.length);
     });
   })).then(() => transactions.size)
 }
 
-const migratedTransaction = (transaction: Transaction, uid: string, accountId: string): Partial<Transaction> => {
+const migratedTransaction = (transaction: Transaction, uid: string, playerName: string): Partial<Transaction> => {
   return {
-    from: transaction.from === accountId ? uid : transaction.from,
-    to: transaction.to === accountId ? uid : transaction.to,
-    involved: transaction.involved.map(i => i === accountId ? uid : i)
+    from: transaction.from === playerName ? uid : transaction.from,
+    to: transaction.to === playerName ? uid : transaction.to,
+    involved: transaction.involved.map(i => i === playerName ? uid : i)
   }
 }

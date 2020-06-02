@@ -6,7 +6,7 @@ import { players } from '../../test-utils/players.collection';
 import { playersURL } from './../../lib/collection-names';
 import { permissionDenied } from './../../test-utils/firestore-test-utils';
 
-describe('Migrate unittest', () => {
+describe('Manual balance unittest', () => {
 
   let adminFirestore: firebase.firestore.Firestore;
 
