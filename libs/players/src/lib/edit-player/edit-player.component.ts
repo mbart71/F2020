@@ -18,6 +18,7 @@ export class EditPlayerComponent implements OnInit {
 
   player$: Observable<Player>;
   fg: FormGroup;
+  accountAndNames = accountAndNames;
 
   constructor(
     private facade: PlayersFacade,
@@ -32,7 +33,8 @@ export class EditPlayerComponent implements OnInit {
         player: [],
         admin: [],
         bankAdmin: []
-      })
+      }),
+      migration: [],
     });
     this.player$ = this.facade.selectedPlayer$;
     this.route.params.pipe(
@@ -60,4 +62,48 @@ export class EditPlayerComponent implements OnInit {
     ).subscribe(() => this.snackBar.open('Roller opdateret', null, { duration: 2000 }));
   }
 
+  migrateAccount() {
+    const accountId = this.fg.get('migration').value;
+    if (accountId) {
+      this.player$.pipe(
+        first(),
+        switchMap(player => this.playerService.migrateAccount(player.uid, accountId)),
+      ).subscribe(() => this.snackBar.open('Migrering afsluttet', null, { duration: 2000 }));
+    }
+  }
+
 }
+
+const accountAndNames = [
+  { id: 1, name: 'Flemming Bregnvig' },
+  { id: 4, name: 'My Bookie' },
+  { id: 8, name: 'Michael Bartrup' },
+  { id: 9, name: 'Thomas Trebbien Pedersen' },
+  { id: 10, name: 'Peter Thorup' },
+  { id: 11, name: 'Niels-Henrik Rasmussen' },
+  { id: 12, name: 'Thomas Knudsen' },
+  { id: 13, name: 'Palle Bregnvig' },
+  { id: 15, name: 'Morten Mathiesen' },
+  { id: 17, name: 'Thorbjørn Larsen' },
+  { id: 19, name: 'Jesper Dalsten' },
+  { id: 21, name: 'Mogens Højte' },
+  { id: 23, name: 'Nino Stokbro Ag' },
+  { id: 26, name: 'Anne-Sofie Bregnvig' },
+  { id: 27, name: 'Christian Rusche' },
+  { id: 30, name: 'Jacob Andersen' },
+  { id: 31, name: 'Stefan Trabolt' },
+  { id: 32, name: 'Jette Hansen' },
+  { id: 33, name: 'Claus Jessing' },
+  { id: 34, name: 'Katrine Jensen' },
+  { id: 35, name: 'Morten Laier' },
+  { id: 36, name: 'Michael Heide' },
+  { id: 37, name: 'Henrik Aakjær' },
+  { id: 38, name: 'Kåre Pedersen' },
+  { id: 39, name: 'Steffen Larsen' },
+  { id: 40, name: 'Søren Bruun' },
+  { id: 41, name: 'Michael Weile' },
+  { id: 42, name: 'Mathias Lorenz' },
+  { id: 43, name: 'Brian Hjorth' },
+  { id: 44, name: 'Michael Christensen' },
+  { id: 45, name: 'Tobias Tvarnø' }
+];
