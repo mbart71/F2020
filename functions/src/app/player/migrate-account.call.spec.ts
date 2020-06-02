@@ -10,7 +10,7 @@ describe('Migrate unittest', () => {
 
   let adminFirestore: firebase.firestore.Firestore;
 
-  const readTransaction = async (id: string) => adminFirestore.doc(`${transactionsURL}/${id}`).get().then(snapshot => snapshot.data()); 
+  const readTransaction = async (id: string) => adminFirestore.doc(`${transactionsURL}/${id}`).get().then(snapshot => snapshot.data());
 
   beforeEach(async () => {
     // depositFn = test.wrap(deposit);
@@ -23,6 +23,7 @@ describe('Migrate unittest', () => {
     await adminFirestore.doc(`${transactionsURL}/1`).set({ from: '1', to: null, involved: ['1'], amount: 100, date: new Date() });
     await adminFirestore.doc(`${transactionsURL}/2`).set({ from: '1', to: '2', involved: ['1', '2'], amount: 100, date: new Date() });
     await adminFirestore.doc(`${transactionsURL}/3`).set({ from: null, to: '1', involved: ['1'], amount: 100, date: new Date() });
+    await adminFirestore.doc(`${transactionsURL}/4`).set({ from: '2', to: '1', involved: ['1', '2'], amount: 100, date: new Date() });
 
   });
 
@@ -52,6 +53,22 @@ describe('Migrate unittest', () => {
       .then(async () => {
         const t = await readTransaction('1');
         expect(t!.from).toBe(players.player.uid);
-      });
-  });
+        expect(t!.to).toBeNull();
+      })
+      .then(async () => {
+        const t = await readTransaction('2');
+        expect(t!.from).toBe(players.player.uid);
+        expect(t!.to).toBe('2');
+      })
+      .then(async () => {
+        const t = await readTransaction('3');
+        expect(t!.to).toBe(players.player.uid);
+        expect(t!.from).toBeNull();
+      })
+      .then(async () => {
+        const t = await readTransaction('4');
+        expect(t!.to).toBe(players.player.uid);
+        expect(t!.from).toBe('2');
+      })
+    });
 });
