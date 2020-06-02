@@ -21,7 +21,7 @@ const migrate = async ({ uid, playerName }: MigrationData) => {
   
   const transactions = await db.collection('transactions').where('involved', 'array-contains', playerName).get();
   
-  console.log(`Found ${transactions.size} to be migrated`);
+  console.log(`Found ${transactions.size} to be migrated from ${playerName} to ${uid}`);
   
   const chuncks = (Array.from({ length: (transactions.size / 500) + 1 }, (_, index) => index)
   .map(index => transactions.docs.slice(index * 500, (index + 1) * 500))
@@ -37,8 +37,8 @@ const migrate = async ({ uid, playerName }: MigrationData) => {
 
 const migratedTransaction = (transaction: Transaction, uid: string, playerName: string): Partial<Transaction> => {
   return {
-    from: transaction.from === playerName ? uid : transaction.from,
-    to: transaction.to === playerName ? uid : transaction.to,
+    from: transaction.from === playerName ? uid : transaction.from || null,
+    to: transaction.to === playerName ? uid : transaction.to || null,
     involved: transaction.involved.map(i => i === playerName ? uid : i)
   }
 }
