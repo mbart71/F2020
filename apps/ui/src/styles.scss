@@ -48,3 +48,8 @@ button[mat-fab] {
 .warn {
   color: $warn !important;
 }
+
+
+mat-card-actions > button {
+  text-transform: uppercase;
+}

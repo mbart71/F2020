@@ -1,7 +1,6 @@
-import { IQualifyResult } from './../../../../../../functions/src/lib/model/race.model';
 import { Inject, Injectable } from '@angular/core';
 import { AngularFirestore } from '@angular/fire/firestore';
-import { Bid, firestoreUtils, IRace, IRaceResult, mapper, Player } from '@f2020/data';
+import { Bid, firestoreUtils, IRace, IRaceResult, mapper, Player, IQualifyResult } from '@f2020/data';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { GoogleFunctions } from '../../firebase';

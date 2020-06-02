@@ -51,6 +51,7 @@ const buildBid = async (player: PlayerImpl, bid: Bid) => {
       message: `Deltagelse ${race.name}`,
       from: player.uid,
       to: bookie.uid,
+      involved: [player.uid, bookie.uid],
     }, transaction);
     return Promise.resolve('Bid submitted');
   })

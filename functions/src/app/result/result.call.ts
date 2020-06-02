@@ -41,7 +41,8 @@ const buildResult = async (result: Bid) => {
         amount: winningPrice,
         message: `Gevinst ${race.name}`,
         from: bookie.uid,
-        to: winner.player!.uid
+        to: winner.player!.uid,
+        involved: [bookie.uid, winner.player!.uid],
       }, transaction);
     });
     calculatedResults.forEach(cr => {

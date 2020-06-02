@@ -57,6 +57,7 @@ const buildWithdraw = async ({ fromUid, toUid, amount, message }: TransferData) 
     amount: amount,
     message: message,
     from: fromUid,
-    to: toUid
+    to: toUid,
+    involved: [fromUid, toUid],
   });
 }
