@@ -17,7 +17,10 @@ export class PlayersApiService {
     return this.afs.doc(`${PlayerService.playersURL}/${uid}`).update(player);
   }
 
-  migrateAccount(uid: string, accountId: number): Promise<boolean> {
-    return this.functions().httpsCallable('migrateAccount')({uid, accountId}).then(() => true);
+  updateBalance(uid: string, balance: number): Promise<boolean> {
+    return this.functions().httpsCallable('manualBalance')({uid, balance}).then(() => true);
+  }
+  migrateAccount(uid: string, playerName: string): Promise<boolean> {
+    return this.functions().httpsCallable('migrateAccount')({uid, playerName}).then(() => true);
   }
 }

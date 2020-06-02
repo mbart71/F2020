@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup } from '@angular/forms';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { ActivatedRoute, Params } from '@angular/router';
 import { PlayersActions, PlayersApiService, PlayersFacade } from '@f2020/api';
@@ -35,6 +35,7 @@ export class EditPlayerComponent implements OnInit {
         bankAdmin: []
       }),
       migration: [],
+      balance: [0, Validators.min(-100)]
     });
     this.player$ = this.facade.selectedPlayer$;
     this.route.params.pipe(
@@ -49,7 +50,8 @@ export class EditPlayerComponent implements OnInit {
         player: player.roles.includes('player'),
         admin: player.roles.includes('admin'),
         bankAdmin: player.roles.includes('bank-admin'),
-      })
+      }, { emitEvent: false });
+      this.fg.get('balance').patchValue(player.balance || 0, { emitEvent: false });
     })
   }
 
@@ -58,16 +60,24 @@ export class EditPlayerComponent implements OnInit {
     const roles: Role[] = (['player', 'admin', 'bank-admin'] as Role[]).filter((_, index) => value[index]);
     this.player$.pipe(
       first(),
-      switchMap(player => this.playerService.updatePlayer(player.uid, { roles: roles.length ? roles: ['anonymous'] })),
+      switchMap(player => this.playerService.updatePlayer(player.uid, { roles: roles.length ? roles : ['anonymous'] })),
     ).subscribe(() => this.snackBar.open('Roller opdateret', null, { duration: 2000 }));
   }
 
+  updateBalance() {
+    const balance = this.fg.get('balance').value || 0;
+    this.player$.pipe(
+      first(),
+      switchMap(player => this.playerService.updateBalance(player.uid, balance)),
+    ).subscribe(() => this.snackBar.open(`Saldo opdateret til ${balance}`, null, { duration: 2000 }));
+  }
+
   migrateAccount() {
-    const accountId = this.fg.get('migration').value;
-    if (accountId) {
+    const playerName = this.fg.get('migration').value;
+    if (playerName) {
       this.player$.pipe(
         first(),
-        switchMap(player => this.playerService.migrateAccount(player.uid, accountId)),
+        switchMap(player => this.playerService.migrateAccount(player.uid, playerName)),
       ).subscribe(() => this.snackBar.open('Migrering afsluttet', null, { duration: 2000 }));
     }
   }
@@ -75,35 +85,34 @@ export class EditPlayerComponent implements OnInit {
 }
 
 const accountAndNames = [
-  { id: 1, name: 'Flemming Bregnvig' },
-  { id: 4, name: 'My Bookie' },
-  { id: 8, name: 'Michael Bartrup' },
-  { id: 9, name: 'Thomas Trebbien Pedersen' },
-  { id: 10, name: 'Peter Thorup' },
-  { id: 11, name: 'Niels-Henrik Rasmussen' },
-  { id: 12, name: 'Thomas Knudsen' },
-  { id: 13, name: 'Palle Bregnvig' },
-  { id: 15, name: 'Morten Mathiesen' },
-  { id: 17, name: 'Thorbjørn Larsen' },
-  { id: 19, name: 'Jesper Dalsten' },
-  { id: 21, name: 'Mogens Højte' },
-  { id: 23, name: 'Nino Stokbro Ag' },
-  { id: 26, name: 'Anne-Sofie Bregnvig' },
-  { id: 27, name: 'Christian Rusche' },
-  { id: 30, name: 'Jacob Andersen' },
-  { id: 31, name: 'Stefan Trabolt' },
-  { id: 32, name: 'Jette Hansen' },
-  { id: 33, name: 'Claus Jessing' },
-  { id: 34, name: 'Katrine Jensen' },
-  { id: 35, name: 'Morten Laier' },
-  { id: 36, name: 'Michael Heide' },
-  { id: 37, name: 'Henrik Aakjær' },
-  { id: 38, name: 'Kåre Pedersen' },
-  { id: 39, name: 'Steffen Larsen' },
-  { id: 40, name: 'Søren Bruun' },
-  { id: 41, name: 'Michael Weile' },
-  { id: 42, name: 'Mathias Lorenz' },
-  { id: 43, name: 'Brian Hjorth' },
-  { id: 44, name: 'Michael Christensen' },
-  { id: 45, name: 'Tobias Tvarnø' }
+  { playerName: "flb", name: "Flemming Bregnvig" },
+  { playerName: "bartrup", name: "Michael Bartrup" },
+  { playerName: "ttp", name: "Thomas Trebbien Pedersen" },
+  { playerName: "peter", name: "Peter Thorup" },
+  { playerName: "nra", name: "Niels Henrik Rasmussen" },
+  { playerName: "killerkim", name: "Thomas Knudsen" },
+  { playerName: "palle", name: "Palle Bregnvig" },
+  { playerName: "mmathiesen", name: "Morten Mathiesen" },
+  { playerName: "tnl", name: "Thorbjørn Larsen" },
+  { playerName: "dalsten", name: "Jesper Dalsten" },
+  { playerName: "mhoejte", name: "Mogens Højte" },
+  { playerName: "nino", name: "Nino Stokbro Ag" },
+  { playerName: "fie", name: "Anne Sofie Bregnvig" },
+  { playerName: "rusche", name: "Christian Rusche" },
+  { playerName: "jacob", name: "Jacob Andersen" },
+  { playerName: "STR", name: "Stefan Trabolt" },
+  { playerName: "jette", name: "Jette Hansen" },
+  { playerName: "Alboreto", name: "Claus Jessing" },
+  { playerName: "katrine", name: "Katrine Jensen" },
+  { playerName: "laier", name: "Morten Laier" },
+  { playerName: "heidemeister", name: "Michael Heide" },
+  { playerName: "henrik", name: "Henrik Aakjær" },
+  { playerName: "kaare", name: "Kåre Pedersen" },
+  { playerName: "steffen", name: "Steffen Larsen" },
+  { playerName: "bruun", name: "Søren Bruun" },
+  { playerName: "weile", name: "Michael Weile" },
+  { playerName: "mathias", name: "Mathias Lorenz" },
+  { playerName: "brian", name: "Brian Hjorth" },
+  { playerName: "bakkekammen", name: "Michael Christensen" },
+  { playerName: "tobias", name: "Tobias Tvarnø" },
 ];
