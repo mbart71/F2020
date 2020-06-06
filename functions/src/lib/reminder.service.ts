@@ -11,7 +11,7 @@ export const playerWithoutBid = async (): Promise<Player[]> => {
   const currentRace = await getCurrentRace('open');
   
   const db = admin.firestore();
-  const played: Set<string> = await db.collection(`${seasonsURL}/${currentRace!.season}/${racesURL}/${currentRace?.location.country}/bids`)
+  const played: Set<string> = await db.collection(`${seasonsURL}/${currentRace!.season}/${racesURL}/${currentRace?.round}/bids`)
   .get()
   .then(snapshot => snapshot.docs.map(d => d.data() as Bid))
   .then(bids => bids.map(b => b.player!.uid))

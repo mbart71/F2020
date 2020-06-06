@@ -197,6 +197,11 @@
           "builder": "@nrwl/node:execute",
           "options": {
             "buildTarget": "builder:build"
+          },
+          "configurations": {
+            "production": {
+              "buildTarget": "builder:build:production"
+            }
           }
         },
         "lint": {

@@ -23,7 +23,7 @@ const buildResult = async (result: Bid) => {
   validateResult(result, race);
 
   const db = admin.firestore();
-  const calculatedResults: Bid[] = await db.collection(`${seasonsURL}/${race.season}/${racesURL}/${race.location.country}/bids`).where('submitted', '==', true).get()
+  const calculatedResults: Bid[] = await db.collection(`${seasonsURL}/${race.season}/${racesURL}/${race.round}/bids`).where('submitted', '==', true).get()
     .then(snapshot => snapshot.docs)
     .then(snapshots => snapshots.map(s => s.data()))
     .then(bids => bids.map(bid => calculateResult(bid as Bid, result)))
@@ -46,9 +46,9 @@ const buildResult = async (result: Bid) => {
       }, transaction);
     });
     calculatedResults.forEach(cr => {
-      transaction.set(db.doc(`${seasonsURL}/${race.season}/${racesURL}/${race.location.country}/bids/${cr.player!.uid}`), cr);
+      transaction.set(db.doc(`${seasonsURL}/${race.season}/${racesURL}/${race.round}/bids/${cr.player!.uid}`), cr);
     });
-    transaction.update(db.doc(`${seasonsURL}/${race.season}/${racesURL}/${race.location.country}`), { state: 'completed', result })
+    transaction.update(db.doc(`${seasonsURL}/${race.season}/${racesURL}/${race.round}`), { state: 'completed', result })
     return Promise.resolve(`Result submitted`);
   });
 

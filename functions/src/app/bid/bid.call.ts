@@ -31,10 +31,10 @@ const buildBid = async (player: PlayerImpl, bid: Bid) => {
   }
 
   const db = admin.firestore();
-  const doc = db.doc(`${seasonsURL}/${season.id}/${racesURL}/${race.location.country}/bids/${player.uid}`) as admin.firestore.DocumentReference<Bid>;
+  const doc = db.doc(`${seasonsURL}/${season.id}/${racesURL}/${race.round}/bids/${player.uid}`) as admin.firestore.DocumentReference<Bid>;
 
   if (!bid) {
-    throw logAndCreateError('not-found', `No bid exists for uid: ${player.uid} for race ${race.location.country}`);
+    throw logAndCreateError('not-found', `No bid exists for uid: ${player.uid} for race ${race.round}`);
   }
   if (player.uid !== bid.player?.uid) {
     throw logAndCreateError('permission-denied', `${player.uid} tried to submit bid for ${bid.player?.displayName}, ${bid.player?.uid}`);

@@ -17,7 +17,7 @@ describe('Submit bid unittest', () => {
     await adminFirestore.doc(`${playersURL}/${collections.players.bookie.uid}`).set({ ...collections.players.bookie });
 
     await adminFirestore.doc(`${seasonsURL}/9999`).set(collections.seasons[0]);
-    await adminFirestore.doc(`${seasonsURL}/9999/races/${collections.races[1].location.country}`).set(collections.races[1]);
+    await adminFirestore.doc(`${seasonsURL}/9999/races/${collections.races[1].round}`).set(collections.races[1]);
   });
 
   afterEach(async () => {
@@ -115,7 +115,7 @@ describe('Submit bid unittest', () => {
   it('should accept submitting of bid, when bid is valid', async () => {
     const app = await authedApp({ uid: collections.players.player.uid });
     await assertSucceeds(app.functions.httpsCallable('submitBid')(clone(collections.bids[1])))
-      .then(() => new Promise(resolve => setTimeout(() => resolve(), 1500)))
+      .then(() => new Promise(resolve => setTimeout(() => resolve(), 2000)))
       .then(() => adminFirestore.doc(`${playersURL}/${collections.players.player.uid}`).get())
       .then((snapshot: firebase.firestore.DocumentSnapshot) => snapshot.data())
       .then((player: Player) => expect(player.balance).toEqual(180))

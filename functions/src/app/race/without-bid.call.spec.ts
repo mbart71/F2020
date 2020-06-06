@@ -10,8 +10,8 @@ describe('Reminder unittest', () => {
 
  let adminFirestore: firebase.firestore.Firestore;
 
-  // const writeBid = async (bid: any, uid: string) => adminFirestore.doc(`${seasonsURL}/9999/races/${collections.races[1].location.country}/bids/${uid}`).set(bid);
-  // const readBid = async (uid: string): Promise<Bid> => adminFirestore.doc(`${seasonsURL}/9999/races/${collections.races[1].location.country}/bids/${uid}`).get().then(ref => ref.data() as Bid);
+  // const writeBid = async (bid: any, uid: string) => adminFirestore.doc(`${seasonsURL}/9999/races/${collections.races[1].round}/bids/${uid}`).set(bid);
+  // const readBid = async (uid: string): Promise<Bid> => adminFirestore.doc(`${seasonsURL}/9999/races/${collections.races[1].round}/bids/${uid}`).get().then(ref => ref.data() as Bid);
 
   beforeEach(async () => {
     adminFirestore = adminApp();
@@ -21,7 +21,7 @@ describe('Reminder unittest', () => {
     await adminFirestore.doc(`${playersURL}/${collections.players.bookie.uid}`).set({ ...collections.players.bookie });
 
     await adminFirestore.doc(`${seasonsURL}/9999`).set(collections.seasons[0]);
-    await adminFirestore.doc(`${seasonsURL}/9999/races/${collections.races[1].location.country}`).set({ ...collections.races[1], state: 'open' });
+    await adminFirestore.doc(`${seasonsURL}/9999/races/${collections.races[1].round}`).set({ ...collections.races[1], state: 'open' });
   });
 
   afterEach(async () => {
