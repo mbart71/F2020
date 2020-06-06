@@ -53,7 +53,7 @@ const writeSeason = (season: ISeason, races: IRace[]): Promise<WriteResult[]> =>
   return firebaseApp.datebase.collection(seasonsURL).doc(season.id).withConverter(converter.season).set(season)
     .then(() => {
       const ref = firebaseApp.datebase.collection(racesURL(season.id));
-      const racesWrite = races.map(race => ref.doc(race.location.country).withConverter(converter.race).set(race));
+      const racesWrite = races.map(race => ref.doc(race.round.toString(10)).withConverter(converter.race).set(race));
       return Promise.all(racesWrite);
     });
 };
