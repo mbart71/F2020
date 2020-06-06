@@ -7,7 +7,7 @@ const db = admin.firestore();
 
 const playerURL = (uid: string) => `${playersURL}/${uid}`;
 
-export const transactionTrigger = functions.region('europe-west1').firestore.document('transactions/{transactionId}')
+export const balanceTrigger = functions.region('europe-west1').firestore.document('transactions/{transactionId}')
   .onCreate(async (snapshot: functions.firestore.DocumentSnapshot) => {
     const transaction: Transaction | undefined = snapshot.data() as Transaction;
     const from = transaction.from ? db.doc(playerURL(transaction.from)) as admin.firestore.DocumentReference<Player> : null;

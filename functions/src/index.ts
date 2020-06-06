@@ -8,7 +8,7 @@ export * from './app/account/deposit.call';
 export * from './app/account/withdraw.call';
 export * from './app/account/transfer.call';
 
-export * from './app/transaction/transaction.trigger';
+export * from './app/transaction/balance.trigger';
 
 export * from './app/mail/noFunds.trigger';
 
