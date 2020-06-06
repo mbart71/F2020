@@ -7,14 +7,14 @@ const db = admin.firestore();
 const wbcPoints = [25, 18, 15, 12, 10, 8, 6, 4, 2, 1];
 /**
  * The struture fo the WBC is:
- * seasons/{seasonId} wbc[] - {raceId}: {race, players[]}
+ * seasons/{seasonId} wbc[] - {round}: {race, players[]}
  */
-export const wbcPointsTrigger = functions.region('europe-west1').firestore.document('seasons/{seasonId}/races/{raceId}')
+export const wbcPointsTrigger = functions.region('europe-west1').firestore.document('seasons/{seasonId}/races/{round}')
   .onUpdate(async (change: functions.Change<functions.firestore.DocumentSnapshot>, context: functions.EventContext) => {
     const before: IRace = change.before.data() as IRace;
     const after: IRace = change.after.data() as IRace;
     if (before.state === 'closed' && after.state === 'completed') {
-      const bids: Bid[] = await db.collection(`${seasonsURL}/${context.params.seasonId}/${racesURL}/${context.params.raceId}/bids`)
+      const bids: Bid[] = await db.collection(`${seasonsURL}/${context.params.seasonId}/${racesURL}/${context.params.round}/bids`)
         .where('points', '>', 0)
         .orderBy('points', 'desc')
         .orderBy('polePositionTimeDiff', 'asc')

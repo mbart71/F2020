@@ -8,14 +8,14 @@ import { ActivatedRoute } from '@angular/router';
 
 
 interface WBCRacePlayer {
-  raceId: string;
+  round: number;
   raceName: string;
   countryCode: string;
   points: number;
 }
 
 const racePlayer = (uid: string) => (wbc: WBCResult): WBCRacePlayer => ({
-  raceId: wbc.raceId,
+  round: wbc.round,
   raceName: wbc.raceName,
   countryCode: wbc.countryCode,
   points: wbc.players.find(p => p.player.uid === uid)?.points ?? 0

@@ -53,7 +53,7 @@ export class EnterBidComponent implements OnInit {
       filter(([previous, current]) => previous && current === false) ,
       untilDestroyed(this),
       switchMapTo(this.race$)
-    ).subscribe(race => this.router.navigate(['race', race.location.country.toLocaleLowerCase()]));
+    ).subscribe(race => this.router.navigate(['race', race.round]));
     this.facade.error$.pipe(
       filter(error => !!error),
       untilDestroyed(this)

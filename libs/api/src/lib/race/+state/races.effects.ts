@@ -39,7 +39,7 @@ export class RacesEffects {
       this.facade.selectedRace$,
       this.playerFacade.player$
     ]).pipe(
-      switchMap(([season, race, player]) => this.service.getBid(season.id, race.location.country, player.uid)),
+      switchMap(([season, race, player]) => this.service.getBid(season.id, race.round, player.uid)),
       map(bid => bid || {}),
       map(bid => RacesActions.loadYourBidSuccess({ bid })),
       catchError(error => of(RacesActions.loadYourBidFailure({ error }))),
@@ -57,7 +57,7 @@ export class RacesEffects {
       this.facade.yourBid$.pipe(map(bid => bid && !!bid.submitted)),
     ]).pipe(
       debounceTime(200),
-      switchMap(([season, race, submitted]) => submitted ? this.service.getBids(season.id, race.location.country) : of([])),
+      switchMap(([season, race, submitted]) => submitted ? this.service.getBids(season.id, race.round) : of([])),
       map(bids => RacesActions.loadBidsSuccess({ bids })),
       catchError(error => {
         const permissionError = error.code === 'permission-denied'
@@ -74,7 +74,7 @@ export class RacesEffects {
       this.facade.selectedRace$,
     ]).pipe(
       debounceTime(200),
-      switchMap(([season, race]) => this.service.getBid(season.id, race.location.country, uid)),
+      switchMap(([season, race]) => this.service.getBid(season.id, race.round, uid)),
       map(bid => RacesActions.loadBidSuccess({ bid })),
       catchError(error => of(RacesActions.loadBidFailure({ error }))),
       takeUntil(this.actions$.pipe(ofType(RacesActions.loadBid, PlayerActions.logoutPlayer))),
@@ -126,7 +126,7 @@ export class RacesEffects {
       this.playerFacade.player$
     ]).pipe(
       first(),
-      switchMap(([season, race, player]) => this.service.updateBid(season.id, race.location.country, player, bid)),
+      switchMap(([season, race, player]) => this.service.updateBid(season.id, race.round, player, bid)),
       map(() => RacesActions.updateYourBidSuccess()),
       catchError(error => of(RacesActions.updateYourBidFailure({ error }))),
     ))
@@ -139,7 +139,7 @@ export class RacesEffects {
       this.facade.selectedRace$,
     ]).pipe(
       first(),
-      switchMap(([season, race]) => this.service.updateRace(season.id, race.location.country, {drivers})),
+      switchMap(([season, race]) => this.service.updateRace(season.id, race.round, {drivers})),
       map(() => RacesActions.updateRaceDriversSuccess()),
       catchError(error => of(RacesActions.updateRaceDriversFailure({ error }))),
     ))
