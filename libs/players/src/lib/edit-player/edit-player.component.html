@@ -42,7 +42,7 @@
                 placeholder="Vælg navn" 
                 matInput 
                 formControlName="migration">
-                <mat-option *ngFor="let accountAndName of accountAndNames" [value]="accountAndName.playerName">
+                <mat-option *ngFor="let accountAndName of accountAndNames" [value]="accountAndName">
                   {{accountAndName.name}}
                 </mat-option>
               </mat-select>

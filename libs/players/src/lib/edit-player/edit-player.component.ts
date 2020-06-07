@@ -7,7 +7,7 @@ import { Player, Role } from '@f2020/data';
 import { truthy } from '@f2020/tools';
 import { UntilDestroy, untilDestroyed } from '@ngneat/until-destroy';
 import { Observable } from 'rxjs';
-import { first, pluck, switchMap } from 'rxjs/operators';
+import { first, pluck, switchMap, map } from 'rxjs/operators';
 
 @UntilDestroy()
 @Component({
@@ -52,7 +52,10 @@ export class EditPlayerComponent implements OnInit {
         bankAdmin: player.roles.includes('bank-admin'),
       }, { emitEvent: false });
       this.fg.get('balance').patchValue(player.balance || 0, { emitEvent: false });
-    })
+    });
+    this.fg.get('migration').valueChanges.pipe(
+      map(player => player.balance),
+    ).subscribe(balance => this.fg.get('balance').patchValue(balance))
   }
 
   updateRoles() {
@@ -73,7 +76,7 @@ export class EditPlayerComponent implements OnInit {
   }
 
   migrateAccount() {
-    const playerName = this.fg.get('migration').value;
+    const playerName = this.fg.get('migration').value.playerName;
     if (playerName) {
       this.player$.pipe(
         first(),
@@ -85,34 +88,35 @@ export class EditPlayerComponent implements OnInit {
 }
 
 const accountAndNames = [
-  { playerName: "flb", name: "Flemming Bregnvig" },
-  { playerName: "bartrup", name: "Michael Bartrup" },
-  { playerName: "ttp", name: "Thomas Trebbien Pedersen" },
-  { playerName: "peter", name: "Peter Thorup" },
-  { playerName: "nra", name: "Niels Henrik Rasmussen" },
-  { playerName: "killerkim", name: "Thomas Knudsen" },
-  { playerName: "palle", name: "Palle Bregnvig" },
-  { playerName: "mmathiesen", name: "Morten Mathiesen" },
-  { playerName: "tnl", name: "Thorbjørn Larsen" },
-  { playerName: "dalsten", name: "Jesper Dalsten" },
-  { playerName: "mhoejte", name: "Mogens Højte" },
-  { playerName: "nino", name: "Nino Stokbro Ag" },
-  { playerName: "fie", name: "Anne Sofie Bregnvig" },
-  { playerName: "rusche", name: "Christian Rusche" },
-  { playerName: "jacob", name: "Jacob Andersen" },
-  { playerName: "STR", name: "Stefan Trabolt" },
-  { playerName: "jette", name: "Jette Hansen" },
-  { playerName: "Alboreto", name: "Claus Jessing" },
-  { playerName: "katrine", name: "Katrine Jensen" },
-  { playerName: "laier", name: "Morten Laier" },
-  { playerName: "heidemeister", name: "Michael Heide" },
-  { playerName: "henrik", name: "Henrik Aakjær" },
-  { playerName: "kaare", name: "Kåre Pedersen" },
-  { playerName: "steffen", name: "Steffen Larsen" },
-  { playerName: "bruun", name: "Søren Bruun" },
-  { playerName: "weile", name: "Michael Weile" },
-  { playerName: "mathias", name: "Mathias Lorenz" },
-  { playerName: "brian", name: "Brian Hjorth" },
-  { playerName: "bakkekammen", name: "Michael Christensen" },
-  { playerName: "tobias", name: "Tobias Tvarnø" },
+  { playerName: 'flb', balance: 1699.00, name: 'Flemming Bregnvig' },
+  { playerName: 'bookie', balance: -4.00, name: 'My Bookie' },
+  { playerName: 'bartrup', balance: 1569.00, name: 'Michael Bartrup' },
+  { playerName: 'ttp', balance: 195.00, name: 'Thomas T Pedersen' },
+  { playerName: 'peter', balance: 429.00, name: 'Peter Thorup' },
+  { playerName: 'nra', balance: 362.00, name: 'Niels Henrik Rasmussen' },
+  { playerName: 'killerkim', balance: 0.00, name: 'Thomas Knudsen' },
+  { playerName: 'palle', balance: 2103.00, name: 'Palle Bregnvig' },
+  { playerName: 'mmathiesen', balance: 0.00, name: 'Morten Mathiesen' },
+  { playerName: 'tnl', balance: 827.00, name: 'Thorbjørn Larsen' },
+  { playerName: 'dalsten', balance: 20.00, name: 'Jesper Dalsten' },
+  { playerName: 'mhoejte', balance: 83.00, name: 'Mogens Højte' },
+  { playerName: 'nino', balance: 1675.00, name: 'Nino Stokbro Ag' },
+  { playerName: 'fie', balance: 54.00, name: 'Anne Sofie Bregnvig' },
+  { playerName: 'rusche', balance: 0.00, name: 'Christian Rusche' },
+  { playerName: 'jacob', balance: 1325.00, name: 'Jacob Andersen' },
+  { playerName: 'STR', balance: 0.00, name: 'Stefan Trabolt' },
+  { playerName: 'jette', balance: 506.00, name: 'Jette Hansen' },
+  { playerName: 'Alboreto', balance: 0.00, name: 'Claus Jessing' },
+  { playerName: 'katrine', balance: 0.00, name: 'Katrine Jensen' },
+  { playerName: 'laier', balance: 0.00, name: 'Morten Laier' },
+  { playerName: 'heidemeister', balance: 140.00, name: 'Michael Heide' },
+  { playerName: 'henrik', balance: 289.00, name: 'Henrik Aakjær' },
+  { playerName: 'kaare', balance: 0.00, name: 'Kåre Pedersen' },
+  { playerName: 'steffen', balance: 80.00, name: 'Steffen Larsen' },
+  { playerName: 'bruun', balance: 120.00, name: 'Søren Bruun' },
+  { playerName: 'weile', balance: 40.00, name: 'Michael Weile' },
+  { playerName: 'mathias', balance: 40.00, name: 'Mathias Lorenz' },
+  { playerName: 'brian', balance: 0.00, name: 'Brian Hjorth' },
+  { playerName: 'bakkekammen', balance: 0.00, name: 'Michael Christensen' },
+  { playerName: 'tobias', balance: 0.00, name: 'Tobias Tvarnø' },
 ];
