@@ -2,6 +2,7 @@ import { registerLocaleData } from '@angular/common';
 import localeDa from '@angular/common/locales/da';
 import { LOCALE_ID, NgModule } from '@angular/core';
 import { AngularFireModule } from '@angular/fire';
+import { AngularFirestoreModule } from '@angular/fire/firestore';
 import { FlexLayoutModule } from '@angular/flex-layout';
 import { GoogleMapsModule } from '@angular/google-maps';
 import { MatButtonModule } from '@angular/material/button';
@@ -50,6 +51,7 @@ const materialModule = [
     DriverModule,
     SeasonApiModule,
     AngularFireModule.initializeApp(environment.firebaseConfig),
+    AngularFirestoreModule.enablePersistence({ synchronizeTabs: true }),
     StoreModule.forRoot(reducers, {
       metaReducers,
       runtimeChecks: {
