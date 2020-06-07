@@ -1,10 +1,12 @@
-import { truthy } from '@f2020/tools';
 import { Component, OnInit } from '@angular/core';
+import { MatSnackBar } from '@angular/material/snack-bar';
 import { Router } from '@angular/router';
-import { filter, first, switchMap } from 'rxjs/operators';
+import { SwUpdate } from '@angular/service-worker';
+import { RacesActions, RacesFacade, SeasonActions, SeasonFacade } from '@f2020/api';
 import { DriversActions, DriversFacade } from '@f2020/driver';
-import { PlayerFacade, PlayerActions } from '@f2020/player';
-import { RacesFacade, RacesActions, SeasonFacade, SeasonActions } from '@f2020/api';
+import { PlayerActions, PlayerFacade } from '@f2020/player';
+import { truthy } from '@f2020/tools';
+import { filter, first, switchMap } from 'rxjs/operators';
 
 @Component({
   selector: 'f2020-root',
@@ -13,10 +15,13 @@ import { RacesFacade, RacesActions, SeasonFacade, SeasonActions } from '@f2020/a
 export class AppComponent implements OnInit {
 
   constructor(
+
     private seasonFacade: SeasonFacade,
     private playerFacade: PlayerFacade,
     private driverFacade: DriversFacade,
     private racesFacade: RacesFacade,
+    private updates: SwUpdate,
+    private snackBar: MatSnackBar,
     private router: Router) {
 
   }
@@ -39,5 +44,10 @@ export class AppComponent implements OnInit {
         this.router.navigate(['info', 'roles'])
       }
     });
+    this.updates.available.pipe(
+      switchMap(() => this.snackBar.open('Ny version klar', "OPDATER", { duration: 5000 }).onAction()),
+      switchMap(() => this.updates.activateUpdate()),
+      first(),
+    ).subscribe(() => location.reload());
   }
 }
