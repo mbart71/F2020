@@ -9,7 +9,7 @@ const transporter = nodemailer.createTransport({
     clientId: functions.config().oauth.client,
     clientSecret: functions.config().oauth.secret,
     refreshToken: functions.config().oauth.refresh,
-    accessToken: functions.config().ci.token
+    // accessToken: functions.config().ci.token
   }
 });
 
