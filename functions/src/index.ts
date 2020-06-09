@@ -10,7 +10,7 @@ export * from './app/account/transfer.call';
 
 export * from './app/transaction/balance.trigger';
 
-export * from './app/mail/noFunds.trigger';
+export * from './app/mail/no-funds.trigger';
 
 export * from './app/wbc/wbc-points.trigger';
 
