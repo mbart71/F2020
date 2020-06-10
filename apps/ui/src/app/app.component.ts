@@ -34,12 +34,14 @@ export class AppComponent implements OnInit {
     this.playerFacade.authorized$.pipe(
       filter(authorized => authorized),
       switchMap(() => this.playerFacade.player$),
-      first(),
     ).subscribe(player => {
       if (player.roles && player.roles.includes('player')) {
         this.seasonFacade.dispatch(SeasonActions.loadSeason());
         this.racesFacade.dispatch(RacesActions.loadRaces());
         this.driverFacade.dispatch(DriversActions.loadDrivers());
+        if (this.router.url === '/info/roles') {
+          this.router.navigate(['/']);
+        }
       } else {
         this.router.navigate(['info', 'roles'])
       }
