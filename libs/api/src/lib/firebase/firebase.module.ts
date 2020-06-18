@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { InjectionToken, ModuleWithProviders, NgModule, Inject } from "@angular/core";
+import { InjectionToken, NgModule } from "@angular/core";
 // Firebase App (the core Firebase SDK) is always required and must be listed first
 import * as firebase from "firebase/app";
 // Add the Firebase products that you want to use
@@ -21,5 +21,10 @@ export class FirebaseModule {
 
   constructor() {
     FirebaseModule.functions = firebase.app().functions('europe-west1');
+  }
+  
+  static setupMessaging(pubKey: string): void {
+    const messaging = firebase.messaging();
+    messaging.usePublicVapidKey(pubKey);
   }
 }

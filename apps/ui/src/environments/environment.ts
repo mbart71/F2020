@@ -14,6 +14,9 @@ export const environment = {
     appId: "1:657968084413:web:9a4fa397037ae453df4ed4",
     measurementId: "G-Q2XDV9KH10"
   },
+  messaging: {
+    pubKey: 'BEKUF0EpZE-5I7XkoF_d35UIWTgTk7kYALgG4zWSPjoNinzKhQxxBCPanSFdzp3rnWjymIe5muXXYUE8ZfA_wLo'
+  },
   initialBid: {
     qualify: ['hamilton', 'bottas', 'leclerc', 'vettel', 'max_verstappen', 'albon'],
     fastestDriver: ['hamilton'],

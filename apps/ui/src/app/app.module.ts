@@ -78,6 +78,7 @@ export class AppModule {
   constructor() {
     DateTime.local().setLocale('da');
     registerLocaleData(localeDa);
+    FirebaseModule.setupMessaging(environment.messaging.pubKey);
   }
 }
 
