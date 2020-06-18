@@ -3,7 +3,7 @@ import { AngularFirestore } from '@angular/fire/firestore';
 import { Bid, firestoreUtils, IRace, IRaceResult, mapper, Player, IQualifyResult } from '@f2020/data';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
-import { GoogleFunctions } from '../../firebase';
+import { GoogleFunctions } from '@f2020/firebase';
 import { SeasonService } from './../../season/service/season.service';
 import { ErgastService } from '../../service/ergast.service';
 

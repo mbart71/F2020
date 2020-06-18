@@ -4,7 +4,7 @@ import { AngularFirestore } from '@angular/fire/firestore';
 import { converter, Transaction } from '@f2020/data';
 import { firestore } from "firebase";
 import { Observable } from 'rxjs';
-import { GoogleFunctions } from '@f2020/api';
+import { GoogleFunctions } from '@f2020/firebase';
 
 @Injectable()
 export class AccountService {

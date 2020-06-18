@@ -2,7 +2,7 @@ import { Inject, Injectable } from "@angular/core";
 import { AngularFirestore } from '@angular/fire/firestore';
 import { Player } from '@f2020/data';
 import { PlayerService } from '@f2020/player';
-import { GoogleFunctions } from '../../firebase';
+import { GoogleFunctions } from '@f2020/firebase';
 
 @Injectable({
   providedIn: 'root'

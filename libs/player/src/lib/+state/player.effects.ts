@@ -1,9 +1,10 @@
-import { Injectable } from '@angular/core';
+import { Injectable, Inject } from '@angular/core';
 import { Actions, createEffect, ofType } from '@ngrx/effects';
 import { of } from 'rxjs';
-import { catchError, concatMap, map } from 'rxjs/operators';
+import { catchError, concatMap, map, switchMap, mapTo } from 'rxjs/operators';
 import { PlayerActions } from './player.actions';
 import { PlayerService } from '../service/player.service';
+import { GoogleMessaging } from '@f2020/firebase';
 
 
 @Injectable({
@@ -25,11 +26,18 @@ export class PlayerEffects {
       )),
     ),
   );  
+  loadtoken$ = createEffect(() => this.actions$.pipe(
+    ofType(PlayerActions.loadMessagingToken),
+    concatMap(() => this.messaging.getToken()
+    .then(token => PlayerActions.updatePlayer({token}))
+    .catch(error => PlayerActions.loadMessingTokenFailure({error})
+    ))
+  ));
   updatePlayer$ = createEffect(() =>
     this.actions$.pipe(
       ofType(PlayerActions.updatePlayer),
-      concatMap(({receiveReminders}) => this.service.updatePlayer({receiveReminders}).pipe(
-        map(partialPlayer => PlayerActions.updatePlayerSuccess({partialPlayer})),
+      concatMap((partialPlayer) => this.service.updatePlayer(partialPlayer).pipe(
+        mapTo(PlayerActions.updatePlayerSuccess({partialPlayer})),
         catchError(error => of(PlayerActions.updatePlayerFailure({ error }))),
       )),
     ),
@@ -44,6 +52,6 @@ export class PlayerEffects {
     ),
   );
 
-  constructor(private actions$: Actions, private service: PlayerService) {
+  constructor(private actions$: Actions, private service: PlayerService, @Inject(GoogleMessaging) private messaging: firebase.messaging.Messaging) {
   }
 }

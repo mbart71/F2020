@@ -21,7 +21,7 @@ export const PlayerActions = {
 
   updatePlayer: createAction(
     '[Player] Update player from sidebar',
-    props<{receiveReminders: boolean}>()
+    props<{receiveReminders?: boolean, token?: string}>()
   ),
 
   updatePlayerSuccess: createAction(
@@ -43,6 +43,15 @@ export const PlayerActions = {
   logoutPlayerFailure: createAction(
     '[Player] Logout player Failure',
     props<{ error: any }>(),
+  ),
+
+  loadMessagingToken: createAction(
+    '[Player] Load messaging token'
+  ),
+
+  loadMessingTokenFailure: createAction(
+    '[Player] Logout player Failure',
+    props<{ error: any; }>(),
   ),
 
 }

@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Inject } from '@angular/core';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { Router } from '@angular/router';
 import { SwUpdate } from '@angular/service-worker';
@@ -7,15 +7,16 @@ import { DriversActions, DriversFacade } from '@f2020/driver';
 import { PlayerActions, PlayerFacade } from '@f2020/player';
 import { truthy } from '@f2020/tools';
 import { filter, first, switchMap } from 'rxjs/operators';
+import { GoogleMessaging } from '@f2020/firebase';
 
 @Component({
   selector: 'f2020-root',
-  templateUrl: 'app.component.html',
+  templateUrl: './app.component.html',
 })
 export class AppComponent implements OnInit {
 
   constructor(
-
+    @Inject(GoogleMessaging) private messaging: firebase.messaging.Messaging,
     private seasonFacade: SeasonFacade,
     private playerFacade: PlayerFacade,
     private driverFacade: DriversFacade,
@@ -27,7 +28,6 @@ export class AppComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.playerFacade.dispatch(PlayerActions.loadPlayer());
     this.playerFacade.unauthorized$.pipe(
       truthy(),
     ).subscribe(() => this.router.navigate(['login']));
@@ -51,5 +51,6 @@ export class AppComponent implements OnInit {
       switchMap(() => this.updates.activateUpdate()),
       first(),
     ).subscribe(() => location.reload());
+    this.messaging.onMessage(message => this.snackBar.open(message.notification.body, null, {duration: 2000}));
   }
 }

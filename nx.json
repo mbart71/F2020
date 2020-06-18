@@ -65,6 +65,9 @@
     },
     "wbc": {
       "tags": []
+    },
+    "firebase": {
+      "tags": []
     }
   },
   "tasksRunnerOptions": {
