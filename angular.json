@@ -39,6 +39,10 @@
                 {
                   "replace": "apps/ui/src/environments/environment.ts",
                   "with": "apps/ui/src/environments/environment.prod.ts"
+                },
+                {
+                  "replace": "apps/ui/src/firebase-messaging-sw.js",
+                  "with": "apps/ui/src/environments/firebase-messaging-sw.prod.js"
                 }
               ],
               "optimization": true,
