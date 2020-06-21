@@ -1,5 +1,6 @@
+import { LandingModule } from '@f2020/landing';
 import { RouterModule, Routes } from '@angular/router';
-import { LandingComponent, LoginComponent } from '@f2020/shared';
+import { LoginComponent } from '@f2020/shared';
 
 const routes: Routes = [
   {
@@ -8,7 +9,7 @@ const routes: Routes = [
   },
   {
     path: '',
-    component: LandingComponent,
+    loadChildren: () => import('@f2020/landing').then(m => m.LandingModule),
   },
   {
     path: 'race',

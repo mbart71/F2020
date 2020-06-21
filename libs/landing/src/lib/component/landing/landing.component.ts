@@ -1,12 +1,12 @@
+import { PlayerFacade } from '@f2020/player';
+import { Player } from '@f2020/data';
 import { Component, OnInit } from '@angular/core';
 import { Observable } from 'rxjs';
-import { Player } from '@f2020/data';
-import { PlayerFacade } from '@f2020/player';
 
 @Component({
-  selector: 'sha-landing',
+  selector: 'f2020-landing',
   templateUrl: './landing.component.html',
-  styleUrls: ['./landing.component.scss'],
+  styleUrls: ['./landing.component.scss']
 })
 export class LandingComponent implements OnInit {
 
