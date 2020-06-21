@@ -1,5 +1,6 @@
 import * as functions from 'firebase-functions';
 import * as admin from 'firebase-admin';
+
 admin.initializeApp(functions.config().firebase)
 
 export * from './app/bid/bid.call';
@@ -22,6 +23,7 @@ export * from './app/race/reminder.pubsub';
 export * from './app/player/migrate-account.call';
 export * from './app/player/manual-balance.call';
 export * from './app/player/role.trigger';
+export * from './app/player/new-player.trigger';
 
 export * from './app/player/welcome.trigger';
 

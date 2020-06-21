@@ -1,10 +1,10 @@
-import { Injectable, Inject } from '@angular/core';
+import { Inject, Injectable } from '@angular/core';
+import { GoogleMessaging } from '@f2020/firebase';
 import { Actions, createEffect, ofType } from '@ngrx/effects';
 import { of } from 'rxjs';
-import { catchError, concatMap, map, switchMap, mapTo } from 'rxjs/operators';
-import { PlayerActions } from './player.actions';
+import { catchError, concatMap, map, mapTo } from 'rxjs/operators';
 import { PlayerService } from '../service/player.service';
-import { GoogleMessaging } from '@f2020/firebase';
+import { PlayerActions } from './player.actions';
 
 
 @Injectable({
@@ -25,19 +25,19 @@ export class PlayerEffects {
         catchError(error => of(PlayerActions.loadPlayerFailure({ error }))),
       )),
     ),
-  );  
+  );
   loadtoken$ = createEffect(() => this.actions$.pipe(
     ofType(PlayerActions.loadMessagingToken),
     concatMap(() => this.messaging.getToken()
-    .then(token => PlayerActions.updatePlayer({token}))
-    .catch(error => PlayerActions.loadMessingTokenFailure({error})
-    ))
+      .then(token => PlayerActions.updatePlayer({ partialPlayer: { tokens: [token] } }))
+      .catch(error => PlayerActions.loadMessingTokenFailure({ error })
+      ))
   ));
   updatePlayer$ = createEffect(() =>
     this.actions$.pipe(
       ofType(PlayerActions.updatePlayer),
-      concatMap((partialPlayer) => this.service.updatePlayer(partialPlayer).pipe(
-        mapTo(PlayerActions.updatePlayerSuccess({partialPlayer})),
+      concatMap(({ partialPlayer }) => this.service.updatePlayer(partialPlayer).pipe(
+        mapTo(PlayerActions.updatePlayerSuccess({ partialPlayer })),
         catchError(error => of(PlayerActions.updatePlayerFailure({ error }))),
       )),
     ),

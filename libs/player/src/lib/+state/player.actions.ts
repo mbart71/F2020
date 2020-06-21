@@ -21,7 +21,7 @@ export const PlayerActions = {
 
   updatePlayer: createAction(
     '[Player] Update player from sidebar',
-    props<{receiveReminders?: boolean, token?: string}>()
+    props<{partialPlayer: {receiveReminders?: boolean, tokens?: string[]}}>()
   ),
 
   updatePlayerSuccess: createAction(

@@ -34,7 +34,11 @@ const playerReducer = createReducer(
   ),
   on(PlayerActions.updatePlayerSuccess, (state, {partialPlayer}) => ({...state, player: {...state.player, ...partialPlayer}})),
   on(PlayerActions.loadPlayerUnauthorized, state => ({ ...state, unauthorized: true, authorized: false, loading: false })),
-  on(PlayerActions.loadPlayerFailure, PlayerActions.updatePlayerFailure, (state, { error }) => ({ ...state, error }))
+  on(PlayerActions.loadPlayerFailure, PlayerActions.updatePlayerFailure, 
+    (state, { type, error }) => {
+      console.error(type, error);
+      return { ...state, error: error['message'] ?? error, updating: false, loaded: false };
+    })
 );
 
 export function reducer(state: State | undefined, action: Action) {
