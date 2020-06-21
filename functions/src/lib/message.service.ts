@@ -10,7 +10,7 @@ export const sendMessage = (tokens: string[], title: string, body: string, data?
     },
     webpush: {
       notification: {
-        badge: 'https://f2020.bregnvig.dk/assets/messaging/badge.png',
+        badge: 'https://f2020.bregnvig.dk/assets/messaging/badge.v2.png',
         icon: 'https://f2020.bregnvig.dk/assets/icons/icon-192x192.png'
       }
     }
