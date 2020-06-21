@@ -68,6 +68,9 @@
     },
     "firebase": {
       "tags": []
+    },
+    "landing": {
+      "tags": []
     }
   },
   "tasksRunnerOptions": {
