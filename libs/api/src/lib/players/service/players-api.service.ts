@@ -10,7 +10,7 @@ import { GoogleFunctions } from '@f2020/firebase';
 export class PlayersApiService {
   constructor(
     private afs: AngularFirestore,
-    @Inject(GoogleFunctions) private functions: () => firebase.functions.Functions) {
+    @Inject(GoogleFunctions) private functions: firebase.functions.Functions) {
   }
 
   updatePlayer(uid: string, player: Partial<Player>): Promise<void> {
@@ -18,9 +18,9 @@ export class PlayersApiService {
   }
 
   updateBalance(uid: string, balance: number): Promise<boolean> {
-    return this.functions().httpsCallable('manualBalance')({uid, balance}).then(() => true);
+    return this.functions.httpsCallable('manualBalance')({uid, balance}).then(() => true);
   }
   migrateAccount(uid: string, playerName: string): Promise<boolean> {
-    return this.functions().httpsCallable('migrateAccount')({uid, playerName}).then(() => true);
+    return this.functions.httpsCallable('migrateAccount')({uid, playerName}).then(() => true);
   }
 }

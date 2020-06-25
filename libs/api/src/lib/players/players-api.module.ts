@@ -5,6 +5,7 @@ import { EffectsModule } from "@ngrx/effects";
 import * as fromPlayers from "./+state/players.reducer";
 import { PlayersEffects } from "./+state/players.effects";
 import { PlayersFacade } from "./+state/players.facade";
+import { FirebaseModule } from '@f2020/firebase';
 
 @NgModule({
   imports: [
@@ -13,7 +14,8 @@ import { PlayersFacade } from "./+state/players.facade";
       fromPlayers.PLAYERS_FEATURE_KEY,
       fromPlayers.reducer
     ),
-    EffectsModule.forFeature([PlayersEffects])
+    EffectsModule.forFeature([PlayersEffects]),
+    FirebaseModule,
   ],
   providers: [PlayersFacade, PlayersEffects]
 })

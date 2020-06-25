@@ -15,7 +15,7 @@ export class RacesService {
   constructor(
     private afs: AngularFirestore, 
     private ergastService: ErgastService,
-    @Inject(GoogleFunctions) private functions: () => firebase.functions.Functions) {
+    @Inject(GoogleFunctions) private functions: firebase.functions.Functions) {
 
   }
 
@@ -60,10 +60,10 @@ export class RacesService {
 
 
   async submitBid(bid: Bid): Promise<true> {
-    return this.functions().httpsCallable('submitBid')(bid).then(() => true);
+    return this.functions.httpsCallable('submitBid')(bid).then(() => true);
   }
 
   async submitResult(result: Bid): Promise<true> {
-    return this.functions().httpsCallable('submitResult')(result).then(() => true);
+    return this.functions.httpsCallable('submitResult')(result).then(() => true);
   }
 }

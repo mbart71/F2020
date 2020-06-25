@@ -1,7 +1,6 @@
-import { first } from 'rxjs/operators';
-import { FirebaseModule } from '@f2020/firebase';
 import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
+import { FirebaseModule } from '@f2020/firebase';
 import { EffectsModule } from '@ngrx/effects';
 import { StoreModule } from '@ngrx/store';
 import { PlayerActions } from './+state/player.actions';
@@ -20,6 +19,5 @@ import * as fromPlayer from './+state/player.reducer';
 export class PlayerModule {
   constructor(private facade: PlayerFacade) {
     this.facade.dispatch(PlayerActions.loadPlayer());
-    this.facade.authorized$.pipe(first()).subscribe(() => this.facade.dispatch(PlayerActions.loadMessagingToken()));
   }
 }

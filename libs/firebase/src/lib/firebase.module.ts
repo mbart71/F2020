@@ -5,9 +5,10 @@ import * as firebase from "firebase/app";
 // Add the Firebase products that you want to use
 import "firebase/auth";
 import "firebase/firestore";
+import { noop } from 'rxjs';
 
-export const GoogleFunctions = new InjectionToken<() => firebase.functions.Functions>('GOOGLE_FUNCTIONS');
-export const GoogleMessaging = new InjectionToken<() => firebase.messaging.Messaging>('GOOGLE_MESSAGING');
+export const GoogleFunctions = new InjectionToken<firebase.functions.Functions>('GOOGLE_FUNCTIONS');
+export const GoogleMessaging = new InjectionToken<firebase.messaging.Messaging>('GOOGLE_MESSAGING');
 
 @NgModule({
   imports: [CommonModule],
@@ -25,9 +26,15 @@ export class FirebaseModule {
         {
           provide: GoogleMessaging,
           useFactory: () => {
-            const messaging = firebase.messaging();
-            messaging.usePublicVapidKey(pubKey);
-            return messaging;
+            try {
+              const messaging = firebase.messaging();
+              messaging.usePublicVapidKey(pubKey);
+              return messaging;
+            } catch {
+              return {
+                onMessage: noop
+              };
+            }
           }
         }
       ]
