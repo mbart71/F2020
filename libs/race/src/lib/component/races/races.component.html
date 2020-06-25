@@ -8,7 +8,12 @@
     <p matLine [ngSwitch]="race.state">
       <span *ngSwitchCase="'closed'">Afventer resultat</span>
       <span *ngSwitchCase="'completed'">Afgjort</span>
-      <span *ngSwitchDefault>{{race.open | relativeToNow}}</span>
+      <span *ngSwitchDefault>
+        <ng-container *ngIf="race.open > now; else closes">
+          Åbner {{race.open | relativeToNow}}
+        </ng-container>
+        <ng-template #closes>Lukker {{race.close | relativeToNow}}</ng-template>
+      </span>
     </p>
   </mat-list-item>
 </mat-action-list>

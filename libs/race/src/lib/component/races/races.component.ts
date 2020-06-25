@@ -1,3 +1,4 @@
+import { DateTime } from 'luxon';
 import { filter } from 'rxjs/operators';
 import { Component, OnInit } from '@angular/core';
 import { Observable } from 'rxjs';
@@ -12,6 +13,7 @@ import { RacesFacade } from '@f2020/api';
 export class RacesComponent implements OnInit {
 
   races$: Observable<IRace[]>;
+  now = DateTime.local();
 
   constructor(private facade: RacesFacade) {
   }
