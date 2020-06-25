@@ -1,5 +1,6 @@
 import { DateTime } from 'luxon';
-import { firestore } from 'firebase';
+import * as firebase from 'firebase/app';
+import 'firebase/firestore';
 
 export const regexISODate = /^(\d{4})-(\d{2})-(\d{2})T(\d{2}):(\d{2}):(\d{2}(?:\.{0,1}\d*))(?:Z|(\+|-)([\d|:]*))?$/;
 
@@ -36,8 +37,8 @@ export const firestoreUtils = {
     });
     return input;
   },
-  convertTimestamp(input: firestore.Timestamp): DateTime | any {
-    if (input instanceof firestore.Timestamp) {
+  convertTimestamp(input: firebase.firestore.Timestamp): DateTime | any {
+    if (input instanceof firebase.firestore.Timestamp) {
       return DateTime.fromJSDate(input.toDate());
     }
     return input;
@@ -48,7 +49,7 @@ export const firestoreUtils = {
     }
     Object.keys(input).map(key => {
       const value = input[key];
-      if (value instanceof firestore.Timestamp) {
+      if (value instanceof firebase.firestore.Timestamp) {
         input[key] = firestoreUtils.convertTimestamp(value);
       } else if (typeof value === 'object') {
         firestoreUtils.convertTimestamps(value);
@@ -56,9 +57,9 @@ export const firestoreUtils = {
     });
     return input;
   },
-  convertDateTime(input: any): any | firestore.Timestamp {
+  convertDateTime(input: any): any | firebase.firestore.Timestamp {
     if (input instanceof DateTime) {
-      return firestore.Timestamp.fromMillis(input.toMillis());
+      return firebase.firestore.Timestamp.fromMillis(input.toMillis());
     }
     return input;
   },

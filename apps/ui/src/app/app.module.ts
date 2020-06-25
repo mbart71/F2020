@@ -1,3 +1,4 @@
+import { initializeApp } from 'firebase/app';
 import { registerLocaleData } from '@angular/common';
 import localeDa from '@angular/common/locales/da';
 import { LOCALE_ID, NgModule } from '@angular/core';
@@ -21,7 +22,12 @@ import { SharedModule } from '@f2020/shared';
 import { EffectsModule } from '@ngrx/effects';
 import { StoreModule } from '@ngrx/store';
 import { StoreDevtoolsModule } from '@ngrx/store-devtools';
-import * as firebase from "firebase/app";
+import * as firebase from 'firebase/app';
+import 'firebase/app';
+import 'firebase/auth';
+import 'firebase/firestore';
+import 'firebase/functions';
+import 'firebase/messaging';
 import { DateTime } from 'luxon';
 import { environment } from '../environments/environment';
 import { AppRoutingModule } from './app-routing.module';
@@ -36,7 +42,7 @@ const materialModule = [
   MatButtonModule,
   MatToolbarModule,
   MatSnackBarModule,
-]
+];
 
 @NgModule({
   declarations: [AppComponent],

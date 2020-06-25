@@ -1,10 +1,9 @@
 import { CommonModule } from '@angular/common';
 import { InjectionToken, ModuleWithProviders, NgModule } from "@angular/core";
-// Firebase App (the core Firebase SDK) is always required and must be listed first
-import * as firebase from "firebase/app";
-// Add the Firebase products that you want to use
-import "firebase/auth";
-import "firebase/firestore";
+import * as firebase from 'firebase/app';
+import 'firebase/app';
+import 'firebase/messaging';
+import 'firebase/functions';
 import { noop } from 'rxjs';
 
 export const GoogleFunctions = new InjectionToken<firebase.functions.Functions>('GOOGLE_FUNCTIONS');
@@ -27,9 +26,9 @@ export class FirebaseModule {
           provide: GoogleMessaging,
           useFactory: () => {
             try {
-              const messaging = firebase.messaging();
-              messaging.usePublicVapidKey(pubKey);
-              return messaging;
+              const _messaging = firebase.messaging();
+              _messaging.usePublicVapidKey(pubKey);
+              return _messaging;
             } catch {
               return {
                 onMessage: noop

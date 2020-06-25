@@ -1,9 +1,11 @@
 import { Injectable } from '@angular/core';
 import { AngularFirestore } from '@angular/fire/firestore';
 import { Player } from '@f2020/data';
-import * as firebase from 'firebase/app';
 import { merge, Observable, ReplaySubject } from 'rxjs';
 import { filter, first, mapTo, switchMap } from 'rxjs/operators';
+import * as firebase from 'firebase/app';
+import 'firebase/auth';
+import 'firebase/firestore';
 
 @Injectable({
   providedIn: 'root',

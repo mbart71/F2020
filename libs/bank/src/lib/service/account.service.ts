@@ -2,8 +2,10 @@ import { DateTime } from 'luxon';
 import { Inject, Injectable } from '@angular/core';
 import { AngularFirestore } from '@angular/fire/firestore';
 import { converter, Transaction } from '@f2020/data';
-import { firestore } from "firebase";
 import { Observable } from 'rxjs';
+import * as firebase from 'firebase/app';
+import 'firebase/firestore';
+
 import { GoogleFunctions } from '@f2020/firebase';
 
 @Injectable()
@@ -29,7 +31,7 @@ export class AccountService {
   getTransactions(uid: string, start: DateTime, numberOfTransactions: number): Observable<Transaction[]> {
     return this.afs.collection<Transaction>(AccountService.transactionsURL, ref => ref
       .where('involved', 'array-contains', uid)
-      .where('date', '<', firestore.Timestamp.fromDate(start.toJSDate()))
+      .where('date', '<', firebase.firestore.Timestamp.fromDate(start.toJSDate()))
       .orderBy('date', 'desc')
       .limit(numberOfTransactions)
       .withConverter(converter.transaction)
