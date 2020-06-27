@@ -28,17 +28,20 @@ export const mailReminderCrontab = functions.pubsub.schedule('11 9 * * *')
     .then(async race => {
       if (timespan(3, race!.close) || timespan(1, race!.close)) {
         const players = await playerWithoutBid();
-        const closeDay = race!.close.setLocale('da-DK').toFormat('cccc');
-        const closeTime = race!.close.toFormat('T');
+        const closeDay = race!.close.setLocale('da').toFormat('cccc');
+        const closeTime = race!.close.setLocale('da').toFormat('T');
         return Promise.all(players.map(player => {
+          console.log(`Should mail to ${player.displayName}`);
+          const results = [
+            sendMail(player.email, `Formel 1 vædemål ${race!.name}`, mailBody(player, race!, closeDay, closeTime)).then((msg) => {
+              console.log(`sendMail result :(${msg})`);
+            })
+          ];
           if (player.tokens && player.tokens.length) {
             console.log(`Should send message to ${player.displayName}`);
-            return sendMessage(player.tokens, `Husk at spille`, messageBody(race!, closeDay, closeTime));
+            results.push(sendMessage(player.tokens, `Husk at spille`, messageBody(race!, closeDay, closeTime)));
           }
-          console.log(`Should mail to ${player.displayName}`);
-          return sendMail(player.email, `Formel 1 vædemål ${race!.name}`, mailBody(player, race!, closeDay, closeTime)).then((msg) => {
-            console.log(`sendMail result :(${msg})`);
-          });
+          return Promise.all(results);
         }));
       }
       return Promise.resolve(true);
