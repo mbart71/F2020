@@ -15,10 +15,9 @@ export const wbcPointsTrigger = functions.region('europe-west1').firestore.docum
     const after: IRace = change.after.data() as IRace;
     if (before.state === 'closed' && after.state === 'completed') {
       const bids: Bid[] = await db.collection(`${seasonsURL}/${context.params.seasonId}/${racesURL}/${context.params.round}/bids`)
-        .where('points', '>', 0)
+        .where('submitted', '==', true)
         .orderBy('points', 'desc')
         .orderBy('polePositionTimeDiff', 'asc')
-        .limit(10)
         .get()
         .then(snapshot => snapshot.docs.map(s => s.data() as Bid));
       await createWBCRace(after, bids, db.doc(`${seasonsURL}/${context.params.seasonId}`));
@@ -37,7 +36,7 @@ const createWBCRace = async (race: IRace, bids: Bid[], ref: admin.firestore.Docu
         photoURL: b.player?.photoURL ?? null,
         uid: b.player?.uid
       } as Player,
-      points: wbcPoints[index]
+      points: wbcPoints[index] || 0
     }))
   }
   bids.forEach((b, index) => {
