@@ -32,8 +32,6 @@ const buildResult = async (result: Bid) => {
   const winners = calculatedResults.filter(r => r.points! === calculatedResults[0].points!);
   const winningPrice = Math.floor(calculatedResults.length * 20 / winners.length);
 
-  // TODO WBC
-
   return db.runTransaction(transaction => {
     winners.forEach(winner => {
       transferInTransaction({
