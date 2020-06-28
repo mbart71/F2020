@@ -63,7 +63,7 @@ export class AppComponent implements OnInit {
       }
     });
     this.updates.available.pipe(
-      switchMap(() => this.snackBar.open('🤩 Ny version klar', "OPDATER", { duration: 10000 }).onAction()),
+      switchMap(() => this.snackBar.open('🤩 Ny version klar', 'OPDATER', { duration: 10000 }).onAction()),
       switchMap(() => this.updates.activateUpdate()),
       first(),
     ).subscribe(() => location.reload());

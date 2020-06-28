@@ -35,9 +35,9 @@ export class RacesEffects {
   loadYourBid$ = createEffect(() => this.actions$.pipe(
     ofType(RacesActions.loadYourBid),
     concatMap(() => combineLatest([
-      this.seasonFacade.season$.pipe(tap(_ => console.log('S', _))),
-      this.facade.selectedRace$.pipe(tap(_ => console.log('SR', _))),
-      this.playerFacade.player$.pipe(tap(_ => console.log('p', _))),
+      this.seasonFacade.season$,
+      this.facade.selectedRace$,
+      this.playerFacade.player$,
     ]).pipe(
       switchMap(([season, race, player]) => this.service.getBid(season.id, race.round, player.uid)),
       map(bid => bid || {}),

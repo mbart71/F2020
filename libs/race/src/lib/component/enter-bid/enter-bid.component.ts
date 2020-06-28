@@ -7,7 +7,7 @@ import { shareLatest } from '@f2020/tools';
 import { UntilDestroy, untilDestroyed } from '@ngneat/until-destroy';
 import { DateTime } from 'luxon';
 import { Observable } from 'rxjs';
-import { debounceTime, filter, pairwise, switchMapTo, tap } from 'rxjs/operators';
+import { debounceTime, filter, first, pairwise, switchMapTo, tap } from 'rxjs/operators';
 
 @UntilDestroy()
 @Component({
@@ -36,7 +36,7 @@ export class EnterBidComponent implements OnInit {
     this.updating$ = this.facade.updating$;
     this.facade.yourBid$.pipe(
       filter(bid => bid && !bid.submitted),
-      untilDestroyed(this),
+      first(),
     ).subscribe(bid => this.bidControl.patchValue(bid || {}, {emitEvent: false}));
     this.facade.yourBid$.pipe(
       filter(bid => bid && bid.submitted),
