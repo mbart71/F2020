@@ -127,7 +127,7 @@ describe('WBC points', () => {
       })
   });
 
-  it('should only include bids that got some points', async () => {
+  it('should include bids, even if they got zero points', async () => {
     await writeBid({ ...clone(collections.bids[0]), submitted: true }, collections.players.admin.uid, collections.races[1].round);
     await writeBid({ ...clone(collections.bids[1]), submitted: true }, collections.players.player.uid, collections.races[1].round);
     await writeBid({ ...clone(collections.bids[2]), submitted: true }, collections.players.player1.uid, collections.races[1].round);
@@ -138,7 +138,8 @@ describe('WBC points', () => {
       .then(() => readWBC())
       .then((wbc: WBC) => {
         expect(wbc.length).toEqual(1);
-        expect(wbc[0].players.length).toBe(2)
+        expect(wbc[0].players.length).toBe(3);
+        expect(wbc[0].players[2].points).toBe(0);
       })
   });
 
