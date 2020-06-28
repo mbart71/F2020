@@ -50,7 +50,7 @@ export const PlayerActions = {
   ),
 
   loadMessingTokenFailure: createAction(
-    '[Player] Logout player Failure',
+    '[Player] Load message token Failure',
     props<{ error: any; }>(),
   ),
 

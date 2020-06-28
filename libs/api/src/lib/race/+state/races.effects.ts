@@ -5,7 +5,7 @@ import { truthy } from '@f2020/tools';
 import { Actions, createEffect, ofType } from '@ngrx/effects';
 import { fetch } from '@nrwl/angular';
 import { combineLatest, of } from 'rxjs';
-import { catchError, concatMap, debounceTime, first, map, switchMap, takeUntil } from 'rxjs/operators';
+import { catchError, concatMap, debounceTime, first, map, switchMap, takeUntil, tap, withLatestFrom, filter } from 'rxjs/operators';
 import { SeasonFacade } from '../../season/+state/season.facade';
 import { RacesService } from '../service/races.service';
 import { RacesActions } from './races.actions';
@@ -35,9 +35,9 @@ export class RacesEffects {
   loadYourBid$ = createEffect(() => this.actions$.pipe(
     ofType(RacesActions.loadYourBid),
     concatMap(() => combineLatest([
-      this.seasonFacade.season$,
-      this.facade.selectedRace$,
-      this.playerFacade.player$
+      this.seasonFacade.season$.pipe(tap(_ => console.log('S', _))),
+      this.facade.selectedRace$.pipe(tap(_ => console.log('SR', _))),
+      this.playerFacade.player$.pipe(tap(_ => console.log('p', _))),
     ]).pipe(
       switchMap(([season, race, player]) => this.service.getBid(season.id, race.round, player.uid)),
       map(bid => bid || {}),
@@ -126,7 +126,7 @@ export class RacesEffects {
       this.playerFacade.player$
     ]).pipe(
       first(),
-      switchMap(([season, race, player]) => this.service.updateBid(season.id, race.round, player, bid)),
+      switchMap(( [season, race, player]) => this.service.updateBid(season.id, race.round, player, bid)),
       map(() => RacesActions.updateYourBidSuccess()),
       catchError(error => of(RacesActions.updateYourBidFailure({ error }))),
     ))

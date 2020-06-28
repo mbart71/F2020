@@ -1,6 +1,7 @@
 import { Action, createReducer, on } from '@ngrx/store';
 import { PlayerActions } from './player.actions';
 import { Player } from '@f2020/data';
+import * as equal from 'fast-deep-equal/es6'
 
 
 export const PLAYER_FEATURE_KEY = 'player';
@@ -32,7 +33,13 @@ const playerReducer = createReducer(
   on(PlayerActions.loadPlayerSuccess, (state, { player }) => 
     ({ ...state, loading: false, loaded: true, unauthorized: false, authorized: true, player })
   ),
-  on(PlayerActions.updatePlayerSuccess, (state, {partialPlayer}) => ({...state, player: {...state.player, ...partialPlayer}})),
+  on(PlayerActions.updatePlayerSuccess, (state, {partialPlayer}) => {
+    const newPlayer = { ...state.player, ...partialPlayer };
+    if (equal(newPlayer, state.player) === false) {
+      return ({...state, player: {...state.player, ...partialPlayer}});
+    }
+    return state;
+  }),
   on(PlayerActions.loadPlayerUnauthorized, state => ({ ...state, unauthorized: true, authorized: false, loading: false })),
   on(PlayerActions.loadPlayerFailure, PlayerActions.updatePlayerFailure, 
     (state, { type, error }) => {

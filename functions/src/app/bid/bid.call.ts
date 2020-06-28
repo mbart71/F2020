@@ -22,27 +22,29 @@ export const submitBid = functions.region('europe-west1').https.onCall(async (da
 });
 
 const buildBid = async (player: PlayerImpl, bid: Bid) => {
+
   const season = await currentSeason();
   const race = await getCurrentRace('open');
   const bookie = await getBookie();
-
+  
+  
   if (!season || !race) {
     throw logAndCreateError('failed-precondition', 'Missing season or race', season?.name, race?.name);
   }
 
-  const db = admin.firestore();
-  const doc = db.doc(`${seasonsURL}/${season.id}/${racesURL}/${race.round}/bids/${player.uid}`) as admin.firestore.DocumentReference<Bid>;
-
   if (!bid) {
     throw logAndCreateError('not-found', `No bid exists for uid: ${player.uid} for race ${race.round}`);
   }
+
   if (player.uid !== bid.player?.uid) {
     throw logAndCreateError('permission-denied', `${player.uid} tried to submit bid for ${bid.player?.displayName}, ${bid.player?.uid}`);
   }
-
+  
+  const db = admin.firestore();
   validateBid(bid, race);
   validateBalance(player);
-
+  
+  const doc = db.doc(`${seasonsURL}/${season.id}/${racesURL}/${race.round}/bids/${player.uid}`) as admin.firestore.DocumentReference<Bid>;
   return db.runTransaction(transaction => {
     transaction.set(doc, { ...bid, submitted: true }, { merge: true });
     transferInTransaction({
