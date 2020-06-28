@@ -7,7 +7,9 @@ import { DriversActions, DriversFacade } from '@f2020/driver';
 import { GoogleMessaging } from '@f2020/firebase';
 import { PlayerFacade, PlayerActions } from '@f2020/player';
 import { truthy } from '@f2020/tools';
-import { filter, first, switchMap } from 'rxjs/operators';
+import { filter, first, switchMap, startWith, pairwise, map } from 'rxjs/operators';
+import * as equal from 'fast-deep-equal/es6'
+import { Player } from '@f2020/data';
 
 @Component({
   selector: 'f2020-root',
@@ -34,6 +36,10 @@ export class AppComponent implements OnInit {
     this.playerFacade.authorized$.pipe(
       filter(authorized => authorized),
       switchMap(() => this.playerFacade.player$),
+      startWith(<Player> null),
+      pairwise(),
+      filter(([previous, current]) => !equal(previous, current)),
+      map(([_, current]) => current)
     ).subscribe(player => {
       if (player.roles && player.roles.includes('player')) {
         this.seasonFacade.dispatch(SeasonActions.loadSeason());
