@@ -14,6 +14,7 @@ export const playerWithoutBid = async (): Promise<Player[]> => {
   const played: Set<string> = await db.collection(`${seasonsURL}/${currentRace!.season}/${racesURL}/${currentRace?.round}/bids`)
   .get()
   .then(snapshot => snapshot.docs.map(d => d.data() as Bid))
+  .then(bids => bids.filter(bid => bid.submitted))
   .then(bids => bids.map(b => b.player!.uid))
   .then((uids: string[]) => new Set<string>(uids));
 

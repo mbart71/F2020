@@ -22,6 +22,8 @@ describe('Reminder unittest', () => {
 
     await adminFirestore.doc(`${seasonsURL}/9999`).set(collections.seasons[0]);
     await adminFirestore.doc(`${seasonsURL}/9999/races/${collections.races[1].round}`).set({ ...collections.races[1], state: 'open' });
+    await adminFirestore.doc(`${seasonsURL}/9999/races/${collections.races[1].round}/bids/1`).set({ ...collections.bids[1] });
+    await adminFirestore.doc(`${seasonsURL}/9999/races/${collections.races[1].round}/bids/2`).set({ ...collections.bids[0], submitted: true });
   });
 
   afterEach(async () => {
@@ -31,6 +33,6 @@ describe('Reminder unittest', () => {
   it('should have firebase initialized', async () => {
     const app = await authedApp({ uid: collections.players.admin.uid });
     await assertSucceeds(app.functions.httpsCallable('withoutBid')())
-      .then((result: firebase.functions.HttpsCallableResult) => expect(result.data.length).toBe(3));
+      .then((result: firebase.functions.HttpsCallableResult) => expect(result.data.length).toBe(2));
   });
 });
