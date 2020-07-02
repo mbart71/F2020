@@ -31,6 +31,7 @@ import { RaceStatusComponent } from './component/races/race-status/race-status.c
 import { RacesComponent } from './component/races/races.component';
 import { SubmitResultComponent } from './component/submit-result/submit-result.component';
 import { RaceRoutingModule } from './race-routing.module';
+import { MatTooltipModule } from '@angular/material/tooltip';
 
 const MaterialModules = [
   MatCardModule,
@@ -43,6 +44,7 @@ const MaterialModules = [
   MatListModule,
   MatSnackBarModule,
   MatToolbarModule,
+  MatTooltipModule,
   MatExpansionModule,
 ]
 
