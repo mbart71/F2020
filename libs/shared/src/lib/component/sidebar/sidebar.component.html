@@ -8,6 +8,7 @@
   <sha-sidenav-button *shaHasRole="'player'" iconSet="fas" icon="fa-steering-wheel" routerLink="standings" (click)="closing.emit()">Kører</sha-sidenav-button>
   <sha-sidenav-button *shaHasRole="'admin'" iconSet="fas" icon="fa-user-astronaut" [routerLink]="['players']" (click)="closing.emit()">Spillere</sha-sidenav-button>
   <sha-sidenav-button iconSet="far" icon="fa-user-friends" [routerLink]="['info', 'about']" (click)="closing.emit()">Om spillet</sha-sidenav-button>
+  <sha-sidenav-button iconSet="far" icon="fa-book-alt" [routerLink]="['info', 'rules']" (click)="closing.emit()">Regler</sha-sidenav-button>
   <mat-list-item *shaHasRole="'player'">
     <div mat-line>
       <mat-slide-toggle color="secondary" [checked]="receiveReminders$ | async" (change)="updateReceiveReminders($event.checked)">Modtag påmindelser</mat-slide-toggle>

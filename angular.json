@@ -24,6 +24,7 @@
             "assets": [
               "apps/ui/src/favicon.ico",
               "apps/ui/src/assets",
+              "apps/ui/src/firebase-messaging-sw.js",
               "apps/ui/src/manifest.webmanifest"
             ],
             "styles": [
@@ -38,6 +39,10 @@
                 {
                   "replace": "apps/ui/src/environments/environment.ts",
                   "with": "apps/ui/src/environments/environment.prod.ts"
+                },
+                {
+                  "replace": "apps/ui/src/firebase-messaging-sw.js",
+                  "with": "apps/ui/src/environments/firebase-messaging-sw.prod.js"
                 }
               ],
               "optimization": true,
@@ -197,6 +202,11 @@
           "builder": "@nrwl/node:execute",
           "options": {
             "buildTarget": "builder:build"
+          },
+          "configurations": {
+            "production": {
+              "buildTarget": "builder:build:production"
+            }
           }
         },
         "lint": {
@@ -665,6 +675,70 @@
             "tsConfig": "libs/wbc/tsconfig.spec.json",
             "passWithNoTests": true,
             "setupFile": "libs/wbc/src/test-setup.ts"
+          }
+        }
+      },
+      "schematics": {
+        "@nrwl/angular:component": {
+          "style": "scss"
+        }
+      }
+    },
+    "firebase": {
+      "projectType": "library",
+      "root": "libs/firebase",
+      "sourceRoot": "libs/firebase/src",
+      "prefix": "f2020",
+      "architect": {
+        "lint": {
+          "builder": "@angular-devkit/build-angular:tslint",
+          "options": {
+            "tsConfig": [
+              "libs/firebase/tsconfig.lib.json",
+              "libs/firebase/tsconfig.spec.json"
+            ],
+            "exclude": ["**/node_modules/**", "!libs/firebase/**"]
+          }
+        },
+        "test": {
+          "builder": "@nrwl/jest:jest",
+          "options": {
+            "jestConfig": "libs/firebase/jest.config.js",
+            "tsConfig": "libs/firebase/tsconfig.spec.json",
+            "passWithNoTests": true,
+            "setupFile": "libs/firebase/src/test-setup.ts"
+          }
+        }
+      },
+      "schematics": {
+        "@nrwl/angular:component": {
+          "style": "scss"
+        }
+      }
+    },
+    "landing": {
+      "projectType": "library",
+      "root": "libs/landing",
+      "sourceRoot": "libs/landing/src",
+      "prefix": "f2020",
+      "architect": {
+        "lint": {
+          "builder": "@angular-devkit/build-angular:tslint",
+          "options": {
+            "tsConfig": [
+              "libs/landing/tsconfig.lib.json",
+              "libs/landing/tsconfig.spec.json"
+            ],
+            "exclude": ["**/node_modules/**", "!libs/landing/**"]
+          }
+        },
+        "test": {
+          "builder": "@nrwl/jest:jest",
+          "options": {
+            "jestConfig": "libs/landing/jest.config.js",
+            "tsConfig": "libs/landing/tsconfig.spec.json",
+            "passWithNoTests": true,
+            "setupFile": "libs/landing/src/test-setup.ts"
           }
         }
       },

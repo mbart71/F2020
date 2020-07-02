@@ -33,6 +33,6 @@ export class SidebarComponent implements OnInit {
   }
 
   updateReceiveReminders(receiveReminders: boolean) {
-    this.playerFacade.dispatch(PlayerActions.updatePlayer({ receiveReminders}))
+    this.playerFacade.dispatch(PlayerActions.updatePlayer({ partialPlayer: {receiveReminders}}))
   }
 }

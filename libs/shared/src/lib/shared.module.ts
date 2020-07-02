@@ -8,7 +8,6 @@ import { MatSlideToggleModule } from '@angular/material/slide-toggle';
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { RouterModule } from '@angular/router';
 import { PlayerModule } from '@f2020/player';
-import { LandingComponent, LoginComponent } from '.';
 import { CardPageComponent } from './component/card-page/card-page.component';
 import { HasRoleDirective } from './component/has-role.directive';
 import { LoadingComponent } from './component/loading/loading.component';
@@ -17,6 +16,7 @@ import { SidebarComponent } from './component/sidebar/sidebar.component';
 import { SidenavButtonComponent } from './component/sidebar/sidenav-button/sidenav-button.component';
 import { FlagURLPipe } from './pipe/flag-url.pipe';
 import { RelativeToNowPipe } from './pipe/relative-to-now.pipe';
+import { LoginComponent } from './component';
 
 const materialModules = [
   MatListModule,
@@ -28,7 +28,6 @@ const materialModules = [
 
 const exportComponents = [
   LoginComponent,
-  LandingComponent,
   LoadingComponent,
   PageComponent,
   CardPageComponent,

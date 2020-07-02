@@ -32,7 +32,7 @@ const MaterialModulde = [
         component: WbcPlayerComponent
       },
       {
-        path: 'race/:raceId',
+        path: 'race/:round',
         component: WbcRaceComponent
       }
       /* {path: '', pathMatch: 'full', component: InsertYourComponentHere} */

@@ -1,10 +1,9 @@
-import { IQualifyResult } from './../../../../../../functions/src/lib/model/race.model';
 import { Inject, Injectable } from '@angular/core';
 import { AngularFirestore } from '@angular/fire/firestore';
-import { Bid, firestoreUtils, IRace, IRaceResult, mapper, Player } from '@f2020/data';
+import { Bid, firestoreUtils, IRace, IRaceResult, mapper, Player, IQualifyResult } from '@f2020/data';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
-import { GoogleFunctions } from '../../firebase';
+import { GoogleFunctions } from '@f2020/firebase';
 import { SeasonService } from './../../season/service/season.service';
 import { ErgastService } from '../../service/ergast.service';
 
@@ -16,7 +15,7 @@ export class RacesService {
   constructor(
     private afs: AngularFirestore, 
     private ergastService: ErgastService,
-    @Inject(GoogleFunctions) private functions: () => firebase.functions.Functions) {
+    @Inject(GoogleFunctions) private functions: firebase.functions.Functions) {
 
   }
 
@@ -26,24 +25,24 @@ export class RacesService {
     );
   }
 
-  getBids(seasonId: string, raceId: string): Observable<Bid[]> {
-    return this.afs.collection<Bid>(`${SeasonService.seasonsURL}/${seasonId}/races/${raceId}/bids`).valueChanges().pipe(
+  getBids(seasonId: string, round: number): Observable<Bid[]> {
+    return this.afs.collection<Bid>(`${SeasonService.seasonsURL}/${seasonId}/races/${round}/bids`).valueChanges().pipe(
       map(firestoreUtils.convertDateTimes),
     );
   }
 
-  getBid(seasonId: string, raceId: string, uid: string): Observable<Bid> {
-    return this.afs.doc<Bid>(`${SeasonService.seasonsURL}/${seasonId}/races/${raceId}/bids/${uid}`).valueChanges().pipe(
+  getBid(seasonId: string, round: number, uid: string): Observable<Bid> {
+    return this.afs.doc<Bid>(`${SeasonService.seasonsURL}/${seasonId}/races/${round}/bids/${uid}`).valueChanges().pipe(
       map(firestoreUtils.convertDateTimes),
     );
   }
 
-  updateRace(seasonId: string, raceId: string, race: Partial<IRace>): Promise<void> {
-    return this.afs.doc<IRace>(`${SeasonService.seasonsURL}/${seasonId}/races/${raceId}`).update(race);
+  updateRace(seasonId: string, round: number, race: Partial<IRace>): Promise<void> {
+    return this.afs.doc<IRace>(`${SeasonService.seasonsURL}/${seasonId}/races/${round}`).update(race);
   }
 
-  updateBid(seasonId: string, raceId: string, player: Player, bid: Bid): Promise<void> {
-    return this.afs.doc<Bid>(`${SeasonService.seasonsURL}/${seasonId}/races/${raceId}/bids/${player.uid}`).set({...bid, player: {
+  updateBid(seasonId: string, round: number, player: Player, bid: Bid): Promise<void> {
+    return this.afs.doc<Bid>(`${SeasonService.seasonsURL}/${seasonId}/races/${round}/bids/${player.uid}`).set({...bid, player: {
       uid: player.uid,
       displayName: player.displayName,
       photoURL: player.photoURL,
@@ -61,10 +60,10 @@ export class RacesService {
 
 
   async submitBid(bid: Bid): Promise<true> {
-    return this.functions().httpsCallable('submitBid')(bid).then(() => true);
+    return this.functions.httpsCallable('submitBid')(bid).then(() => true);
   }
 
   async submitResult(result: Bid): Promise<true> {
-    return this.functions().httpsCallable('submitResult')(result).then(() => true);
+    return this.functions.httpsCallable('submitResult')(result).then(() => true);
   }
 }

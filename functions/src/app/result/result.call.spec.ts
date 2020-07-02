@@ -12,8 +12,8 @@ describe('Submit result unittest', () => {
 
   let adminFirestore: firebase.firestore.Firestore;
 
-  const writeBid = async (bid: any, uid: string) => adminFirestore.doc(`${seasonsURL}/9999/races/${collections.races[1].location.country}/bids/${uid}`).set(bid);
-  const readBid = async (uid: string): Promise<Bid> => adminFirestore.doc(`${seasonsURL}/9999/races/${collections.races[1].location.country}/bids/${uid}`).get().then(ref => ref.data() as Bid);
+  const writeBid = async (bid: any, uid: string) => adminFirestore.doc(`${seasonsURL}/9999/races/${collections.races[1].round}/bids/${uid}`).set(bid);
+  const readBid = async (uid: string): Promise<Bid> => adminFirestore.doc(`${seasonsURL}/9999/races/${collections.races[1].round}/bids/${uid}`).get().then(ref => ref.data() as Bid);
 
   beforeEach(async () => {
     adminFirestore = adminApp();
@@ -22,7 +22,7 @@ describe('Submit result unittest', () => {
     await adminFirestore.doc(`${playersURL}/${collections.players.bookie.uid}`).set({ ...collections.players.bookie });
 
     await adminFirestore.doc(`${seasonsURL}/9999`).set(collections.seasons[0]);
-    await adminFirestore.doc(`${seasonsURL}/9999/races/${collections.races[1].location.country}`).set({ ...collections.races[1], state: 'closed' });
+    await adminFirestore.doc(`${seasonsURL}/9999/races/${collections.races[1].round}`).set({ ...collections.races[1], state: 'closed' });
   });
 
   afterEach(async () => {
@@ -106,16 +106,16 @@ describe('Submit result unittest', () => {
   });
 
   it('should reject bid, when it cannot find a closed race', async () => {
-    await adminFirestore.doc(`${seasonsURL}/9999/races/${collections.races[1].location.country}`).set({ ...collections.races[1], state: 'open' });
+    await adminFirestore.doc(`${seasonsURL}/9999/races/${collections.races[1].round}`).set({ ...collections.races[1], state: 'open' });
     const app = await authedApp({ uid: collections.players.admin.uid });
     await assertFails(app.functions.httpsCallable('submitResult')(collections.results[0]))
       .then(notFound)
 
-    await adminFirestore.doc(`${seasonsURL}/9999/races/${collections.races[1].location.country}`).set({ ...collections.races[1], state: 'completed' });
+    await adminFirestore.doc(`${seasonsURL}/9999/races/${collections.races[1].round}`).set({ ...collections.races[1], state: 'completed' });
     await assertFails(app.functions.httpsCallable('submitResult')(collections.results[0]))
       .then(notFound)
 
-    await adminFirestore.doc(`${seasonsURL}/9999/races/${collections.races[1].location.country}`).set({ ...collections.races[1], state: 'waiting' });
+    await adminFirestore.doc(`${seasonsURL}/9999/races/${collections.races[1].round}`).set({ ...collections.races[1], state: 'waiting' });
     await assertFails(app.functions.httpsCallable('submitResult')(collections.results[0]))
       .then(notFound)
 
@@ -209,7 +209,7 @@ describe('Submit result unittest', () => {
     const app = await authedApp({ uid: collections.players.admin.uid });
     await assertSucceeds(app.functions.httpsCallable('submitResult')(collections.results[1]))
       .then(() => new Promise(resolve => setTimeout(() => resolve(), 2000)))
-      .then(() => adminFirestore.doc(`${seasonsURL}/9999/races/${collections.races[1].location.country}`).get().then(ref => ref.data()))
+      .then(() => adminFirestore.doc(`${seasonsURL}/9999/races/${collections.races[1].round}`).get().then(ref => ref.data()))
       .then((race: IRace) => {
         expect(race.result).toBeTruthy();
         expect(race.result).toStrictEqual(collections.results[1]);

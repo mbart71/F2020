@@ -1,5 +1,6 @@
 import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
+import { FirebaseModule } from '@f2020/firebase';
 import { EffectsModule } from '@ngrx/effects';
 import { StoreModule } from '@ngrx/store';
 import { PlayerActions } from './+state/player.actions';
@@ -10,6 +11,7 @@ import * as fromPlayer from './+state/player.reducer';
 @NgModule({
   imports: [
     CommonModule,
+    FirebaseModule,
     StoreModule.forFeature(fromPlayer.PLAYER_FEATURE_KEY, fromPlayer.reducer),
     EffectsModule.forFeature([PlayerEffects])
   ]

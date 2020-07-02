@@ -1,13 +1,13 @@
 import { Component, OnInit } from '@angular/core';
 import { FormControl } from '@angular/forms';
-import { ActivatedRoute, Router } from '@angular/router';
+import { Router } from '@angular/router';
+import { RacesActions, RacesFacade } from '@f2020/api';
 import { IRace } from '@f2020/data';
+import { shareLatest } from '@f2020/tools';
 import { UntilDestroy, untilDestroyed } from '@ngneat/until-destroy';
 import { DateTime } from 'luxon';
 import { Observable } from 'rxjs';
-import { debounceTime, filter, pairwise, share, switchMap, tap, switchMapTo } from 'rxjs/operators';
-import { RacesFacade, RacesActions } from '@f2020/api';
-import { shareLatest } from '@f2020/tools';
+import { debounceTime, filter, pairwise, switchMapTo, tap } from 'rxjs/operators';
 
 @UntilDestroy()
 @Component({
@@ -23,8 +23,7 @@ export class EnterBidComponent implements OnInit {
 
   constructor(
     private facade: RacesFacade,
-    private router: Router,
-    private route: ActivatedRoute) {
+    private router: Router) {
   }
 
   ngOnInit(): void {
@@ -53,7 +52,7 @@ export class EnterBidComponent implements OnInit {
       filter(([previous, current]) => previous && current === false) ,
       untilDestroyed(this),
       switchMapTo(this.race$)
-    ).subscribe(race => this.router.navigate(['race', race.location.country.toLocaleLowerCase()]));
+    ).subscribe(race => this.router.navigate(['race', race.round]));
     this.facade.error$.pipe(
       filter(error => !!error),
       untilDestroyed(this)
@@ -61,7 +60,7 @@ export class EnterBidComponent implements OnInit {
   }
 
   submitBid() {
-    this.facade.dispatch(RacesActions.submitBid(this.bidControl.value));
+    this.facade.dispatch(RacesActions.submitBid({bid: this.bidControl.value}));
     this.bidControl.disable({emitEvent: false});
   }
 

@@ -43,6 +43,7 @@ const buildWithdraw = async ({ uid, amount, message }: WithdrawData) => {
     date: DateTime.local(),
     amount: amount,
     message: message,
-    from: uid
+    from: uid,
+    involved: [uid],
   })
 }

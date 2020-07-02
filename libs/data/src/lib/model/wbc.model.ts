@@ -4,7 +4,7 @@ export type WBC = WBCResult[];
 
 export interface WBCResult {
   raceName: string;
-  raceId: string;
+  round: number;
   countryCode: string;
   players: WBCPlayer[]
 }

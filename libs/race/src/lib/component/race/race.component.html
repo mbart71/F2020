@@ -16,6 +16,13 @@
       </mat-card-content>
       <mat-card-actions>
         <a mat-button [href]="race.url" target="_blank">WIKI</a>
+        <ng-container *shaHasRole="'admin'">
+          <a *ngIf="race.state === 'waiting' || race.state === 'open'"
+            mat-button 
+            routerLink="drivers">
+            DRIVERS
+          </a>
+        </ng-container>
       </mat-card-actions>
     </mat-card>
     <ng-container *ngIf="bids$ | async as bids">
@@ -29,7 +36,7 @@
       </mat-card>
     </ng-container>
   </sha-card-page>
-  <ng-container *ngIf="bid$ | async as bid">
+  <ng-container *ngIf="(bid$ | async) || {} as bid">
     <button mat-fab aria-label="Deltag i løbet" routerLink="bid" *ngIf=" race.state === 'open' && !bid.submitted">
       <mat-icon>add</mat-icon>
     </button>
@@ -37,9 +44,6 @@
   <ng-container *shaHasRole="'admin'">
     <button mat-fab aria-label="Upload resultat" routerLink="result" *ngIf="race.state === 'closed'">
       <mat-icon>cloud_download</mat-icon>
-    </button>
-    <button mat-fab aria-label="Kører" routerLink="drivers" *ngIf="race.state === 'waiting' || race.state === 'open'">
-      <i class="fas fa-2x fa-steering-wheel"></i>
     </button>
   </ng-container>
 </ng-container>  

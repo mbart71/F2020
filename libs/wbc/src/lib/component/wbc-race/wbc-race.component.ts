@@ -20,10 +20,10 @@ export class WbcRaceComponent implements OnInit {
 
   ngOnInit(): void {
     this.result$ = combineLatest([
-      this.route.params.pipe(pluck<Params, string>('raceId')),
+      this.route.params.pipe(pluck<Params, string>('round')),
       this.facade.season$.pipe(map(season => season.wbc))
     ]).pipe(
-      map(([raceId, wbc]) => (wbc || []).find(result => result.raceId === raceId)),
+      map(([round, wbc]) => (wbc || []).find(result => result.round === round)),
       shareLatest()
     );
   }

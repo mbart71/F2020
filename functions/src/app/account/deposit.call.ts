@@ -32,6 +32,7 @@ const buildDeposit = async ({ uid, amount, message }: DepositData) => {
     date: DateTime.local(),
     amount: amount,
     message: message,
-    to: uid
+    to: uid,
+    involved: [uid]
   })
 }

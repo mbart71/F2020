@@ -23,7 +23,7 @@ const buildResult = async (result: Bid) => {
   validateResult(result, race);
 
   const db = admin.firestore();
-  const calculatedResults: Bid[] = await db.collection(`${seasonsURL}/${race.season}/${racesURL}/${race.location.country}/bids`).where('submitted', '==', true).get()
+  const calculatedResults: Bid[] = await db.collection(`${seasonsURL}/${race.season}/${racesURL}/${race.round}/bids`).where('submitted', '==', true).get()
     .then(snapshot => snapshot.docs)
     .then(snapshots => snapshots.map(s => s.data()))
     .then(bids => bids.map(bid => calculateResult(bid as Bid, result)))
@@ -32,8 +32,6 @@ const buildResult = async (result: Bid) => {
   const winners = calculatedResults.filter(r => r.points! === calculatedResults[0].points!);
   const winningPrice = Math.floor(calculatedResults.length * 20 / winners.length);
 
-  // TODO WBC
-
   return db.runTransaction(transaction => {
     winners.forEach(winner => {
       transferInTransaction({
@@ -41,13 +39,14 @@ const buildResult = async (result: Bid) => {
         amount: winningPrice,
         message: `Gevinst ${race.name}`,
         from: bookie.uid,
-        to: winner.player!.uid
+        to: winner.player!.uid,
+        involved: [bookie.uid, winner.player!.uid],
       }, transaction);
     });
     calculatedResults.forEach(cr => {
-      transaction.set(db.doc(`${seasonsURL}/${race.season}/${racesURL}/${race.location.country}/bids/${cr.player!.uid}`), cr);
+      transaction.set(db.doc(`${seasonsURL}/${race.season}/${racesURL}/${race.round}/bids/${cr.player!.uid}`), cr);
     });
-    transaction.update(db.doc(`${seasonsURL}/${race.season}/${racesURL}/${race.location.country}`), { state: 'completed', result })
+    transaction.update(db.doc(`${seasonsURL}/${race.season}/${racesURL}/${race.round}`), { state: 'completed', result })
     return Promise.resolve(`Result submitted`);
   });
 

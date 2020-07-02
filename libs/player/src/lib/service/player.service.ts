@@ -1,9 +1,11 @@
 import { Injectable } from '@angular/core';
 import { AngularFirestore } from '@angular/fire/firestore';
 import { Player } from '@f2020/data';
-import * as firebase from 'firebase/app';
 import { merge, Observable, ReplaySubject } from 'rxjs';
 import { filter, first, mapTo, switchMap } from 'rxjs/operators';
+import * as firebase from 'firebase/app';
+import 'firebase/auth';
+import 'firebase/firestore';
 
 @Injectable({
   providedIn: 'root',
@@ -53,8 +55,15 @@ export class PlayerService {
   }
 
   updatePlayer(partialPlayer: Partial<Player>): Observable<Partial<Player>> {
+    let payload: any = partialPlayer;
+    if (partialPlayer.tokens) {
+      payload = {
+        ...partialPlayer,
+        tokens: firebase.firestore.FieldValue.arrayUnion(...partialPlayer.tokens)
+      }
+    }
     return this.player$.pipe(
-      switchMap(player => this.afs.doc(`${PlayerService.playersURL}/${player.uid}`).update(partialPlayer)),
+      switchMap(player => this.afs.doc(`${PlayerService.playersURL}/${player.uid}`).update(payload)),
       mapTo(partialPlayer),
       first()
     )

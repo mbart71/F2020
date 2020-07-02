@@ -1,4 +1,4 @@
-import { FirebaseModule } from './../firebase/firebase.module';
+import { FirebaseModule } from '@f2020/firebase';
 import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
 import { EffectsModule } from '@ngrx/effects';
