@@ -58,7 +58,7 @@ const materialModule = [
     DriverModule,
     SeasonApiModule,
     AngularFireModule.initializeApp(environment.firebaseConfig),
-    AngularFirestoreModule.enablePersistence({ synchronizeTabs: true }),
+    AngularFirestoreModule,
     StoreModule.forRoot(reducers, {
       metaReducers,
       runtimeChecks: {
