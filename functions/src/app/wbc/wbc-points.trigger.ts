@@ -36,7 +36,7 @@ const createWBCRace = async (race: IRace, bids: Bid[], ref: admin.firestore.Docu
         photoURL: b.player?.photoURL ?? null,
         uid: b.player?.uid,
         email: b.player?.email,
-        tokens: b.player?.tokens,
+        tokens: b.player?.tokens ?? [],
       } as Player,
       points: wbcPoints[index] || 0
     }))
